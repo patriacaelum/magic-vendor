@@ -1,0 +1,2 @@
+class_name VendingMachine
+extends StaticBody2D

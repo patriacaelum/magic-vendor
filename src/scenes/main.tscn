@@ -1,0 +1,105 @@
+[gd_scene load_steps=15 format=3 uid="uid://brhdx3ugah5n"]
+
+[ext_resource type="Script" path="res://scripts/octopus.gd" id="1_5ss8v"]
+[ext_resource type="Texture2D" uid="uid://bcdljrtvt4nif" path="res://assets/OctopusWIP_64x64.png" id="2_usr6h"]
+[ext_resource type="Script" path="res://scripts/station.gd" id="2_xrly7"]
+[ext_resource type="Script" path="res://scripts/vending_machine.gd" id="3_bejub"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6ix6y"]
+size = Vector2(64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rlntd"]
+atlas = ExtResource("2_usr6h")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_opucd"]
+atlas = ExtResource("2_usr6h")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r2n5j"]
+atlas = ExtResource("2_usr6h")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kej3q"]
+atlas = ExtResource("2_usr6h")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ep85a"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rlntd")
+}],
+"loop": true,
+"name": &"down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_opucd")
+}],
+"loop": true,
+"name": &"left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r2n5j")
+}],
+"loop": true,
+"name": &"right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kej3q")
+}],
+"loop": true,
+"name": &"up",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4bm33"]
+size = Vector2(200, 100)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_jkfgf"]
+size = Vector2(200, 100)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d04u5"]
+size = Vector2(150, 50)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_x23ks"]
+size = Vector2(150, 50)
+
+[node name="Main" type="Node2D"]
+
+[node name="Octopus" type="CharacterBody2D" parent="."]
+position = Vector2(276, 167)
+script = ExtResource("1_5ss8v")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Octopus"]
+shape = SubResource("RectangleShape2D_6ix6y")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Octopus"]
+sprite_frames = SubResource("SpriteFrames_ep85a")
+animation = &"up"
+
+[node name="Station" type="StaticBody2D" parent="."]
+position = Vector2(589, 421)
+script = ExtResource("2_xrly7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Station"]
+shape = SubResource("RectangleShape2D_4bm33")
+
+[node name="Sprite2D" type="Sprite2D" parent="Station"]
+texture = SubResource("PlaceholderTexture2D_jkfgf")
+
+[node name="VendingMachine" type="StaticBody2D" parent="."]
+position = Vector2(585, 117)
+script = ExtResource("3_bejub")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="VendingMachine"]
+shape = SubResource("RectangleShape2D_d04u5")
+
+[node name="Sprite2D" type="Sprite2D" parent="VendingMachine"]
+texture = SubResource("PlaceholderTexture2D_x23ks")
