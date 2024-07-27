@@ -1,0 +1,34 @@
+[gd_scene load_steps=6 format=3 uid="uid://tonlbavrexx2"]
+
+[ext_resource type="Script" path="res://scenes/player_3d.gd" id="1_0nlks"]
+[ext_resource type="ArrayMesh" uid="uid://bujlln241wpor" path="res://assets/mesh/arrow.obj" id="2_3407m"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_jh18g"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6i3v3"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_cnntc"]
+
+[node name="Player3D" type="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+script = ExtResource("1_0nlks")
+
+[node name="PlayerSkin3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_jh18g")
+
+[node name="Arrow" type="MeshInstance3D" parent="PlayerSkin3D"]
+transform = Transform3D(0.33, 0, 0, 0, 0.33, 0, 0, 0, 0.33, 0.00039959, 0, -0.856473)
+material_override = SubResource("StandardMaterial3D_6i3v3")
+mesh = ExtResource("2_3407m")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_cnntc")
+
+[node name="CameraAnchor" type="Node3D" parent="."]
+
+[node name="Camera3D" type="Camera3D" parent="CameraAnchor"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 18, 23)
+fov = 50.0

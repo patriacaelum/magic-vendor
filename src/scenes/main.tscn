@@ -1,105 +1,45 @@
-[gd_scene load_steps=15 format=3 uid="uid://brhdx3ugah5n"]
+[gd_scene load_steps=5 format=3 uid="uid://brhdx3ugah5n"]
 
-[ext_resource type="Script" path="res://scripts/octopus.gd" id="1_5ss8v"]
-[ext_resource type="Texture2D" uid="uid://bcdljrtvt4nif" path="res://assets/OctopusWIP_64x64.png" id="2_usr6h"]
-[ext_resource type="Script" path="res://scripts/station.gd" id="2_xrly7"]
-[ext_resource type="Script" path="res://scripts/vending_machine.gd" id="3_bejub"]
+[ext_resource type="Texture2D" uid="uid://col7a2okpessy" path="res://assets/textures/TXT_Default.png" id="1_fcm55"]
+[ext_resource type="PackedScene" uid="uid://tonlbavrexx2" path="res://scenes/player_3d.tscn" id="2_ol1ds"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_6ix6y"]
-size = Vector2(64, 64)
+[sub_resource type="Environment" id="Environment_o0n4r"]
+background_mode = 1
+background_color = Color(0.101961, 0.101961, 0.101961, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.564706, 0.564706, 0.564706, 1)
+tonemap_mode = 2
+fog_enabled = true
+fog_light_color = Color(0.270588, 0.270588, 0.270588, 1)
+fog_density = 0.0
+fog_sky_affect = 0.5
+fog_height = -1.0
+fog_height_density = 1.0
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_rlntd"]
-atlas = ExtResource("2_usr6h")
-region = Rect2(0, 0, 64, 64)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i2a17"]
+albedo_color = Color(0.501961, 0.501961, 0.501961, 1)
+albedo_texture = ExtResource("1_fcm55")
+uv1_scale = Vector3(0.5, 0.5, 0.5)
+uv1_triplanar = true
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_opucd"]
-atlas = ExtResource("2_usr6h")
-region = Rect2(192, 0, 64, 64)
+[node name="main" type="Node3D"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_r2n5j"]
-atlas = ExtResource("2_usr6h")
-region = Rect2(64, 0, 64, 64)
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_o0n4r")
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_kej3q"]
-atlas = ExtResource("2_usr6h")
-region = Rect2(128, 0, 64, 64)
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5, 0)
+material_override = SubResource("StandardMaterial3D_i2a17")
+use_collision = true
+size = Vector3(20, 10, 20)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_ep85a"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_rlntd")
-}],
-"loop": true,
-"name": &"down",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_opucd")
-}],
-"loop": true,
-"name": &"left",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_r2n5j")
-}],
-"loop": true,
-"name": &"right",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_kej3q")
-}],
-"loop": true,
-"name": &"up",
-"speed": 5.0
-}]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.738117, 0.538095, -0.406985, 0.0775189, 0.666879, 0.741123, 0.670205, 0.515486, -0.533947, 0, 6.49419, 0)
+light_energy = 1.25
+shadow_enabled = true
+directional_shadow_mode = 0
+directional_shadow_max_distance = 50.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_4bm33"]
-size = Vector2(200, 100)
-
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_jkfgf"]
-size = Vector2(200, 100)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_d04u5"]
-size = Vector2(150, 50)
-
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_x23ks"]
-size = Vector2(150, 50)
-
-[node name="Main" type="Node2D"]
-
-[node name="Octopus" type="CharacterBody2D" parent="."]
-position = Vector2(276, 167)
-script = ExtResource("1_5ss8v")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Octopus"]
-shape = SubResource("RectangleShape2D_6ix6y")
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Octopus"]
-sprite_frames = SubResource("SpriteFrames_ep85a")
-animation = &"up"
-
-[node name="Station" type="StaticBody2D" parent="."]
-position = Vector2(589, 421)
-script = ExtResource("2_xrly7")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Station"]
-shape = SubResource("RectangleShape2D_4bm33")
-
-[node name="Sprite2D" type="Sprite2D" parent="Station"]
-texture = SubResource("PlaceholderTexture2D_jkfgf")
-
-[node name="VendingMachine" type="StaticBody2D" parent="."]
-position = Vector2(585, 117)
-script = ExtResource("3_bejub")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="VendingMachine"]
-shape = SubResource("RectangleShape2D_d04u5")
-
-[node name="Sprite2D" type="Sprite2D" parent="VendingMachine"]
-texture = SubResource("PlaceholderTexture2D_x23ks")
+[node name="Player3D" parent="." instance=ExtResource("2_ol1ds")]
+max_speed = 10.0
+steering_factor = 15.0
