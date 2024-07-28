@@ -4,9 +4,10 @@ extends CharacterBody3D
 
 ## Controls how quickly player accelerates and turns on the ground
 @export_range(1.0, 50.0, 0.1) var steering_factor := 20.0
-@onready var _player_skin_3d: MeshInstance3D = $PlayerSkin3D
+@onready var _octo_skin_3d: OctoSkin3D = %OctoSkin3D
 @onready var _camera_3d: Camera3D = %Camera3D
 var _world_plane := Plane(Vector3.UP)
+
 
 func _physics_process(delta: float) -> void:
 	var input_vector := Input.get_vector("move_left", "move_right", "move_up", "move_down")
@@ -37,6 +38,6 @@ func _physics_process(delta: float) -> void:
 	var world_mouse_position: Variant = _world_plane.intersects_ray(_camera_3d.global_position, mouse_ray)
 	
 	if world_mouse_position != null:
-		_player_skin_3d.look_at(world_mouse_position)
+		_octo_skin_3d.look_at(world_mouse_position)
 	
 	

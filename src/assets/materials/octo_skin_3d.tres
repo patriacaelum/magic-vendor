@@ -1,0 +1,12 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://cxoxn66tfhpab"]
+
+[ext_resource type="Shader" path="res://assets/shaders/character_shader.gdshader" id="1_i3ff3"]
+[ext_resource type="Texture2D" uid="uid://hoa3gfwfbgv5" path="res://assets/textures/TXT_Octo.png" id="2_r0idt"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_i3ff3")
+shader_parameter/base_roughness = 1.0
+shader_parameter/emission_color = Color(0, 0, 0, 0)
+shader_parameter/emission_intensity = 0.0
+shader_parameter/albedo_sampler = ExtResource("2_r0idt")

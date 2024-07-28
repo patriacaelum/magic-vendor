@@ -1,29 +1,29 @@
 [gd_scene load_steps=6 format=3 uid="uid://tonlbavrexx2"]
 
-[ext_resource type="Script" path="res://scenes/player_3d.gd" id="1_0nlks"]
+[ext_resource type="Script" path="res://scripts/player_3d.gd" id="1_fp31h"]
 [ext_resource type="ArrayMesh" uid="uid://bujlln241wpor" path="res://assets/mesh/arrow.obj" id="2_3407m"]
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_jh18g"]
+[ext_resource type="PackedScene" uid="uid://dwfnffwb4di22" path="res://scenes/octo_skin_3d.tscn" id="2_h60nj"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6i3v3"]
 albedo_color = Color(1, 0, 0, 1)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_cnntc"]
+radius = 0.528943
 
 [node name="Player3D" type="CharacterBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-script = ExtResource("1_0nlks")
+script = ExtResource("1_fp31h")
 
-[node name="PlayerSkin3D" type="MeshInstance3D" parent="."]
-mesh = SubResource("CapsuleMesh_jh18g")
+[node name="OctoSkin3D" parent="." instance=ExtResource("2_h60nj")]
+unique_name_in_owner = true
 
-[node name="Arrow" type="MeshInstance3D" parent="PlayerSkin3D"]
-transform = Transform3D(0.33, 0, 0, 0, 0.33, 0, 0, 0, 0.33, 0.00039959, 0, -0.856473)
+[node name="Debug Arrow" type="MeshInstance3D" parent="OctoSkin3D"]
+transform = Transform3D(0.33, 0, 0, 0, 0.33, 0, 0, 0, 0.33, 0.00039959, 0.33, -1.84647)
 material_override = SubResource("StandardMaterial3D_6i3v3")
 mesh = ExtResource("2_3407m")
 skeleton = NodePath("../..")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_cnntc")
 
 [node name="CameraAnchor" type="Node3D" parent="."]
