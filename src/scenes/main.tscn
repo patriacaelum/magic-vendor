@@ -34,12 +34,14 @@ use_collision = true
 size = Vector3(20, 10, 20)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.738117, 0.538095, -0.406985, 0.0775189, 0.666879, 0.741123, 0.670205, 0.515486, -0.533947, 0, 6.49419, 0)
+transform = Transform3D(-0.738117, 0.538095, -0.406986, 0.0775189, 0.666879, 0.741123, 0.670205, 0.515486, -0.533947, 0, 6.49419, 0)
 light_energy = 1.25
 shadow_enabled = true
 directional_shadow_mode = 0
-directional_shadow_max_distance = 50.0
+directional_shadow_max_distance = 40.0
 
 [node name="Player3D" parent="." instance=ExtResource("2_ol1ds")]
 max_speed = 10.0
-steering_factor = 15.0
+steering_factor = 5.0
+
+[editable path="Player3D"]

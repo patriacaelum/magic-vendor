@@ -15,10 +15,7 @@ void fragment() {
 	// Called for every pixel the material is visible on.
 	ALBEDO = mix(texture(albedo_sampler, UV).rgb, emission_color.rgb, emission_color.a);
 	ROUGHNESS = base_roughness;
-	EMISSION = ALBEDO;
-	EMISSION += emission_color.rgb * emission_intensity;
+	// EMISSION = ALBEDO;
+	// EMISSION += emission_color.rgb * emission_intensity;
 }
 
-void light() {
-	// Called for every pixel for every light affecting the material.
-}
