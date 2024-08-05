@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://dggedqavjjn8v"]
+[gd_scene load_steps=4 format=3 uid="uid://dggedqavjjn8v"]
 
 [ext_resource type="Script" path="res://scripts/hud.gd" id="1_0ofos"]
 [ext_resource type="Texture2D" uid="uid://7unigs8y5cev" path="res://assets/icons/Timer.svg" id="1_5qnnf"]
+[ext_resource type="Theme" uid="uid://djplo7b72h3xd" path="res://assets/theme/main_theme.tres" id="1_fglkw"]
 
 [node name="HUD" type="Control"]
 layout_mode = 3
@@ -10,6 +11,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_fglkw")
 script = ExtResource("1_0ofos")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
@@ -20,6 +22,7 @@ anchor_bottom = 0.12
 grow_horizontal = 2
 
 [node name="CustomersServedLabel" type="RichTextLabel" parent="HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
@@ -29,6 +32,7 @@ text = "[center]x0[/center]"
 fit_content = true
 
 [node name="LevelLabel" type="Label" parent="HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -55,11 +59,12 @@ expand_mode = 2
 stretch_mode = 4
 
 [node name="TimerLabel" type="RichTextLabel" parent="HBoxContainer"]
+unique_name_in_owner = true
 clip_contents = false
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
-size_flags_stretch_ratio = 0.1
+size_flags_stretch_ratio = 0.15
 bbcode_enabled = true
-text = "00:00"
+text = "[center]00:00[/center]"
 fit_content = true

@@ -1,13 +1,13 @@
 extends Control
 
 
-@onready var customers_served_label := $HBoxContainer/CustomersServedLabel
-@onready var timer_label := $HBoxContainer/TimerLabel
-@onready var level_label := $HBoxContainer/LevelLabel
+@onready var customers_served_label := %CustomersServedLabel
+@onready var timer_label := %TimerLabel
+@onready var level_label := %LevelLabel
 
 
 func _ready():
-	pass # Replace with function body.
+	pass 
 
 
 func _process(delta):
