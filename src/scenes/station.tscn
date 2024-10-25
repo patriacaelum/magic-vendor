@@ -1,0 +1,34 @@
+[gd_scene load_steps=7 format=3 uid="uid://q0wfh7oxbbq"]
+
+[ext_resource type="Script" path="res://scripts/station.gd" id="1_famf8"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xj78e"]
+albedo_color = Color(0.410706, 0.229911, 0.0789055, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_rv5ml"]
+material = SubResource("StandardMaterial3D_xj78e")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hoi8y"]
+albedo_color = Color(0.977908, 0.519742, 1.15514e-06, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_n7os0"]
+material = SubResource("StandardMaterial3D_hoi8y")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_u6e4x"]
+
+[node name="Station" type="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, -1.5)
+script = ExtResource("1_famf8")
+
+[node name="ColouredMesh" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_rv5ml")
+
+[node name="HighlightedMesh" type="MeshInstance3D" parent="."]
+visible = false
+mesh = SubResource("BoxMesh_n7os0")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_u6e4x")
+
+[node name="DrinksContainer" type="Node3D" parent="."]
+unique_name_in_owner = true

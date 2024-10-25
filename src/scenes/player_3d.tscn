@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://tonlbavrexx2"]
 
 [ext_resource type="Script" path="res://scripts/player_3d.gd" id="1_fp31h"]
-[ext_resource type="ArrayMesh" uid="uid://bujlln241wpor" path="res://assets/mesh/arrow.obj" id="2_3407m"]
+[ext_resource type="ArrayMesh" uid="uid://3svngy6ccesm" path="res://assets/mesh/arrow.obj" id="2_3407m"]
 [ext_resource type="PackedScene" uid="uid://dwfnffwb4di22" path="res://scenes/octo_skin_3d.tscn" id="2_h60nj"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6i3v3"]
@@ -21,6 +21,14 @@ transform = Transform3D(0.33, 0, 0, 0, 0.33, 0, 0, 0, 0.33, 0.00039959, 0.33, -1
 material_override = SubResource("StandardMaterial3D_6i3v3")
 mesh = ExtResource("2_3407m")
 skeleton = NodePath("../..")
+
+[node name="FrontRayCast" type="RayCast3D" parent="OctoSkin3D"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+target_position = Vector3(0, 0, -1)
+
+[node name="DrinksContainer" type="Node3D" parent="OctoSkin3D"]
+unique_name_in_owner = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
