@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://banpctkll2rh5"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_n7f41"]
+top_radius = 0.2
+bottom_radius = 0.25
+height = 0.5
+
+[node name="Drink" type="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0.75, -1.5)
+mesh = SubResource("CylinderMesh_n7f41")
+skeleton = NodePath("../../..")
