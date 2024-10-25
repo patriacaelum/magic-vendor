@@ -8,24 +8,24 @@ extends CharacterBody3D
 @export_range(1.0, 50.0, 0.1) var steering_factor := 20.0
 
 
+## A camera must be provided in every scene where the player is used
 @onready var _camera_3d := %Camera3D
-@onready var _front_raycast_3d := %FrontRayCast
-@onready var _octo_skin_3d := %OctoSkin3D
 @onready var _drinks_container := %DrinksContainer
+@onready var _front_raycast_3d := %FrontRayCast
 
 
 const GRAVITY: Vector3 = 40.0 * Vector3.DOWN
 
 
-var _world_plane := Plane(Vector3.UP)
 var _current_station: Station = null
+var _world_plane := Plane(Vector3.UP)
 
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("interact"):
 		if self._current_station != null:
 			if self._current_station is VendingMachine and self._drinks_container.get_child_count() > 0:
-				self._current_station.stock_drink(self._drinks_container.get_child(0))
+				self._current_station.add_drink(self._drinks_container.get_child(0))
 			elif self._current_station and self._current_station.has_drink():
 				var drink: Drink = self._current_station.get_drink()
 
@@ -49,7 +49,7 @@ func __check_front() -> void:
 	if collider != self._current_station:
 		# Unhighlight the current station (unless it is empty)
 		if self._current_station != null:
-			self._current_station.highlighted = false
+			self._current_station.unhighlight()
 
 		if collider is Station:
 			self._current_station = collider
@@ -58,7 +58,7 @@ func __check_front() -> void:
 
 		# Highlight the current station (unless it is empty)
 		if self._current_station != null:
-			self._current_station.highlighted = true
+			self._current_station.highlight()
 
 
 ## Turns the player torward the direction of the mouse.
@@ -74,7 +74,7 @@ func __face_mouse() -> void:
 
 	# Character faces the mouse
 	if world_mouse_position != null:
-		self._octo_skin_3d.look_at(world_mouse_position)
+		self.look_at(world_mouse_position)
 
 
 ## Moves the player in toward the direction of input.
