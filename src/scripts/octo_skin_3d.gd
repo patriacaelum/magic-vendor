@@ -1,4 +1,6 @@
-class_name OctoSkin3D extends Node3D
+class_name OctoSkin3D
+extends Node3D
+
 
 @export var left_eye_mat_override := 1
 @export var right_eye_mat_override := 2
@@ -11,7 +13,7 @@ class_name OctoSkin3D extends Node3D
 
 
 @onready var _body_material := preload("res://assets/materials/octo_skin_3d.tres")
-@onready var _left_eye_mat: StandardMaterial3D 
+@onready var _left_eye_mat: StandardMaterial3D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
