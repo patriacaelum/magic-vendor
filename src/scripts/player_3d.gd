@@ -24,8 +24,13 @@ var _current_station: Station = null
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("interact"):
 		if self._current_station != null:
-			if self._current_station.has_drink():
-				self._current_station.drink.reparent(self._drinks_container)
+			if self._current_station is VendingMachine and self._drinks_container.get_child_count() > 0:
+				self._current_station.stock_drink(self._drinks_container.get_child(0))
+			elif self._current_station and self._current_station.has_drink():
+				var drink: Drink = self._current_station.get_drink()
+
+				if drink != null:
+					drink.reparent(self._drinks_container)
 
 
 func _physics_process(delta: float) -> void:
@@ -34,7 +39,7 @@ func _physics_process(delta: float) -> void:
 	self.__check_front()
 
 
-## Checks the front raycast and if it intersects a stations, sends a signal to
+## Checks the front raycast and if it intersects a station, sends a signal to
 ## that station.
 func __check_front() -> void:
 	var collider: Variant = self._front_raycast_3d.get_collider()

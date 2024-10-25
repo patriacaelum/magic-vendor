@@ -7,14 +7,6 @@ extends StaticBody3D
 @onready var _drinks_container := %DrinksContainer
 
 
-var drink: Drink:
-	get:
-		if self.has_drink():
-			return self._drinks_container.get_child(0)
-		return null
-	set(value):
-		value.reparent(self._drinks_container)
-
 var highlighted: bool:
 	get:
 		return self._highlighted_mesh_3d.visible
@@ -23,5 +15,17 @@ var highlighted: bool:
 		self._highlighted_mesh_3d.visible = value
 
 
+func get_drink() -> Drink:
+	if self.has_drink():
+		return self._drinks_container.get_child(0)
+
+	return null
+
+
 func has_drink() -> bool:
 	return self._drinks_container.get_child_count() > 0
+
+
+func stock_drink(drink: Drink) -> void:
+	if not self.has_drink():
+		drink.reparent(self._drink_container)

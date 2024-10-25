@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://brhdx3ugah5n"]
+[gd_scene load_steps=10 format=3 uid="uid://brhdx3ugah5n"]
 
 [ext_resource type="Texture2D" uid="uid://phwpfeuyqpq" path="res://assets/textures/TXT_Default.png" id="1_fcm55"]
 [ext_resource type="PackedScene" uid="uid://tonlbavrexx2" path="res://scenes/player_3d.tscn" id="2_ol1ds"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://q0wfh7oxbbq" path="res://scenes/station.tscn" id="4_p03mp"]
 [ext_resource type="PackedScene" uid="uid://banpctkll2rh5" path="res://scenes/drink.tscn" id="5_dt5af"]
 [ext_resource type="Script" path="res://scripts/drink.gd" id="6_tm2j7"]
+[ext_resource type="PackedScene" uid="uid://ccucp7gr6qbyk" path="res://scenes/vending_machine.tscn" id="7_xj2ye"]
 
 [sub_resource type="Environment" id="Environment_o0n4r"]
 background_mode = 1
@@ -55,6 +56,9 @@ steering_factor = 5.0
 [node name="Drink" parent="Station/DrinksContainer" index="0" instance=ExtResource("5_dt5af")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
 script = ExtResource("6_tm2j7")
+
+[node name="VendingMachine" parent="." instance=ExtResource("7_xj2ye")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1, -5.5)
 
 [editable path="Player3D"]
 [editable path="Station"]
