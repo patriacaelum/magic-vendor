@@ -24,9 +24,9 @@ var _world_plane := Plane(Vector3.UP)
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("interact"):
 		if self._current_station != null:
-			if self._current_station is VendingMachine and self._drinks_container.get_child_count() > 0:
+			if self._drinks_container.get_child_count() > 0:
 				self._current_station.add_drink(self._drinks_container.get_child(0))
-			elif self._current_station and self._current_station.has_drink():
+			elif self._current_station.has_drink():
 				var drink: Drink = self._current_station.get_drink()
 
 				if drink != null:

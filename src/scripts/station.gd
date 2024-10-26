@@ -27,7 +27,7 @@ func has_drink() -> bool:
 
 func add_drink(drink: Drink) -> void:
 	if not self.has_drink():
-		drink.reparent(self._drink_container)
+		drink.reparent(self._drinks_container)
 
 
 func get_drink() -> Drink:
