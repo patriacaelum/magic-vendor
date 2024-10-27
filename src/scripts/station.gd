@@ -25,9 +25,13 @@ func has_inventory() -> bool:
 	return self.get_inventory_count() > 0
 
 
-func add_inventory(item: InventoryItem) -> void:
+## Depending on what the player is holding, adding an item to the station may
+## or may not return an item back.
+func add_inventory(item: InventoryItem) -> InventoryItem:
 	if not self.has_inventory():
 		item.reparent(self._inventory)
+
+	return null
 
 
 func get_inventory() -> InventoryItem:

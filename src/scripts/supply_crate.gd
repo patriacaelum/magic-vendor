@@ -2,7 +2,7 @@ class_name SupplyCrate
 extends Station
 
 
-@export var supply_item: InventoryItem.NAME = InventoryItem.NAME.NULL
+@export var supply_item: InventoryItem.NAME
 
 
 func _ready() -> void:
@@ -23,9 +23,11 @@ func has_inventory() -> bool:
 
 
 ## Supply crates only accept the item that the supply.
-func add_inventory(item: InventoryItem) -> void:
+func add_inventory(item: InventoryItem) -> InventoryItem:
 	if item.item_name == InventoryItem.NAME.INGREDIENT:
 		item.reparent(self._inventory)
+
+	return null
 
 
 ## Spawn a new item if it doesn't exist.

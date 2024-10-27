@@ -1,6 +1,14 @@
-[gd_scene load_steps=7 format=3 uid="uid://q0wfh7oxbbq"]
+[gd_scene load_steps=9 format=3 uid="uid://bek1i0jkpem55"]
 
-[ext_resource type="Script" path="res://scripts/station.gd" id="1_famf8"]
+[ext_resource type="Script" path="res://scripts/cooking_station.gd" id="1_sq3e5"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pfq6u"]
+albedo_color = Color(0.259294, 0.259294, 0.259294, 1)
+
+[sub_resource type="TorusMesh" id="TorusMesh_1n22n"]
+material = SubResource("StandardMaterial3D_pfq6u")
+inner_radius = 0.3
+outer_radius = 0.4
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xj78e"]
 albedo_color = Color(0.410706, 0.229911, 0.0789055, 1)
@@ -16,8 +24,12 @@ material = SubResource("StandardMaterial3D_hoi8y")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_u6e4x"]
 
-[node name="Station" type="StaticBody3D"]
-script = ExtResource("1_famf8")
+[node name="CookingStation" type="StaticBody3D"]
+script = ExtResource("1_sq3e5")
+
+[node name="PotMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 5, 0, 0, 0, 1, 0, 0.75, 0)
+mesh = SubResource("TorusMesh_1n22n")
 
 [node name="ColouredMesh" type="MeshInstance3D" parent="."]
 mesh = SubResource("BoxMesh_rv5ml")
@@ -31,3 +43,8 @@ shape = SubResource("BoxShape3D_u6e4x")
 
 [node name="Inventory" type="Node3D" parent="."]
 unique_name_in_owner = true
+
+[node name="Timer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 2.0
+one_shot = true
