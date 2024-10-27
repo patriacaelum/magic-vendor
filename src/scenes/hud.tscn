@@ -1,8 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://dggedqavjjn8v"]
+[gd_scene load_steps=6 format=3 uid="uid://dggedqavjjn8v"]
 
 [ext_resource type="Script" path="res://scripts/hud.gd" id="1_0ofos"]
 [ext_resource type="Texture2D" uid="uid://b1fchy5e2rdxd" path="res://assets/icons/Timer.svg" id="1_5qnnf"]
 [ext_resource type="Theme" uid="uid://djplo7b72h3xd" path="res://assets/theme/main_theme.tres" id="1_fglkw"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cybvb"]
+bg_color = Color(0.695503, 0.695503, 0.695503, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dd2yu"]
+bg_color = Color(0.250927, 0.714703, 0, 1)
 
 [node name="HUD" type="Control"]
 layout_mode = 3
@@ -77,3 +83,13 @@ offset_right = 128.0
 offset_bottom = 64.0
 bbcode_enabled = true
 text = "[center]x0[/center]"
+
+[node name="CookingStationLabel" type="ProgressBar" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 0
+offset_right = 100.0
+offset_bottom = 25.0
+theme_override_styles/background = SubResource("StyleBoxFlat_cybvb")
+theme_override_styles/fill = SubResource("StyleBoxFlat_dd2yu")
+show_percentage = false

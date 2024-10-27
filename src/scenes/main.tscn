@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://brhdx3ugah5n"]
+[gd_scene load_steps=11 format=3 uid="uid://brhdx3ugah5n"]
 
 [ext_resource type="Texture2D" uid="uid://phwpfeuyqpq" path="res://assets/textures/TXT_Default.png" id="1_fcm55"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_hpo2v"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dggedqavjjn8v" path="res://scenes/hud.tscn" id="3_7tfpm"]
 [ext_resource type="PackedScene" uid="uid://q0wfh7oxbbq" path="res://scenes/station.tscn" id="4_p03mp"]
 [ext_resource type="PackedScene" uid="uid://ccucp7gr6qbyk" path="res://scenes/vending_machine.tscn" id="7_xj2ye"]
+[ext_resource type="PackedScene" uid="uid://bek1i0jkpem55" path="res://scenes/cooking_station.tscn" id="8_cirma"]
 [ext_resource type="PackedScene" uid="uid://cutjy85f8dxaa" path="res://scenes/supply_crate.tscn" id="9_uiuxw"]
 
 [sub_resource type="Environment" id="Environment_o0n4r"]
@@ -59,12 +60,19 @@ update_rotation = false
 update_scale = false
 
 [node name="Station" parent="." instance=ExtResource("4_p03mp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, -1.5)
 
 [node name="VendingMachineContainer" type="Node3D" parent="."]
 unique_name_in_owner = true
 
 [node name="VendingMachine" parent="VendingMachineContainer" instance=ExtResource("7_xj2ye")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1, -5.5)
+
+[node name="CookingStationContainer" type="Node3D" parent="."]
+unique_name_in_owner = true
+
+[node name="CookingStation" parent="CookingStationContainer" instance=ExtResource("8_cirma")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0, -1.5)
 
 [node name="CameraGimbal" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 0, 0, 0)
@@ -76,7 +84,7 @@ fov = 50.0
 
 [node name="IngredientSupplyCrate" parent="." instance=ExtResource("9_uiuxw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0.5, 1.5)
-supply_item = 1
+supply_item = 4
 
 [node name="DrinkContainerSupplyCrate" parent="." instance=ExtResource("9_uiuxw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0.5, -1.5)
