@@ -12,7 +12,7 @@ signal hud_updated(viewport_position: Vector2, n_drinks: int)
 
 
 func _physics_process(delta: float) -> void:
-	if self._highlighted_mesh_3d.visible:
+	if self.is_highlighted:
 		self.__update_hud()
 
 
