@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://brhdx3ugah5n"]
 
-[ext_resource type="Texture2D" uid="uid://phwpfeuyqpq" path="res://assets/textures/TXT_Default.png" id="1_fcm55"]
+[ext_resource type="Texture2D" uid="uid://col7a2okpessy" path="res://assets/textures/TXT_Default.png" id="1_fcm55"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_hpo2v"]
 [ext_resource type="PackedScene" uid="uid://tonlbavrexx2" path="res://scenes/player_3d.tscn" id="2_ol1ds"]
 [ext_resource type="PackedScene" uid="uid://dggedqavjjn8v" path="res://scenes/hud.tscn" id="3_7tfpm"]
@@ -59,7 +59,9 @@ remote_path = NodePath("../../CameraGimbal")
 update_rotation = false
 update_scale = false
 
-[node name="Station" parent="." instance=ExtResource("4_p03mp")]
+[node name="Station" parent="." node_paths=PackedStringArray("highlight_mesh") instance=ExtResource("4_p03mp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.26848, 0, -2.62949)
+highlight_mesh = NodePath("SM_Station")
 
 [node name="Drink" parent="Station/DrinksContainer" index="0" instance=ExtResource("5_dt5af")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
@@ -67,9 +69,11 @@ script = ExtResource("6_tm2j7")
 
 [node name="VendingMachineContainer" type="Node3D" parent="."]
 unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.698247, 0, -4.94287)
 
-[node name="VendingMachine" parent="VendingMachineContainer" instance=ExtResource("7_xj2ye")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1, -5.5)
+[node name="VendingMachine" parent="VendingMachineContainer" node_paths=PackedStringArray("highlight_mesh") instance=ExtResource("7_xj2ye")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+highlight_mesh = NodePath("SM_VendingMachine")
 
 [node name="CameraGimbal" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 0, 0, 0)
@@ -81,3 +85,4 @@ fov = 50.0
 
 [editable path="Player3D"]
 [editable path="Station"]
+[editable path="VendingMachineContainer/VendingMachine"]
