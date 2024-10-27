@@ -10,7 +10,7 @@ extends CharacterBody3D
 
 ## A camera must be provided in every scene where the player is used
 @onready var _camera_3d := %Camera3D
-@onready var _drinks_container := %DrinksContainer
+@onready var _inventory := %Inventory
 @onready var _front_raycast_3d := %FrontRayCast
 
 
@@ -24,13 +24,13 @@ var _world_plane := Plane(Vector3.UP)
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("interact"):
 		if self._current_station != null:
-			if self._drinks_container.get_child_count() > 0:
-				self._current_station.add_drink(self._drinks_container.get_child(0))
-			elif self._current_station.has_drink():
-				var drink: Drink = self._current_station.get_drink()
+			if self._inventory.get_child_count() > 0:
+				self._current_station.add_inventory(self._inventory.get_child(0))
+			elif self._current_station.has_inventory():
+				var item: InventoryItem = self._current_station.get_inventory()
 
-				if drink != null:
-					drink.reparent(self._drinks_container)
+				if item != null:
+					item.reparent(self._inventory)
 
 
 func _physics_process(delta: float) -> void:

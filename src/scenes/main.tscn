@@ -1,13 +1,12 @@
-[gd_scene load_steps=11 format=3 uid="uid://brhdx3ugah5n"]
+[gd_scene load_steps=10 format=3 uid="uid://brhdx3ugah5n"]
 
 [ext_resource type="Texture2D" uid="uid://phwpfeuyqpq" path="res://assets/textures/TXT_Default.png" id="1_fcm55"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_hpo2v"]
 [ext_resource type="PackedScene" uid="uid://tonlbavrexx2" path="res://scenes/player_3d.tscn" id="2_ol1ds"]
 [ext_resource type="PackedScene" uid="uid://dggedqavjjn8v" path="res://scenes/hud.tscn" id="3_7tfpm"]
 [ext_resource type="PackedScene" uid="uid://q0wfh7oxbbq" path="res://scenes/station.tscn" id="4_p03mp"]
-[ext_resource type="PackedScene" uid="uid://banpctkll2rh5" path="res://scenes/drink.tscn" id="5_dt5af"]
-[ext_resource type="Script" path="res://scripts/drink.gd" id="6_tm2j7"]
 [ext_resource type="PackedScene" uid="uid://ccucp7gr6qbyk" path="res://scenes/vending_machine.tscn" id="7_xj2ye"]
+[ext_resource type="PackedScene" uid="uid://cutjy85f8dxaa" path="res://scenes/supply_crate.tscn" id="9_uiuxw"]
 
 [sub_resource type="Environment" id="Environment_o0n4r"]
 background_mode = 1
@@ -61,10 +60,6 @@ update_scale = false
 
 [node name="Station" parent="." instance=ExtResource("4_p03mp")]
 
-[node name="Drink" parent="Station/DrinksContainer" index="0" instance=ExtResource("5_dt5af")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
-script = ExtResource("6_tm2j7")
-
 [node name="VendingMachineContainer" type="Node3D" parent="."]
 unique_name_in_owner = true
 
@@ -78,6 +73,14 @@ transform = Transform3D(1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 0, 0, 0)
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 15)
 fov = 50.0
+
+[node name="IngredientSupplyCrate" parent="." instance=ExtResource("9_uiuxw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0.5, 1.5)
+supply_item = 1
+
+[node name="DrinkContainerSupplyCrate" parent="." instance=ExtResource("9_uiuxw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0.5, -1.5)
+supply_item = 2
 
 [editable path="Player3D"]
 [editable path="Station"]
