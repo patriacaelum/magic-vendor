@@ -6,8 +6,9 @@ extends StaticBody3D
 var highlight_material : ShaderMaterial
 
 @onready var _coloured_mesh_3d := $ColouredMesh
+@onready var _highlighted_mesh_3d := $HighlightedMesh
+@onready var _inventory := %Inventory
 @onready var is_highlighted := false
-@onready var _drinks_container := %DrinksContainer
 
 @export var highlight_thickness := 0.08
 
@@ -30,6 +31,11 @@ func unhighlight() -> void:
 	_set_outline_shader(self.highlight_thickness, 0.0, 0.2)
 	self.is_highlighted = false
 
+
+func get_inventory_count() -> int:
+	return self._inventory.get_child_count()
+
+
 ## Helper function to set outline material thickness
 func _set_outline_shader(init_thickness: float, end_thickness: float, duration: float) -> void:
 	var material : Material = self.highlight_mesh.get_active_material(0)
@@ -45,23 +51,24 @@ func _set_outline_shader(init_thickness: float, end_thickness: float, duration: 
 		init_thickness,
 		end_thickness,
 		duration
-	);
-	
-func get_drink_count() -> int:
-	return self._drinks_container.get_child_count()
+	)
 
 
-func has_drink() -> bool:
-	return self.get_drink_count() > 0
+func has_inventory() -> bool:
+	return self.get_inventory_count() > 0
 
 
-func add_drink(drink: Drink) -> void:
-	if not self.has_drink():
-		drink.reparent(self._drinks_container)
+## Depending on what the player is holding, adding an item to the station may
+## or may not return an item back.
+func add_inventory(item: InventoryItem) -> InventoryItem:
+	if not self.has_inventory():
+		item.reparent(self._inventory)
+
+	return null
 
 
-func get_drink() -> Drink:
-	if self.has_drink():
-		return self._drinks_container.get_child(0)
+func get_inventory() -> InventoryItem:
+	if self.has_inventory():
+		return self._inventory.get_child(0)
 
 	return null
