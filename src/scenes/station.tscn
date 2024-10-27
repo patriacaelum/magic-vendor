@@ -45,7 +45,7 @@ shadow_mesh = SubResource("ArrayMesh_48ehx")
 [node name="Station" type="StaticBody3D"]
 script = ExtResource("1_famf8")
 
-[node name="SM_Station" type="MeshInstance3D" parent="."]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 unique_name_in_owner = true
 mesh = SubResource("ArrayMesh_jx7xe")
 skeleton = NodePath("")

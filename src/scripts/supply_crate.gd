@@ -6,6 +6,7 @@ extends Station
 
 
 func _ready() -> void:
+	super()
 	assert(
 		self.supply_item != InventoryItem.NAME.NULL,
 		"SupplyCrate must not supply NULL!",

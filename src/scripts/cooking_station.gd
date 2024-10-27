@@ -13,6 +13,7 @@ var _finished: bool = false
 
 
 func _ready() -> void:
+	super()
 	self._timer.timeout.connect(self._on_timer_timeout)
 
 
