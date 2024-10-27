@@ -4,7 +4,7 @@ extends StaticBody3D
 
 @onready var _coloured_mesh_3d := $ColouredMesh
 @onready var _highlighted_mesh_3d := $HighlightedMesh
-@onready var _drinks_container := %DrinksContainer
+@onready var _inventory := %Inventory
 
 
 func highlight() -> void:
@@ -17,21 +17,21 @@ func unhighlight() -> void:
 	self._highlighted_mesh_3d.visible = false
 
 
-func get_drink_count() -> int:
-	return self._drinks_container.get_child_count()
+func get_inventory_count() -> int:
+	return self._inventory.get_child_count()
 
 
-func has_drink() -> bool:
-	return self.get_drink_count() > 0
+func has_inventory() -> bool:
+	return self.get_inventory_count() > 0
 
 
-func add_drink(drink: Drink) -> void:
-	if not self.has_drink():
-		drink.reparent(self._drinks_container)
+func add_inventory(item: InventoryItem) -> void:
+	if not self.has_inventory():
+		item.reparent(self._inventory)
 
 
-func get_drink() -> Drink:
-	if self.has_drink():
-		return self._drinks_container.get_child(0)
+func get_inventory() -> InventoryItem:
+	if self.has_inventory():
+		return self._inventory.get_child(0)
 
 	return null

@@ -32,13 +32,14 @@ func unhighlight() -> void:
 
 
 ## More than one drink can be added to the vending machine.
-func add_drink(drink: Drink) -> void:
-	drink.visible = false
-	drink.reparent(self._drinks_container)
+func add_inventory(item: InventoryItem) -> void:
+	if item.item_name == InventoryItem.NAME.DRINK:
+		item.visible = false
+		item.reparent(self._inventory)
 
 
 ## Drinks cannot be retrieved from the vending machine.
-func get_drink() -> Drink:
+func get_inventory() -> InventoryItem:
 	return null
 
 
@@ -46,4 +47,4 @@ func __update_hud() -> void:
 	var viewport_position: Vector2 = self._camera_3d.unproject_position(
 		self.global_position,
 	)
-	self.hud_updated.emit(viewport_position, self.get_drink_count())
+	self.hud_updated.emit(viewport_position, self.get_inventory_count())
