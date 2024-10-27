@@ -1,2 +1,0 @@
-class_name Drink
-extends MeshInstance3D

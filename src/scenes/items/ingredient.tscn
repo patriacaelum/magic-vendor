@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dqnw7bo3hdixq"]
+
+[sub_resource type="TorusMesh" id="TorusMesh_efjmp"]
+inner_radius = 0.05
+outer_radius = 0.2
+
+[node name="Ingredient" type="MeshInstance3D"]
+mesh = SubResource("TorusMesh_efjmp")
