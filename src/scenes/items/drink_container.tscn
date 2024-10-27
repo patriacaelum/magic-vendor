@@ -6,4 +6,5 @@ bottom_radius = 0.2
 height = 0.5
 
 [node name="DrinkContainer" type="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 mesh = SubResource("CylinderMesh_crvqp")

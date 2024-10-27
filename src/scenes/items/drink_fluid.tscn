@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://cormumf6a3y0j"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t5od0"]
+albedo_color = Color(4.81307e-07, 0.497318, 0.446076, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_wdbkm"]
+material = SubResource("StandardMaterial3D_t5od0")
+radius = 0.4
+height = 0.4
+
+[node name="DrinkFluid" type="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+mesh = SubResource("SphereMesh_wdbkm")
