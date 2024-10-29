@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://byaxkbkhv86y0"]
+
+[node name="CustomerManager" type="Node3D"]
+
+[node name="SpawnPoint" type="Node3D" parent="."]
+unique_name_in_owner = true
+
+[node name="DespawnArea" type="Area3D" parent="."]
+unique_name_in_owner = true
+
+[node name="Timer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 2.0
+autostart = true
