@@ -4,7 +4,7 @@ extends Node3D
 
 @onready var _hud := %HUD
 @onready var _cooking_stations := %CookingStationContainer
-@onready var _vending_machines := %VendingMachineContainer
+@onready var _vending_machines := %VendingMachineManager
 
 
 func _ready() -> void:

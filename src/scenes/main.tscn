@@ -1,13 +1,16 @@
-[gd_scene load_steps=11 format=3 uid="uid://brhdx3ugah5n"]
+[gd_scene load_steps=18 format=3 uid="uid://brhdx3ugah5n"]
 
 [ext_resource type="Texture2D" uid="uid://phwpfeuyqpq" path="res://assets/textures/TXT_Default.png" id="1_fcm55"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_hpo2v"]
 [ext_resource type="PackedScene" uid="uid://tonlbavrexx2" path="res://scenes/player_3d.tscn" id="2_ol1ds"]
 [ext_resource type="PackedScene" uid="uid://dggedqavjjn8v" path="res://scenes/hud.tscn" id="3_7tfpm"]
 [ext_resource type="PackedScene" uid="uid://q0wfh7oxbbq" path="res://scenes/station.tscn" id="4_p03mp"]
+[ext_resource type="Script" path="res://scripts/vending_machine_manager.gd" id="6_85yxb"]
 [ext_resource type="PackedScene" uid="uid://ccucp7gr6qbyk" path="res://scenes/vending_machine.tscn" id="7_xj2ye"]
 [ext_resource type="PackedScene" uid="uid://bek1i0jkpem55" path="res://scenes/cooking_station.tscn" id="8_cirma"]
+[ext_resource type="PackedScene" uid="uid://byaxkbkhv86y0" path="res://scenes/customer_manager.tscn" id="9_lkw0p"]
 [ext_resource type="PackedScene" uid="uid://cutjy85f8dxaa" path="res://scenes/supply_crate.tscn" id="9_uiuxw"]
+[ext_resource type="Script" path="res://scripts/customer_manager.gd" id="11_xacp6"]
 
 [sub_resource type="Environment" id="Environment_o0n4r"]
 background_mode = 1
@@ -27,6 +30,19 @@ albedo_color = Color(0.501961, 0.501961, 0.501961, 1)
 albedo_texture = ExtResource("1_fcm55")
 uv1_scale = Vector3(0.5, 0.5, 0.5)
 uv1_triplanar = true
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_p1y86"]
+vertices = PackedVector3Array(-1.5, 0.5, -5.25, 0, 0.5, -5.5, 0, 0.5, -9.5, -9.5, 0.5, -3.75, -1.5, 0.5, -3.75, -9.5, 0.5, -9.5, 1.5, 0.5, -5.5, 1.75, 0.5, -5, 9.5, 0.5, -5, 9.5, 0.5, -9.5, 1.75, 0.5, -3.75, -1.25, 0.5, -3.25, -9.5, 0.5, 9.5, 1.25, 0.5, -3.25, 9.5, 0.5, 9.5)
+polygons = [PackedInt32Array(2, 1, 0), PackedInt32Array(0, 4, 3), PackedInt32Array(3, 5, 0), PackedInt32Array(0, 5, 2), PackedInt32Array(6, 1, 2), PackedInt32Array(6, 2, 7), PackedInt32Array(7, 2, 8), PackedInt32Array(8, 2, 9), PackedInt32Array(10, 7, 8), PackedInt32Array(4, 11, 3), PackedInt32Array(3, 11, 12), PackedInt32Array(10, 8, 13), PackedInt32Array(13, 8, 14), PackedInt32Array(13, 14, 11), PackedInt32Array(11, 14, 12)]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_nkdxk"]
+size = Vector2(20, 20)
+
+[sub_resource type="BoxMesh" id="BoxMesh_wexql"]
+size = Vector3(2, 1, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_x0b3a"]
+size = Vector3(2, 2, 2)
 
 [node name="main" type="Node3D"]
 script = ExtResource("1_hpo2v")
@@ -50,6 +66,22 @@ shadow_enabled = true
 directional_shadow_mode = 0
 directional_shadow_max_distance = 40.0
 
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+visible = false
+navigation_mesh = SubResource("NavigationMesh_p1y86")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D"]
+visible = false
+mesh = SubResource("PlaneMesh_nkdxk")
+
+[node name="NavigationObstacle3D" type="NavigationObstacle3D" parent="NavigationRegion3D"]
+affect_navigation_mesh = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D/NavigationObstacle3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.574601, -4.5)
+visible = false
+mesh = SubResource("BoxMesh_wexql")
+
 [node name="Player3D" parent="." instance=ExtResource("2_ol1ds")]
 max_speed = 10.0
 steering_factor = 5.0
@@ -62,13 +94,14 @@ update_scale = false
 [node name="Station" parent="." instance=ExtResource("4_p03mp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, -1.5)
 
-[node name="VendingMachineContainer" type="Node3D" parent="."]
+[node name="VendingMachineManager" type="Node3D" parent="."]
 unique_name_in_owner = true
+script = ExtResource("6_85yxb")
 
-[node name="VendingMachine1" parent="VendingMachineContainer" instance=ExtResource("7_xj2ye")]
+[node name="VendingMachine1" parent="VendingMachineManager" instance=ExtResource("7_xj2ye")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, -4.5)
 
-[node name="VendingMachine2" parent="VendingMachineContainer" instance=ExtResource("7_xj2ye")]
+[node name="VendingMachine2" parent="VendingMachineManager" instance=ExtResource("7_xj2ye")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, -4.5)
 
 [node name="CookingStationContainer" type="Node3D" parent="."]
@@ -93,5 +126,18 @@ supply_item = 4
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0.5, -1.5)
 supply_item = 2
 
+[node name="CustomerManager" parent="." instance=ExtResource("9_lkw0p")]
+script = ExtResource("11_xacp6")
+
+[node name="SpawnPoint" parent="CustomerManager" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 1, -9)
+
+[node name="DespawnArea" parent="CustomerManager" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -9)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CustomerManager/DespawnArea" index="0"]
+shape = SubResource("BoxShape3D_x0b3a")
+
 [editable path="Player3D"]
 [editable path="Station"]
+[editable path="CustomerManager"]
