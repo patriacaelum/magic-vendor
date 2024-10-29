@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://dynsqfw4w3d77"]
+
+[node name="CustomerOrderLabel" type="RichTextLabel"]
+anchors_preset = -1
+anchor_right = 0.09
+anchor_bottom = 0.045
+offset_right = 0.319992
+offset_bottom = -0.160002
+bbcode_enabled = true
+text = "[center]x1[/center]"

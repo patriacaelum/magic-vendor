@@ -1,4 +1,14 @@
+class_name HUD
 extends Control
+
+
+class CustomerOrder:
+	var customer: Customer3D
+	var label: RichTextLabel
+
+	func _init(customer_: Customer3D, label_: RichTextLabel) -> void:
+		self.customer = customer_
+		self.label = label_
 
 
 ## A camera must be used whenever a HUD is used
@@ -10,8 +20,10 @@ extends Control
 @onready var _cooking_station_label := %CookingStationLabel
 
 
-var _vending_machines: Dictionary = {}
 var _cooking_stations: Dictionary = {}
+var _customer_orders: Dictionary = {}
+var _customer_order_label := preload("res://scenes/hud/customer_order_label.tscn")
+var _vending_machines: Dictionary = {}
 
 
 func _ready():
@@ -23,11 +35,31 @@ func _process(delta):
 	var format_time_label := "[center] %s [/center]"
 	self._timer_label.text = format_time_label % time_elapsed
 
+	for customer_id: int in self._customer_orders:
+		self.__update_customer_order(self._customer_orders[customer_id])
+
 	for vending_machine_id: int in self._vending_machines:
 		self.__update_vending_machine_label(self._vending_machines[vending_machine_id])
 
 	for cooking_station_id: int in self._cooking_stations:
 		self.__update_cooking_station_label(self._cooking_stations[cooking_station_id])
+
+
+func _on_customer_manager_customer_spawned(customer: Customer3D) -> void:
+	var label: RichTextLabel = self._customer_order_label.instantiate()
+	var order := CustomerOrder.new(customer, label)
+
+	self.__update_customer_order(order)
+	self._customer_orders[customer.get_instance_id()] = CustomerOrder.new(
+		customer,
+		label,
+	)
+	self.add_child(label)
+
+
+func _on_customer_manager_customer_despawned(customer_id: int) -> void:
+	self._customer_orders[customer_id].label.queue_free()
+	self._customer_orders.erase(customer_id)
 
 
 func _on_cooking_station_started(cooking_station: CookingStation) -> void:
@@ -52,8 +84,8 @@ func _on_vending_machine_unhighlighted(vending_machine_id) -> void:
 	self._vending_machine_label.visible = false
 
 
-func __viewport_position(object: Node3D) -> Vector2:
-	return self._camera_3d.unproject_position(object.global_position)
+func __update_customer_order(customer_order: CustomerOrder) -> void:
+	customer_order.label.position = self.__viewport_position(customer_order.customer)
 
 
 func __update_cooking_station_label(cooking_station: CookingStation) -> void:
@@ -64,3 +96,7 @@ func __update_cooking_station_label(cooking_station: CookingStation) -> void:
 func __update_vending_machine_label(vending_machine: VendingMachine) -> void:
 	self._vending_machine_label.text = "[center]%s[/center]" % vending_machine.get_inventory_count()
 	self._vending_machine_label.position = self.__viewport_position(vending_machine)
+
+
+func __viewport_position(object: Node3D) -> Vector2:
+	return self._camera_3d.unproject_position(object.global_position)
