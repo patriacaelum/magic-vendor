@@ -6,6 +6,14 @@ signal highlighted(vending_machine: VendingMachine)
 signal unhighlighted(vending_machine_id: int)
 
 
+@onready var _customer_queue_point := %CustomerQueuePoint
+
+
+var queue_position: Vector3:
+	get:
+		return self._customer_queue_point.global_position
+
+
 ## The vending machine also displays its inventory on the HUD when it is
 ## highlighted.
 func highlight() -> void:
