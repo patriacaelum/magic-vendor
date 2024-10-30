@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=3 uid="uid://wbxv6erexom5"]
+
+[ext_resource type="Script" path="res://scripts/customer_3d.gd" id="1_wx3rc"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_5ukvw"]
+radius = 0.4
+height = 1.5
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_n7xiv"]
+radius = 0.4
+height = 1.5
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_xuspd"]
+height = 1.5
+radius = 1.0
+
+[node name="Customer3D" type="CharacterBody3D"]
+script = ExtResource("1_wx3rc")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_5ukvw")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_n7xiv")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+unique_name_in_owner = true
+debug_enabled = true
+
+[node name="Area3D" type="Area3D" parent="."]
+unique_name_in_owner = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("CylinderShape3D_xuspd")

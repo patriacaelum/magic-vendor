@@ -80,6 +80,11 @@ interact={
 ]
 }
 
+[layer_names]
+
+3d_physics/layer_1="Player"
+3d_physics/layer_2="Customer"
+
 [rendering]
 
 anti_aliasing/quality/use_taa=true

@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://byaxkbkhv86y0"]
+
+[ext_resource type="Script" path="res://scripts/customer_manager.gd" id="1_fefip"]
+
+[node name="CustomerManager" type="Node3D"]
+script = ExtResource("1_fefip")
+
+[node name="SpawnPoint" type="Node3D" parent="."]
+unique_name_in_owner = true
+
+[node name="DespawnArea" type="Area3D" parent="."]
+unique_name_in_owner = true
+
+[node name="Timer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 10.0
+autostart = true

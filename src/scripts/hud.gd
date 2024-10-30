@@ -1,4 +1,14 @@
+class_name HUD
 extends Control
+
+
+class CustomerOrder:
+	var customer: Customer3D
+	var label: RichTextLabel
+
+	func _init(customer_: Customer3D, label_: RichTextLabel) -> void:
+		self.customer = customer_
+		self.label = label_
 
 
 ## A camera must be used whenever a HUD is used
@@ -10,24 +20,52 @@ extends Control
 @onready var _cooking_station_label := %CookingStationLabel
 
 
-var _vending_machines: Dictionary = {}
 var _cooking_stations: Dictionary = {}
+var _customer_orders: Dictionary = {}
+var _customer_order_label := preload("res://scenes/hud/customer_order_label.tscn")
+var _customers_served: int = 0
+var _vending_machines: Dictionary = {}
 
 
 func _ready():
 	pass
 
 
-func _process(delta):
+func _process(delta: float) -> void:
 	var time_elapsed: int = floor(Time.get_ticks_msec()/1000)
 	var format_time_label := "[center] %s [/center]"
 	self._timer_label.text = format_time_label % time_elapsed
 
-	for vending_machine_id: int in self._vending_machines:
-		self.__update_vending_machine_label(self._vending_machines[vending_machine_id])
 
-	for cooking_station_id: int in self._cooking_stations:
-		self.__update_cooking_station_label(self._cooking_stations[cooking_station_id])
+func _physics_process(delta: float) -> void:
+	for customer_order: CustomerOrder in self._customer_orders.values():
+		self.__update_customer_order(customer_order)
+
+	for vending_machine: VendingMachine in self._vending_machines.values():
+		self.__update_vending_machine_label(vending_machine)
+
+	for cooking_station: CookingStation in self._cooking_stations.values():
+		self.__update_cooking_station_label(cooking_station)
+
+
+func _on_customer_manager_customer_spawned(customer: Customer3D) -> void:
+	var label: RichTextLabel = self._customer_order_label.instantiate()
+	var order := CustomerOrder.new(customer, label)
+
+	self.__update_customer_order(order)
+	self._customer_orders[customer.get_instance_id()] = CustomerOrder.new(
+		customer,
+		label,
+	)
+	self.add_child(label)
+
+
+func _on_customer_manager_customer_order_fulfilled(customer_id: int) -> void:
+	self._customer_orders[customer_id].label.queue_free()
+	self._customer_orders.erase(customer_id)
+
+	self._customers_served += 1
+	self._customers_served_label.text = "[center]x%d[/center]" % self._customers_served
 
 
 func _on_cooking_station_started(cooking_station: CookingStation) -> void:
@@ -52,8 +90,8 @@ func _on_vending_machine_unhighlighted(vending_machine_id) -> void:
 	self._vending_machine_label.visible = false
 
 
-func __viewport_position(object: Node3D) -> Vector2:
-	return self._camera_3d.unproject_position(object.global_position)
+func __update_customer_order(customer_order: CustomerOrder) -> void:
+	customer_order.label.position = self.__viewport_position(customer_order.customer)
 
 
 func __update_cooking_station_label(cooking_station: CookingStation) -> void:
@@ -64,3 +102,7 @@ func __update_cooking_station_label(cooking_station: CookingStation) -> void:
 func __update_vending_machine_label(vending_machine: VendingMachine) -> void:
 	self._vending_machine_label.text = "[center]%s[/center]" % vending_machine.get_inventory_count()
 	self._vending_machine_label.position = self.__viewport_position(vending_machine)
+
+
+func __viewport_position(object: Node3D) -> Vector2:
+	return self._camera_3d.unproject_position(object.global_position)
