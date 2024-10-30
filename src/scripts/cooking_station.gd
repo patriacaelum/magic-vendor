@@ -19,7 +19,9 @@ func _ready() -> void:
 
 ## When cooking is finished, replace the ingredient with the drink.
 func _on_timer_timeout() -> void:
-	self._inventory.get_child(0).queue_free()
+	if self._inventory.get_child_count() > 0:
+		self._inventory.get_child(0).queue_free()
+
 	var drink_fluid := InventoryItem.new(InventoryItem.NAME.DRINK_FLUID)
 	self._inventory.add_child(drink_fluid)
 

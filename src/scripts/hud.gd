@@ -23,6 +23,7 @@ class CustomerOrder:
 var _cooking_stations: Dictionary = {}
 var _customer_orders: Dictionary = {}
 var _customer_order_label := preload("res://scenes/hud/customer_order_label.tscn")
+var _customers_served: int = 0
 var _vending_machines: Dictionary = {}
 
 
@@ -30,11 +31,13 @@ func _ready():
 	pass
 
 
-func _process(delta):
+func _process(delta: float) -> void:
 	var time_elapsed: int = floor(Time.get_ticks_msec()/1000)
 	var format_time_label := "[center] %s [/center]"
 	self._timer_label.text = format_time_label % time_elapsed
 
+
+func _physics_process(delta: float) -> void:
 	for customer_order: CustomerOrder in self._customer_orders.values():
 		self.__update_customer_order(customer_order)
 
@@ -55,12 +58,14 @@ func _on_customer_manager_customer_spawned(customer: Customer3D) -> void:
 		label,
 	)
 	self.add_child(label)
-	print("label_creaed")
 
 
 func _on_customer_manager_customer_order_fulfilled(customer_id: int) -> void:
 	self._customer_orders[customer_id].label.queue_free()
 	self._customer_orders.erase(customer_id)
+
+	self._customers_served += 1
+	self._customers_served_label.text = "[center]x%d[/center]" % self._customers_served
 
 
 func _on_cooking_station_started(cooking_station: CookingStation) -> void:
