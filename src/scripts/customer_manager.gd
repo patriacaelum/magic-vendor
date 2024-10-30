@@ -3,7 +3,7 @@ extends Node3D
 
 
 signal customer_spawned(customer: Customer3D)
-signal customer_despawned(customer_id: int)
+signal customer_order_fulfilled(customer_id: int)
 
 
 @onready var _despawn_area := %DespawnArea
@@ -27,8 +27,12 @@ func _ready() -> void:
 
 func _on_despawn_area_body_entered(body: Node3D) -> void:
 	if body is Customer3D:
-		self.customer_despawned.emit(body.get_instance_id())
 		body.queue_free()
+
+
+func _on_customer_order_fulfilled(customer: Customer3D) -> void:
+	customer.target_position = self._despawn_area.global_position
+	self.customer_order_fulfilled.emit(customer.get_instance_id())
 
 
 func _on_timer_timeout() -> void:
@@ -37,5 +41,6 @@ func _on_timer_timeout() -> void:
 	self.add_child(customer)
 	customer.position = self._spawn_point.position
 	customer.target_position = self._vending_machine_manager.get_random_queue_position()
+	customer.order_fulfilled.connect(self._on_customer_order_fulfilled)
 
 	self.customer_spawned.emit(customer)

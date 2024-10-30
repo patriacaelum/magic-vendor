@@ -35,14 +35,14 @@ func _process(delta):
 	var format_time_label := "[center] %s [/center]"
 	self._timer_label.text = format_time_label % time_elapsed
 
-	for customer_id: int in self._customer_orders:
-		self.__update_customer_order(self._customer_orders[customer_id])
+	for customer_order: CustomerOrder in self._customer_orders.values():
+		self.__update_customer_order(customer_order)
 
-	for vending_machine_id: int in self._vending_machines:
-		self.__update_vending_machine_label(self._vending_machines[vending_machine_id])
+	for vending_machine: VendingMachine in self._vending_machines.values():
+		self.__update_vending_machine_label(vending_machine)
 
-	for cooking_station_id: int in self._cooking_stations:
-		self.__update_cooking_station_label(self._cooking_stations[cooking_station_id])
+	for cooking_station: CookingStation in self._cooking_stations.values():
+		self.__update_cooking_station_label(cooking_station)
 
 
 func _on_customer_manager_customer_spawned(customer: Customer3D) -> void:
@@ -55,9 +55,10 @@ func _on_customer_manager_customer_spawned(customer: Customer3D) -> void:
 		label,
 	)
 	self.add_child(label)
+	print("label_creaed")
 
 
-func _on_customer_manager_customer_despawned(customer_id: int) -> void:
+func _on_customer_manager_customer_order_fulfilled(customer_id: int) -> void:
 	self._customer_orders[customer_id].label.queue_free()
 	self._customer_orders.erase(customer_id)
 
