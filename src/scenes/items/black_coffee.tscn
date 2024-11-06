@@ -1,0 +1,30 @@
+[gd_scene load_steps=6 format=3 uid="uid://b5ushejm63ove"]
+
+[ext_resource type="Script" path="res://scripts/items/black_coffee.gd" id="1_vvldp"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2e6x4"]
+albedo_color = Color(0.37631, 0.215982, 0.028269, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_hl8lv"]
+material = SubResource("StandardMaterial3D_2e6x4")
+radius = 0.3
+height = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jowri"]
+albedo_color = Color(0.308211, 0.160727, 0.0875623, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_bdac4"]
+material = SubResource("StandardMaterial3D_jowri")
+top_radius = 0.4
+bottom_radius = 0.2
+height = 1.0
+
+[node name="BlackCoffee" type="Node3D"]
+script = ExtResource("1_vvldp")
+
+[node name="PowderMesh" type="MeshInstance3D" parent="."]
+visible = false
+mesh = SubResource("CapsuleMesh_hl8lv")
+
+[node name="DrinkMesh" type="MeshInstance3D" parent="."]
+mesh = SubResource("CylinderMesh_bdac4")

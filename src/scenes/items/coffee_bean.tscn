@@ -1,0 +1,30 @@
+[gd_scene load_steps=6 format=3 uid="uid://v6um5kjhm2hj"]
+
+[ext_resource type="Script" path="res://scripts/items/coffee_bean.gd" id="1_pshso"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xutau"]
+albedo_color = Color(0.238351, 0.166638, 0.00652472, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_n4n37"]
+material = SubResource("StandardMaterial3D_xutau")
+radius = 0.2
+height = 0.7
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7t4rf"]
+albedo_color = Color(0.301314, 0.174633, 0.0576104, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_3dmlx"]
+material = SubResource("StandardMaterial3D_7t4rf")
+radius = 0.4
+height = 0.2
+
+[node name="CoffeeBean" type="Node3D"]
+script = ExtResource("1_pshso")
+
+[node name="IngredientMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.707107, 0.353553, -0.612372, 0, 0.866025, 0.5, 0.707107, -0.353553, 0.612372, 0, 0, 0)
+mesh = SubResource("SphereMesh_n4n37")
+
+[node name="PowderMesh" type="MeshInstance3D" parent="."]
+visible = false
+mesh = SubResource("SphereMesh_3dmlx")
