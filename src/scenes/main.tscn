@@ -4,12 +4,12 @@
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_hpo2v"]
 [ext_resource type="PackedScene" uid="uid://tonlbavrexx2" path="res://scenes/player_3d.tscn" id="2_ol1ds"]
 [ext_resource type="PackedScene" uid="uid://dggedqavjjn8v" path="res://scenes/hud.tscn" id="3_7tfpm"]
-[ext_resource type="PackedScene" uid="uid://q0wfh7oxbbq" path="res://scenes/station.tscn" id="4_p03mp"]
+[ext_resource type="PackedScene" uid="uid://q0wfh7oxbbq" path="res://scenes/stations/station.tscn" id="4_p03mp"]
 [ext_resource type="Script" path="res://scripts/vending_machine_manager.gd" id="6_85yxb"]
-[ext_resource type="PackedScene" uid="uid://ccucp7gr6qbyk" path="res://scenes/vending_machine.tscn" id="7_xj2ye"]
-[ext_resource type="PackedScene" uid="uid://bek1i0jkpem55" path="res://scenes/cooking_station.tscn" id="8_cirma"]
+[ext_resource type="PackedScene" uid="uid://ccucp7gr6qbyk" path="res://scenes/stations/vending_machine.tscn" id="7_xj2ye"]
+[ext_resource type="PackedScene" uid="uid://bek1i0jkpem55" path="res://scenes/stations/cooking_station.tscn" id="8_cirma"]
 [ext_resource type="PackedScene" uid="uid://byaxkbkhv86y0" path="res://scenes/customer_manager.tscn" id="9_lkw0p"]
-[ext_resource type="PackedScene" uid="uid://cutjy85f8dxaa" path="res://scenes/supply_crate.tscn" id="9_uiuxw"]
+[ext_resource type="PackedScene" uid="uid://cutjy85f8dxaa" path="res://scenes/stations/supply_crate.tscn" id="9_uiuxw"]
 
 [sub_resource type="Environment" id="Environment_o0n4r"]
 background_mode = 1

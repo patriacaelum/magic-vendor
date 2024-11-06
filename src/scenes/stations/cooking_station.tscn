@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://bek1i0jkpem55"]
 
-[ext_resource type="Script" path="res://scripts/cooking_station.gd" id="1_sq3e5"]
+[ext_resource type="Script" path="res://scripts/stations/cooking_station.gd" id="1_sq3e5"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q64sm"]
 albedo_color = Color(0.377217, 0.20112, 0.0380726, 1)
