@@ -1,5 +1,5 @@
 class_name VendingMachine
-extends Station
+extends BaseStation
 
 
 signal highlighted(vending_machine: VendingMachine)

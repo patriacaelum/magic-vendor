@@ -1,5 +1,5 @@
 class_name StovetopStation
-extends Station
+extends BaseStation
 
 
 @onready var _timer := %Timer

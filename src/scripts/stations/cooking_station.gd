@@ -1,5 +1,5 @@
 class_name CookingStation
-extends Station
+extends BaseStation
 
 
 signal started(cooking_station: CookingStation)

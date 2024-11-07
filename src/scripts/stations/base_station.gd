@@ -1,4 +1,7 @@
-class_name Station
+## A basic station acts like a countertop. An item can be placed on it, and can
+## be retrieved from it. It is highlighted when the player is able to interact
+## with it.
+class_name BaseStation
 extends StaticBody3D
 
 
@@ -18,23 +21,43 @@ func _ready() -> void:
 	self._highlight_material.shader = self._highlight_shader
 
 
+## Depending on what the player is holding, adding an item to the station may
+## or may not return an item back.
+func add_item(item: BaseItem) -> BaseItem:
+	if not self.has_items():
+		item.reparent(self._inventory)
+
+	return null
+
+
+func get_item() -> BaseItem:
+	if self.has_items():
+		return self._inventory.get_child(0)
+
+	return null
+
+
+func get_item_count() -> int:
+	return self._inventory.get_child_count()
+
+
+func has_items() -> bool:
+	return self.get_item_count() > 0
+
+
 func highlight() -> void:
 	if self._mesh.get_active_material(0).next_pass == null:
 		self._mesh.get_active_material(0).next_pass = self._highlight_material
 
-	self._set_outline_shader(0.0, self.highlight_thickness, 0.2)
+	self.__set_outline_shader(0.0, self.highlight_thickness, 0.2)
 
 
 func unhighlight() -> void:
-	self._set_outline_shader(self.highlight_thickness, 0.0, 0.2)
+	self.__set_outline_shader(self.highlight_thickness, 0.0, 0.2)
 
 
-func get_inventory_count() -> int:
-	return self._inventory.get_child_count()
-
-
-## Helper function to set outline material thickness
-func _set_outline_shader(
+## Helper function to set outline material thickness.
+func __set_outline_shader(
 	init_thickness: float,
 	end_thickness: float,
 	duration: float,
@@ -49,23 +72,3 @@ func _set_outline_shader(
 		end_thickness,
 		duration
 	)
-
-
-func has_inventory() -> bool:
-	return self.get_inventory_count() > 0
-
-
-## Depending on what the player is holding, adding an item to the station may
-## or may not return an item back.
-func add_inventory(item: InventoryItem) -> InventoryItem:
-	if not self.has_inventory():
-		item.reparent(self._inventory)
-
-	return null
-
-
-func get_inventory() -> InventoryItem:
-	if self.has_inventory():
-		return self._inventory.get_child(0)
-
-	return null
