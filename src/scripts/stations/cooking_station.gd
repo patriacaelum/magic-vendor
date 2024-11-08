@@ -19,11 +19,7 @@ func _ready() -> void:
 
 ## When cooking is finished, replace the ingredient with the drink.
 func _on_timer_timeout() -> void:
-	if self._inventory.get_child_count() > 0:
-		self._inventory.get_child(0).queue_free()
-
-	var drink_fluid := InventoryItem.new(InventoryItem.NAME.DRINK_FLUID)
-	self._inventory.add_child(drink_fluid)
+	self._inventory.get_child(0).apply(BaseItem.FORCE.HEAT)
 
 	self._finished = true
 	self.finished.emit(self.get_instance_id())
@@ -32,16 +28,13 @@ func _on_timer_timeout() -> void:
 ## Start cooking timer when an indredient is placed in the pot. If the
 ## ingredient has already been cooked, then replacing it with a container will
 ## give back a completed item.
-func add_inventory(item: InventoryItem) -> InventoryItem:
-	if not self.has_inventory() and item.item_name == InventoryItem.NAME.INGREDIENT:
+func add_item(item: BaseItem) -> BaseItem:
+	if not self.has_items() and item.get_class() == "Apple":
 		item.reparent(self._inventory)
 		self._timer.start()
 		self.started.emit(self)
-	elif self.has_inventory() and item.item_name == InventoryItem.NAME.DRINK_CONTAINER:
-		item.queue_free()
-		self._inventory.get_child(0).queue_free()
-		var drink: InventoryItem = InventoryItem.new(InventoryItem.NAME.DRINK)
-		self._inventory.add_child(drink)
+	elif self.has_items() and item.get_class() == "DrinkContainer":
+		var drink = self.get_child(0).combine(item)
 
 		return drink
 
@@ -49,7 +42,7 @@ func add_inventory(item: InventoryItem) -> InventoryItem:
 
 
 ## The contents of the cooking station cannot be retrieved.
-func get_inventory() -> InventoryItem:
+func get_item() -> BaseItem:
 	return null
 
 

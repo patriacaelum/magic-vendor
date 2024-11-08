@@ -5,6 +5,7 @@ extends BaseStation
 signal highlighted(vending_machine: VendingMachine)
 signal unhighlighted(vending_machine_id: int)
 
+
 @onready var _customer_queue_point := %CustomerQueuePoint
 
 
@@ -31,8 +32,8 @@ func unhighlight() -> void:
 
 
 ## More than one drink can be added to the vending machine.
-func add_inventory(item: InventoryItem) -> InventoryItem:
-	if item.item_name == InventoryItem.NAME.DRINK:
+func add_item(item: BaseItem) -> BaseItem:
+	if item.get_class() == "AppleJuice":
 		item.visible = false
 		item.reparent(self._inventory)
 
@@ -42,21 +43,23 @@ func add_inventory(item: InventoryItem) -> InventoryItem:
 
 
 ## Drinks cannot be retrieved from the vending machine.
-func get_inventory() -> InventoryItem:
+func get_item() -> BaseItem:
 	return null
 
 
 ## Drinks can only be taken as an order.
-func get_order(order: Array[InventoryItem.NAME]) -> Array[InventoryItem]:
-	var items: Array[InventoryItem] = []
+func get_order(order: Array[BaseItem]) -> Array[BaseItem]:
+	var items: Array[BaseItem] = []
 
 	# Check if the order can be fulfilled
-	for item_name: InventoryItem.NAME in order:
+	# for item_name: InventoryItem.NAME in order:
+	for item_name in order:
 		if len(self._inventory_tracker.get(item_name, [])) == 0:
 			return []
 
 	# Add the items to the order
-	for item_name: InventoryItem.NAME in order:
+	# for item_name: InventoryItem.NAME in order:
+	for item_name in order:
 		items.append(self._inventory_tracker[item_name].pop_back())
 
 	return items

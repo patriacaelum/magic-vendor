@@ -17,15 +17,16 @@ extends CharacterBody3D
 const GRAVITY: Vector3 = 40.0 * Vector3.DOWN
 
 
-var _current_station: Station = null
+var _current_station: BaseStation = null
 var _world_plane := Plane(Vector3.UP)
 
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("interact"):
 		if self._current_station != null:
+			print(self._current_station.get_script())
 			if self._inventory.get_child_count() > 0:
-				var item: InventoryItem = self._current_station.add_inventory(
+				var item: BaseItem = self._current_station.add_item(
 					self._inventory.get_child(0),
 				)
 
@@ -33,7 +34,7 @@ func _input(event: InputEvent) -> void:
 					item.reparent(self._inventory)
 				print(self._inventory.get_child_count())
 			elif self._current_station.has_inventory():
-				var item: InventoryItem = self._current_station.get_inventory()
+				var item: BaseItem = self._current_station.get_item()
 
 				if item != null:
 					item.reparent(self._inventory)
@@ -57,7 +58,7 @@ func __check_front() -> void:
 		if self._current_station != null:
 			self._current_station.unhighlight()
 
-		if collider is Station:
+		if collider is BaseStation:
 			self._current_station = collider
 		else:
 			self._current_station = null

@@ -5,17 +5,24 @@ extends BaseStation
 @export var supply_item: PackedScene
 
 
+var _supply_class: String
+
+
 func _ready() -> void:
 	super()
-	assert(
-		self.supply_item != null,
-		"SupplyCrate must not supply NULL!",
-	)
+
+	assert(self.supply_item != null, "SupplyCrate must supply a BaseItem!")
+
+	# Create initial inventory
+	var supply: BaseItem = self.supply_item.instantiate()
+
+	self._supply_class = supply.get_class_name()
+	self.add_child(supply)
 
 
-## Supply crates only accept the item that the supply.
+## Supply crates only accept the item that they supply.
 func add_item(item: BaseItem) -> BaseItem:
-	if item is self.supply_item:
+	if item.get_class_name() == self._supply_class:
 		item.reparent(self._inventory)
 
 	return null

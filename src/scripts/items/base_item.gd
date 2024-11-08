@@ -19,3 +19,7 @@ func apply(force: FORCE) -> void:
 ## if the combination was successful.
 func combine(item: BaseItem) -> BaseItem:
 	return null
+
+
+func get_class_name() -> String:
+	return self.get_script().get_global_name()
