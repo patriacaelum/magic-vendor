@@ -9,10 +9,12 @@ signal order_fulfilled(customer: Customer3D)
 @onready var _navigation_agent_3d := %NavigationAgent3D
 
 
-var _order: Array[BaseItem] = [AppleJuice.new()]
+var _order: Array[String] = ["AppleJuice"]
 
 
 var target_position: Vector3:
+	get:
+		return self._naviation_agent_3d.target_position
 	set(value):
 		self._navigation_agent_3d.target_position = value
 
@@ -42,8 +44,7 @@ func __fulfill_order() -> void:
 		if not items:
 			continue
 
-		# for item: InventoryItem in items:
-		for item in items:
+		for item: BaseItem in items:
 			item.reparent(self)
 
 		self.order_fulfilled.emit(self)

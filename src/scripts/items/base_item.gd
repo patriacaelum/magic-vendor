@@ -10,6 +10,11 @@ enum FORCE {
 }
 
 
+var classname: String:
+	get:
+		return self.get_script().get_global_name()
+
+
 ## Apply a force to the item. This may transform the state of the item.
 func apply(force: FORCE) -> void:
 	pass
@@ -19,7 +24,3 @@ func apply(force: FORCE) -> void:
 ## if the combination was successful.
 func combine(item: BaseItem) -> BaseItem:
 	return null
-
-
-func get_class_name() -> String:
-	return self.get_script().get_global_name()

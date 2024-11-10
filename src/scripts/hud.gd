@@ -95,12 +95,12 @@ func __update_customer_order(customer_order: CustomerOrder) -> void:
 
 
 func __update_cooking_station_label(cooking_station: CookingStation) -> void:
-	self._cooking_station_label.value = cooking_station.get_progress() * self._cooking_station_label.max_value
+	self._cooking_station_label.value = cooking_station.progress * self._cooking_station_label.max_value
 	self._cooking_station_label.position = self.__viewport_position(cooking_station)
 
 
 func __update_vending_machine_label(vending_machine: VendingMachine) -> void:
-	self._vending_machine_label.text = "[center]%s[/center]" % vending_machine.get_inventory_count()
+	self._vending_machine_label.text = "[center]%s[/center]" % vending_machine.get_item_count()
 	self._vending_machine_label.position = self.__viewport_position(vending_machine)
 
 

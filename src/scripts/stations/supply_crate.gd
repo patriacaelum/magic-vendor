@@ -16,13 +16,14 @@ func _ready() -> void:
 	# Create initial inventory
 	var supply: BaseItem = self.supply_item.instantiate()
 
-	self._supply_class = supply.get_class_name()
+	supply.visible = false
+	self._supply_class = supply.classname
 	self.add_child(supply)
 
 
 ## Supply crates only accept the item that they supply.
 func add_item(item: BaseItem) -> BaseItem:
-	if item.get_class_name() == self._supply_class:
+	if item.classname == self._supply_class:
 		item.reparent(self._inventory)
 
 	return null
@@ -39,8 +40,11 @@ func has_items() -> bool:
 
 
 ## Spawn a new item if it doesn't exist.
-func get_inventory() -> BaseItem:
+func get_item() -> BaseItem:
 	if self._inventory.get_child_count() == 0:
 		self._inventory.add_child(self.supply_item.instantiate())
 
-	return self._inventory.get_child(0)
+	var item: BaseItem = self._inventory.get_child(0)
+	item.visible = true
+
+	return item

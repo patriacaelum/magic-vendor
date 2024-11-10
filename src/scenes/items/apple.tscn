@@ -22,8 +22,10 @@ outer_radius = 0.4
 script = ExtResource("1_jbrvh")
 
 [node name="IngredientMesh" type="MeshInstance3D" parent="."]
+unique_name_in_owner = true
 mesh = SubResource("SphereMesh_q8p10")
 
 [node name="PressedMesh" type="MeshInstance3D" parent="."]
+unique_name_in_owner = true
 visible = false
 mesh = SubResource("TorusMesh_82uxv")

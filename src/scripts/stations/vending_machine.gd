@@ -33,11 +33,11 @@ func unhighlight() -> void:
 
 ## More than one drink can be added to the vending machine.
 func add_item(item: BaseItem) -> BaseItem:
-	if item.get_class() == "AppleJuice":
+	if item.classname == "AppleJuice":
 		item.visible = false
 		item.reparent(self._inventory)
 
-		self._inventory_tracker.get_or_add(item.item_name, []).append(item)
+		self._inventory_tracker.get_or_add(item.classname, []).append(item)
 
 	return null
 
@@ -48,18 +48,16 @@ func get_item() -> BaseItem:
 
 
 ## Drinks can only be taken as an order.
-func get_order(order: Array[BaseItem]) -> Array[BaseItem]:
+func get_order(order: Array[String]) -> Array[BaseItem]:
 	var items: Array[BaseItem] = []
 
 	# Check if the order can be fulfilled
-	# for item_name: InventoryItem.NAME in order:
-	for item_name in order:
+	for item_name: String in order:
 		if len(self._inventory_tracker.get(item_name, [])) == 0:
 			return []
 
 	# Add the items to the order
-	# for item_name: InventoryItem.NAME in order:
-	for item_name in order:
+	for item_name: String in order:
 		items.append(self._inventory_tracker[item_name].pop_back())
 
 	return items
