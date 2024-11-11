@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://bek1i0jkpem55"]
 
-[ext_resource type="Script" path="res://scripts/cooking_station.gd" id="1_sq3e5"]
+[ext_resource type="Script" path="res://scripts/stations/fruit_press.gd" id="1_sq3e5"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q64sm"]
 albedo_color = Color(0.377217, 0.20112, 0.0380726, 1)
@@ -18,7 +18,7 @@ outer_radius = 0.4
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_u6e4x"]
 
-[node name="CookingStation" type="StaticBody3D"]
+[node name="FruitPress" type="StaticBody3D"]
 script = ExtResource("1_sq3e5")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]

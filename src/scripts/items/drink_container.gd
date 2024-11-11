@@ -1,0 +1,2 @@
+class_name DrinkContainer
+extends BaseItem

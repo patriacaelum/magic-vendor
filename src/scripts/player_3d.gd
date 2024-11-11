@@ -11,38 +11,49 @@ extends CharacterBody3D
 ## A camera must be provided in every scene where the player is used
 @onready var _camera_3d := %Camera3D
 @onready var _inventory := %Inventory
+@onready var _item_marker := %ItemMarker
 @onready var _front_raycast_3d := %FrontRayCast
 
 
 const GRAVITY: Vector3 = 40.0 * Vector3.DOWN
 
 
-var _current_station: Station = null
+var _current_station: BaseStation = null
 var _world_plane := Plane(Vector3.UP)
 
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("interact"):
-		if self._current_station != null:
-			if self._inventory.get_child_count() > 0:
-				var item: InventoryItem = self._current_station.add_inventory(
-					self._inventory.get_child(0),
-				)
+		if not self._current_station:
+			return
 
-				if item != null:
-					item.reparent(self._inventory)
-				print(self._inventory.get_child_count())
-			elif self._current_station.has_inventory():
-				var item: InventoryItem = self._current_station.get_inventory()
-
-				if item != null:
-					item.reparent(self._inventory)
+		if self.__has_items():
+			var item: BaseItem = self._current_station.add_item(self._inventory.get_child(0))
+			self.__add_item(item)
+		elif self._current_station.has_items():
+			var item: BaseItem = self._current_station.get_item()
+			self.__add_item(item)
 
 
 func _physics_process(delta: float) -> void:
+	if self._current_station and Input.is_action_pressed("operate"):
+		self._current_station.operate(delta)
+
 	self.__move(delta)
 	self.__face_mouse()
 	self.__check_front()
+
+
+func __add_item(item: BaseItem) -> void:
+	if not item:
+		return
+
+	if item.get_parent():
+		item.reparent(self._inventory)
+	else:
+		self._inventory.add_child(item)
+
+	item.global_position = self._item_marker.global_position
 
 
 ## Checks the front raycast and if it intersects a station, sends a signal to
@@ -57,7 +68,7 @@ func __check_front() -> void:
 		if self._current_station != null:
 			self._current_station.unhighlight()
 
-		if collider is Station:
+		if collider is BaseStation:
 			self._current_station = collider
 		else:
 			self._current_station = null
@@ -79,8 +90,12 @@ func __face_mouse() -> void:
 	)
 
 	# Character faces the mouse
-	if world_mouse_position != null:
+	if world_mouse_position:
 		self.look_at(world_mouse_position)
+
+
+func __has_items() -> bool:
+	return self._inventory.get_child_count() > 0
 
 
 ## Moves the player in toward the direction of input.

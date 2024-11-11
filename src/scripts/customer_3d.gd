@@ -9,10 +9,12 @@ signal order_fulfilled(customer: Customer3D)
 @onready var _navigation_agent_3d := %NavigationAgent3D
 
 
-var _order: Array[InventoryItem.NAME] = [InventoryItem.NAME.DRINK]
+var _order: Array[String] = ["AppleJuice"]
 
 
 var target_position: Vector3:
+	get:
+		return self._naviation_agent_3d.target_position
 	set(value):
 		self._navigation_agent_3d.target_position = value
 
@@ -36,13 +38,13 @@ func __fulfill_order() -> void:
 		if body is not VendingMachine:
 			continue
 
-		var items: Array[InventoryItem] = body.get_order(self._order)
+		var items: Array[BaseItem] = body.get_order(self._order)
 
 		# Vending machine did not fulfill order, keep looking
 		if not items:
 			continue
 
-		for item: InventoryItem in items:
+		for item: BaseItem in items:
 			item.reparent(self)
 
 		self.order_fulfilled.emit(self)

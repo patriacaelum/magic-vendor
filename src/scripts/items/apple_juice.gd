@@ -1,0 +1,2 @@
+class_name AppleJuice
+extends BaseItem

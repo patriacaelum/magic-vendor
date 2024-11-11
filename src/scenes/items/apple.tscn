@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=3 uid="uid://dqnw7bo3hdixq"]
+
+[ext_resource type="Script" path="res://scripts/items/apple.gd" id="1_jbrvh"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ia20c"]
+albedo_color = Color(0.81502, 1.01075e-06, 1.92523e-07, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_q8p10"]
+material = SubResource("StandardMaterial3D_ia20c")
+radius = 0.25
+height = 0.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vct7y"]
+albedo_color = Color(0.549184, 0.549184, 0, 1)
+
+[sub_resource type="TorusMesh" id="TorusMesh_82uxv"]
+material = SubResource("StandardMaterial3D_vct7y")
+inner_radius = 0.04
+outer_radius = 0.4
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_jbrvh")
+
+[node name="IngredientMesh" type="MeshInstance3D" parent="."]
+unique_name_in_owner = true
+mesh = SubResource("SphereMesh_q8p10")
+
+[node name="PressedMesh" type="MeshInstance3D" parent="."]
+unique_name_in_owner = true
+visible = false
+mesh = SubResource("TorusMesh_82uxv")
