@@ -1,9 +1,9 @@
-class_name FruitPress
+class_name Grinder
 extends ProgressiveStation
 
 
 func add_item(item: BaseItem) -> BaseItem:
-	if not self.has_items() and item is Apple:
+	if not self.has_items() and item is CoffeeBean:
 		item.reparent(self._inventory)
 		self._finished = false
 		self.started.emit(self)
@@ -17,16 +17,16 @@ func add_item(item: BaseItem) -> BaseItem:
 	return null
 
 
-## The contents of the fruit press cannot be retrieved.
+## The contents of the grinder cannot be retrieved.
 func get_item() -> BaseItem:
 	return null
 
 
 func operate(delta: float) -> void:
 	if self.has_items() and not self._finished:
-		self.progress += delta * self.progress_rate
+		self._progress += delta * self.progress_rate
 
-		if self.progress >= self.PROGRESS_MAX:
-			self._inventory.get_child(0).apply(BaseItem.FORCE.PRESSURE)
+		if self._progress >= self.PROGRESS_MAX:
+			self._inventory.get_child(0).apply(BaseItem.FORCE.GRIND)
 			self._finished = true
 			self.finished.emit(self.get_instance_id())
