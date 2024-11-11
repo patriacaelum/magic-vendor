@@ -1,0 +1,45 @@
+[gd_scene load_steps=7 format=3 uid="uid://xn2qwmvjrimr"]
+
+[ext_resource type="Script" path="res://scripts/stations/stovetop.gd" id="1_tbneh"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_86ffn"]
+albedo_color = Color(0.316576, 0.128466, 4.81308e-08, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_24pc6"]
+material = SubResource("StandardMaterial3D_86ffn")
+size = Vector3(1, 0.7, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_40t3r"]
+albedo_color = Color(0.122252, 0.122252, 0.122252, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_lglmq"]
+material = SubResource("StandardMaterial3D_40t3r")
+top_radius = 0.3
+bottom_radius = 0.3
+height = 0.05
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ei6cs"]
+size = Vector3(1, 0.5, 1)
+
+[node name="Stovetop" type="StaticBody3D"]
+script = ExtResource("1_tbneh")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, 0)
+mesh = SubResource("BoxMesh_24pc6")
+
+[node name="StoveMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.710945, 0)
+mesh = SubResource("CylinderMesh_lglmq")
+
+[node name="Inventory" type="Node3D" parent="."]
+unique_name_in_owner = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+shape = SubResource("BoxShape3D_ei6cs")
+
+[node name="Timer" type="Timer" parent="."]
+unique_name_in_owner = true
+one_shot = true

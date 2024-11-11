@@ -4,7 +4,7 @@ extends Node3D
 
 @onready var _hud := %HUD
 @onready var _customer_manager := %CustomerManager
-@onready var _cooking_stations := %CookingStationContainer
+@onready var _progressive_stations := %ProgressiveStationContainer
 @onready var _vending_machines := %VendingMachineManager
 
 
@@ -16,6 +16,6 @@ func _ready() -> void:
 		vending_machine.highlighted.connect(self._hud._on_vending_machine_highlighted)
 		vending_machine.unhighlighted.connect(self._hud._on_vending_machine_unhighlighted)
 
-	for cooking_station: CookingStation in self._cooking_stations.get_children():
-		cooking_station.started.connect(self._hud._on_cooking_station_started)
-		cooking_station.finished.connect(self._hud._on_cooking_station_finished)
+	for station: ProgressiveStation in self._progressive_stations.get_children():
+		station.started.connect(self._hud._on_progressive_station_started)
+		station.finished.connect(self._hud._on_progressive_station_finished)

@@ -17,6 +17,8 @@ var _highlight_material: ShaderMaterial
 
 
 func _ready() -> void:
+	assert(self._inventory != null, "Station is missing Inventory node!")
+	assert(self._mesh != null, "Station missing MeshInstance3D!")
 	self._highlight_material = ShaderMaterial.new()
 	self._highlight_material.shader = self._highlight_shader
 
@@ -50,6 +52,10 @@ func highlight() -> void:
 		self._mesh.get_active_material(0).next_pass = self._highlight_material
 
 	self.__set_outline_shader(0.0, self.highlight_thickness, 0.2)
+
+
+func operate(delta: float) -> void:
+	pass
 
 
 func unhighlight() -> void:

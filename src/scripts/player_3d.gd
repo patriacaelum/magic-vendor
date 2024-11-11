@@ -36,6 +36,9 @@ func _input(event: InputEvent) -> void:
 
 
 func _physics_process(delta: float) -> void:
+	if self._current_station and Input.is_action_pressed("operate"):
+		self._current_station.operate(delta)
+
 	self.__move(delta)
 	self.__face_mouse()
 	self.__check_front()

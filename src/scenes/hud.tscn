@@ -84,7 +84,7 @@ offset_bottom = 64.0
 bbcode_enabled = true
 text = "[center]x0[/center]"
 
-[node name="CookingStationLabel" type="ProgressBar" parent="."]
+[node name="ProgressLabel" type="ProgressBar" parent="."]
 unique_name_in_owner = true
 visible = false
 layout_mode = 0

@@ -33,7 +33,7 @@ func unhighlight() -> void:
 
 ## More than one drink can be added to the vending machine.
 func add_item(item: BaseItem) -> BaseItem:
-	if item.classname == "AppleJuice":
+	if item is AppleJuice:
 		item.visible = false
 		item.reparent(self._inventory)
 

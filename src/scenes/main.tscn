@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://brhdx3ugah5n"]
+[gd_scene load_steps=22 format=3 uid="uid://brhdx3ugah5n"]
 
 [ext_resource type="Texture2D" uid="uid://phwpfeuyqpq" path="res://assets/textures/TXT_Default.png" id="1_fcm55"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_hpo2v"]
@@ -7,11 +7,14 @@
 [ext_resource type="PackedScene" uid="uid://q0wfh7oxbbq" path="res://scenes/stations/base_station.tscn" id="4_p03mp"]
 [ext_resource type="Script" path="res://scripts/vending_machine_manager.gd" id="6_85yxb"]
 [ext_resource type="PackedScene" uid="uid://ccucp7gr6qbyk" path="res://scenes/stations/vending_machine.tscn" id="7_xj2ye"]
-[ext_resource type="PackedScene" uid="uid://bek1i0jkpem55" path="res://scenes/stations/cooking_station.tscn" id="8_cirma"]
+[ext_resource type="PackedScene" uid="uid://bek1i0jkpem55" path="res://scenes/stations/fruit_press.tscn" id="8_cirma"]
 [ext_resource type="PackedScene" uid="uid://byaxkbkhv86y0" path="res://scenes/customer_manager.tscn" id="9_lkw0p"]
 [ext_resource type="PackedScene" uid="uid://cutjy85f8dxaa" path="res://scenes/stations/supply_crate.tscn" id="9_uiuxw"]
 [ext_resource type="PackedScene" uid="uid://dqnw7bo3hdixq" path="res://scenes/items/apple.tscn" id="10_w5e2o"]
 [ext_resource type="PackedScene" uid="uid://b6vbinrnxan5r" path="res://scenes/items/drink_container.tscn" id="11_kdxbm"]
+[ext_resource type="PackedScene" uid="uid://b00qjhcb3fvyv" path="res://scenes/stations/sink.tscn" id="13_4onqj"]
+[ext_resource type="PackedScene" uid="uid://xn2qwmvjrimr" path="res://scenes/stations/stovetop.tscn" id="14_5r1od"]
+[ext_resource type="PackedScene" uid="uid://dyixyijq632ky" path="res://scenes/items/teapot.tscn" id="15_62fmp"]
 
 [sub_resource type="Environment" id="Environment_o0n4r"]
 background_mode = 1
@@ -84,13 +87,7 @@ visible = false
 mesh = SubResource("BoxMesh_wexql")
 
 [node name="Player3D" parent="." instance=ExtResource("2_ol1ds")]
-max_speed = 10.0
-steering_factor = 5.0
-
-[node name="RemoteTransformCamera" parent="Player3D" index="4"]
-remote_path = NodePath("../../CameraGimbal")
-update_rotation = false
-update_scale = false
+steering_factor = 10.0
 
 [node name="BaseStation" parent="." instance=ExtResource("4_p03mp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, -1.5)
@@ -105,11 +102,20 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, -4.5)
 [node name="VendingMachine2" parent="VendingMachineManager" instance=ExtResource("7_xj2ye")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, -4.5)
 
-[node name="CookingStationContainer" type="Node3D" parent="."]
+[node name="ProgressiveStationContainer" type="Node3D" parent="."]
 unique_name_in_owner = true
 
-[node name="CookingStation" parent="CookingStationContainer" instance=ExtResource("8_cirma")]
+[node name="FruitPress" parent="ProgressiveStationContainer" instance=ExtResource("8_cirma")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0, -1.5)
+
+[node name="Stovetop" parent="ProgressiveStationContainer" instance=ExtResource("14_5r1od")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.5, 0, 0.5)
+
+[node name="StoveMesh" parent="ProgressiveStationContainer/Stovetop" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.710945, 0)
+
+[node name="Teapot" parent="ProgressiveStationContainer/Stovetop/Inventory" index="0" instance=ExtResource("15_62fmp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.630075, 0)
 
 [node name="CameraGimbal" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 0, 0, 0)
@@ -140,6 +146,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, 1)
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CustomerManager/DespawnArea" index="0"]
 shape = SubResource("BoxShape3D_x0b3a")
 
-[editable path="Player3D"]
-[editable path="BaseStation"]
+[node name="Sink" parent="." instance=ExtResource("13_4onqj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.5, 0, -0.5)
+
+[editable path="ProgressiveStationContainer/Stovetop"]
 [editable path="CustomerManager"]

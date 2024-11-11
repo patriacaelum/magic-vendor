@@ -3,6 +3,7 @@ extends Node3D
 
 
 enum FORCE {
+	FILL,
 	HEAT,
 	GRIND,
 	PRESSURE,

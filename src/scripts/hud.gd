@@ -17,13 +17,13 @@ class CustomerOrder:
 @onready var _timer_label := %TimerLabel
 @onready var _level_label := %LevelLabel
 @onready var _vending_machine_label := %VendingMachineLabel
-@onready var _cooking_station_label := %CookingStationLabel
+@onready var _progress_label := %ProgressLabel
 
 
-var _cooking_stations: Dictionary = {}
 var _customer_orders: Dictionary = {}
 var _customer_order_label := preload("res://scenes/hud/customer_order_label.tscn")
 var _customers_served: int = 0
+var _progressive_stations: Dictionary = {}
 var _vending_machines: Dictionary = {}
 
 
@@ -44,8 +44,26 @@ func _physics_process(delta: float) -> void:
 	for vending_machine: VendingMachine in self._vending_machines.values():
 		self.__update_vending_machine_label(vending_machine)
 
-	for cooking_station: CookingStation in self._cooking_stations.values():
-		self.__update_cooking_station_label(cooking_station)
+	for station: ProgressiveStation in self._progressive_stations.values():
+		self.__update_progress_label(station)
+
+
+func __update_progress_label(station: ProgressiveStation) -> void:
+	self._progress_label.value = station.get_progress() * self._progress_label.max_value
+	self._progress_label.position = self.__viewport_position(station)
+
+
+func __update_vending_machine_label(vending_machine: VendingMachine) -> void:
+	self._vending_machine_label.text = "[center]%s[/center]" % vending_machine.get_item_count()
+	self._vending_machine_label.position = self.__viewport_position(vending_machine)
+
+
+func __viewport_position(object: Node3D) -> Vector2:
+	return self._camera_3d.unproject_position(object.global_position)
+
+
+func __update_customer_order(customer_order: CustomerOrder) -> void:
+	customer_order.label.position = self.__viewport_position(customer_order.customer)
 
 
 func _on_customer_manager_customer_spawned(customer: Customer3D) -> void:
@@ -68,15 +86,15 @@ func _on_customer_manager_customer_order_fulfilled(customer_id: int) -> void:
 	self._customers_served_label.text = "[center]x%d[/center]" % self._customers_served
 
 
-func _on_cooking_station_started(cooking_station: CookingStation) -> void:
-	self._cooking_stations[cooking_station.get_instance_id()] = cooking_station
-	self.__update_cooking_station_label(cooking_station)
-	self._cooking_station_label.visible = true
+func _on_progressive_station_started(station: ProgressiveStation) -> void:
+	self._progressive_stations[station.get_instance_id()] = station
+	self.__update_progress_label(station)
+	self._progress_label.visible = true
 
 
-func _on_cooking_station_finished(cooking_station_id: int) -> void:
-	self._cooking_stations.erase(cooking_station_id)
-	self._cooking_station_label.visible = false
+func _on_progressive_station_finished(station_id: int) -> void:
+	self._progressive_stations.erase(station_id)
+	self._progress_label.visible = false
 
 
 func _on_vending_machine_highlighted(vending_machine: VendingMachine) -> void:
@@ -88,21 +106,3 @@ func _on_vending_machine_highlighted(vending_machine: VendingMachine) -> void:
 func _on_vending_machine_unhighlighted(vending_machine_id) -> void:
 	self._vending_machines.erase(vending_machine_id)
 	self._vending_machine_label.visible = false
-
-
-func __update_customer_order(customer_order: CustomerOrder) -> void:
-	customer_order.label.position = self.__viewport_position(customer_order.customer)
-
-
-func __update_cooking_station_label(cooking_station: CookingStation) -> void:
-	self._cooking_station_label.value = cooking_station.progress * self._cooking_station_label.max_value
-	self._cooking_station_label.position = self.__viewport_position(cooking_station)
-
-
-func __update_vending_machine_label(vending_machine: VendingMachine) -> void:
-	self._vending_machine_label.text = "[center]%s[/center]" % vending_machine.get_item_count()
-	self._vending_machine_label.position = self.__viewport_position(vending_machine)
-
-
-func __viewport_position(object: Node3D) -> Vector2:
-	return self._camera_3d.unproject_position(object.global_position)

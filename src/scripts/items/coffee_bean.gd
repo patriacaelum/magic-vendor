@@ -8,21 +8,21 @@ extends BaseItem
 
 
 func apply(force: FORCE) -> void:
-    if self._ingredient_mesh.visible and force == FORCE.GRIND:
-        self._ingredient_mesh.visible = false
-        self._powder_mesh.visible = true
+	if self._ingredient_mesh.visible and force == FORCE.GRIND:
+		self._ingredient_mesh.visible = false
+		self._powder_mesh.visible = true
 
 
 func combine(item: BaseItem) -> BaseItem:
-    if item is DrinkContainer or item is HotWater:
-        item.queue_free()
-        self.queue_free()
+	if item is DrinkContainer or item is HotWater:
+		item.queue_free()
+		self.queue_free()
 
-        var drink: BlackCoffee = self._black_coffee.instantiate()
+		var drink: BlackCoffee = self._black_coffee.instantiate()
 
-        if item is DrinkContainer:
-            drink.set_powder_mesh()
+		if item is DrinkContainer:
+			drink.set_powder_mesh()
 
-        return drink
+		return drink
 
-    return null
+	return null
