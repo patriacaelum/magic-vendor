@@ -9,6 +9,7 @@ signal order_fulfilled(customer: Customer3D)
 @onready var _navigation_agent_3d := %NavigationAgent3D
 
 
+var target_lookat: Vector3 = Vector3.ZERO
 var target_position: Vector3:
 	get:
 		return self._navigation_agent_3d.target_position
@@ -29,9 +30,10 @@ func _physics_process(delta: float) -> void:
 	if self._navigation_agent_3d.is_navigation_finished():
 		self.__fulfill_order()
 	else:
-		var direction = self.global_position.direction_to(
-			self._navigation_agent_3d.get_next_path_position(),
-		)
+		var next_position: Vector3 = self._navigation_agent_3d.get_next_path_position()
+		var direction = self.global_position.direction_to(next_position)
+
+		self.look_at(next_position)
 		self._navigation_agent_3d.set_velocity(direction * self._speed * delta)
 
 
@@ -57,6 +59,7 @@ func __fulfill_order() -> void:
 
 func _on_navigation_agent_3d_navigation_finished() -> void:
 	self._navigation_agent_3d.avoidance_priority = 0.75
+	self.look_at(self.target_lookat)
 
 
 func _on_navigation_agent_3d_path_changed() -> void:

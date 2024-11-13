@@ -10,9 +10,8 @@ height = 1.5
 radius = 0.4
 height = 1.5
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_xuspd"]
-height = 1.5
-radius = 1.0
+[sub_resource type="BoxShape3D" id="BoxShape3D_h7x2e"]
+size = Vector3(0.5, 1, 2)
 
 [node name="Customer3D" type="CharacterBody3D"]
 script = ExtResource("1_wx3rc")
@@ -38,4 +37,5 @@ unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.708241, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
-shape = SubResource("CylinderShape3D_xuspd")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5)
+shape = SubResource("BoxShape3D_h7x2e")

@@ -38,7 +38,7 @@ func __spawn_customer() -> void:
 	self._queues.get_or_add(target_id, []).append(customer_id)
 
 	customer.position = self._spawn_point.position
-	print(target.global_position, target.queue_position)
+	customer.target_lookat = target.global_position
 	customer.target_position = target.global_position + (target.queue_position * len(self._queues[target_id]))
 	customer.order_fulfilled.connect(self._on_customer_order_fulfilled)
 
@@ -66,7 +66,7 @@ func _on_customer_order_fulfilled(customer: Customer3D) -> void:
 	customer.target_position = self._despawn_area.global_position
 
 	for customer_array: Array in self._queues.values():
-		if customer_array[0] == customer.get_instance_id():
+		if customer_array and customer_array[0] == customer.get_instance_id():
 			customer_array.pop_front()
 			break
 
