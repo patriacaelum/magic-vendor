@@ -24,9 +24,10 @@ func get_item() -> BaseItem:
 
 func operate(delta: float) -> void:
 	if self.has_items() and not self._finished:
-		self.progress += delta * self.progress_rate
+		self._progress += delta * self.progress_rate
 
-		if self.progress >= self.PROGRESS_MAX:
+		if self._progress >= self.PROGRESS_MAX:
 			self._inventory.get_child(0).apply(BaseItem.FORCE.PRESSURE)
 			self._finished = true
+			self._progress = 0
 			self.finished.emit(self.get_instance_id())

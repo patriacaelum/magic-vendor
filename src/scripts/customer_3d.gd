@@ -9,28 +9,32 @@ signal order_fulfilled(customer: Customer3D)
 @onready var _navigation_agent_3d := %NavigationAgent3D
 
 
-var _order: Array[String] = ["AppleJuice"]
-
-
+var target_lookat: Vector3 = Vector3.ZERO
 var target_position: Vector3:
 	get:
-		return self._naviation_agent_3d.target_position
+		return self._navigation_agent_3d.target_position
 	set(value):
 		self._navigation_agent_3d.target_position = value
 
 
+var _order: Array[String] = ["AppleJuice"]
 var _speed: float = 100.0
 
 
-func _physics_process(delta: float) -> void:
-	if self._navigation_agent_3d.is_target_reached():
-		self.__fulfill_order()
+func _ready() -> void:
+	self._navigation_agent_3d.velocity_computed.connect(self._on_navigation_agent_3d_velocity_computed)
+	self._navigation_agent_3d.navigation_finished.connect(self._on_navigation_agent_3d_navigation_finished)
 
-	var direction = self.global_position.direction_to(
-		self._navigation_agent_3d.get_next_path_position(),
-	)
-	self.velocity = direction * self._speed * delta
-	self.move_and_slide()
+
+func _physics_process(delta: float) -> void:
+	if self._navigation_agent_3d.is_navigation_finished():
+		self.__fulfill_order()
+	else:
+		var next_position: Vector3 = self._navigation_agent_3d.get_next_path_position()
+		var direction = self.global_position.direction_to(next_position)
+
+		self.look_at(next_position)
+		self._navigation_agent_3d.set_velocity(direction * self._speed * delta)
 
 
 func __fulfill_order() -> void:
@@ -48,4 +52,20 @@ func __fulfill_order() -> void:
 			item.reparent(self)
 
 		self.order_fulfilled.emit(self)
+		self._navigation_agent_3d.avoidance_priority = 0.8
+
 		break
+
+
+func _on_navigation_agent_3d_navigation_finished() -> void:
+	self._navigation_agent_3d.avoidance_priority = 0.75
+	self.look_at(self.target_lookat)
+
+
+func _on_navigation_agent_3d_path_changed() -> void:
+	self._navigation_agent_3d.avoidance_priority = 0.7
+
+
+func _on_navigation_agent_3d_velocity_computed(safe_velocity: Vector3) -> void:
+	self.velocity = safe_velocity
+	self.move_and_slide()

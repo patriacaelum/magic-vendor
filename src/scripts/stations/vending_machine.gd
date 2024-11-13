@@ -6,12 +6,12 @@ signal highlighted(vending_machine: VendingMachine)
 signal unhighlighted(vending_machine_id: int)
 
 
-@onready var _customer_queue_point := %CustomerQueuePoint
+@onready var _customer_queue_marker := %CustomerQueueMarker
 
 
 var queue_position: Vector3:
 	get:
-		return self._customer_queue_point.global_position
+		return self._customer_queue_marker.position
 
 
 var _inventory_tracker: Dictionary = {}

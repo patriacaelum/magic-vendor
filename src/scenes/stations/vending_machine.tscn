@@ -299,6 +299,6 @@ shape = SubResource("BoxShape3D_gbkrs")
 [node name="Inventory" type="Node3D" parent="."]
 unique_name_in_owner = true
 
-[node name="CustomerQueuePoint" type="Node3D" parent="."]
+[node name="CustomerQueueMarker" type="Marker3D" parent="."]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
