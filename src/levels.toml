@@ -1,0 +1,8 @@
+[levels.1]
+customers = 3
+
+[levels.2]
+customers = 5
+
+[levels.3]
+customers = 8

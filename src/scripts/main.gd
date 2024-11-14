@@ -15,6 +15,7 @@ enum PHASE {
 @onready var _vending_machines := %VendingMachineManager
 
 
+var _levels: Dictionary = {}
 var _phase: PHASE = PHASE.PREPARATION
 var _phase_change: float = 0
 
@@ -36,6 +37,8 @@ func _ready() -> void:
 		station.started.connect(self._hud._on_progressive_station_started)
 		station.finished.connect(self._hud._on_progressive_station_finished)
 
+	self.__load_config()
+
 
 func _physics_process(delta: float) -> void:
 	if Input.is_action_pressed("operate") and self._phase == PHASE.PREPARATION:
@@ -43,6 +46,21 @@ func _physics_process(delta: float) -> void:
 
 		if self._phase_change >= 1:
 			self.__set_phase(PHASE.SERVING)
+
+
+func __load_config() -> void:
+	var config := ConfigFile.new()
+	var error := config.load("res://levels.toml")
+
+	# If the file didn't load, ignore it
+	if error != OK:
+		return
+
+	for key in config.get_sections():
+		var level = key.split(".")[1]
+		var customers = config.get_value(key, "customers")
+
+		self._levels[level] = {"customers": customers}
 
 
 func __set_phase(phase: PHASE) -> void:
