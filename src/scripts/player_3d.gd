@@ -18,21 +18,14 @@ extends CharacterBody3D
 const GRAVITY: Vector3 = 40.0 * Vector3.DOWN
 
 
+var _call_interact: Callable = self.__interact_with_station
 var _current_station: BaseStation = null
 var _world_plane := Plane(Vector3.UP)
 
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("interact"):
-		if not self._current_station:
-			return
-
-		if self.__has_items():
-			var item: BaseItem = self._current_station.add_item(self._inventory.get_child(0))
-			self.__add_item(item)
-		elif self._current_station.has_items():
-			var item: BaseItem = self._current_station.get_item()
-			self.__add_item(item)
+		self._call_interact.call()
 
 
 func _physics_process(delta: float) -> void:
@@ -42,6 +35,14 @@ func _physics_process(delta: float) -> void:
 	self.__move(delta)
 	self.__face_mouse()
 	self.__check_front()
+
+
+func remap_control(phase: Main.PHASE) -> void:
+	match phase:
+		Main.PHASE.PREPARATION:
+			self._call_interact = self.__move_station
+		Main.PHASE.SERVING:
+			self._call_interact = self.__interact_with_station
 
 
 func __add_item(item: BaseItem) -> void:
@@ -98,6 +99,18 @@ func __has_items() -> bool:
 	return self._inventory.get_child_count() > 0
 
 
+func __interact_with_station() -> void:
+	if not self._current_station:
+		return
+
+	if self.__has_items():
+		var item: BaseItem = self._current_station.add_item(self._inventory.get_child(0))
+		self.__add_item(item)
+	elif self._current_station.has_items():
+		var item: BaseItem = self._current_station.get_item()
+		self.__add_item(item)
+
+
 ## Moves the player in toward the direction of input.
 func __move(delta: float) -> void:
 	var input_vector: Vector2 = Input.get_vector(
@@ -120,3 +133,10 @@ func __move(delta: float) -> void:
 
 	self.velocity += (steering_vector * steering_amount) + (self.GRAVITY * delta)
 	move_and_slide()
+
+
+func __move_station() -> void:
+	# if current station:
+		# move station into inventory if nothing in inventory
+		# else put station down in nearest cell
+	pass

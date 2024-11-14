@@ -93,3 +93,17 @@ offset_bottom = 25.0
 theme_override_styles/background = SubResource("StyleBoxFlat_cybvb")
 theme_override_styles/fill = SubResource("StyleBoxFlat_dd2yu")
 show_percentage = false
+
+[node name="PhaseLabel" type="RichTextLabel" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 388.0
+offset_top = -81.0
+offset_right = 785.0
+offset_bottom = -21.0
+grow_vertical = 0
+bbcode_enabled = true
+text = "[center]Preparation Phase[/center]"
