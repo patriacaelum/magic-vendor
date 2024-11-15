@@ -2,6 +2,9 @@ class_name Player3D
 extends CharacterBody3D
 
 
+signal station_placed(station: BaseStation)
+
+
 @export_range(3.0, 12.0, 0.1) var max_speed := 6.0
 
 ## Controls how quickly the player accelerates and turns on the ground
@@ -18,7 +21,7 @@ extends CharacterBody3D
 const GRAVITY: Vector3 = 40.0 * Vector3.DOWN
 
 
-var _call_interact: Callable = self.__interact_with_station
+var _call_interact: Callable = self.__move_station
 var _current_station: BaseStation = null
 var _world_plane := Plane(Vector3.UP)
 
@@ -55,6 +58,13 @@ func __add_item(item: BaseItem) -> void:
 		self._inventory.add_child(item)
 
 	item.global_position = self._item_marker.global_position
+
+
+func __add_station(station: BaseStation) -> void:
+	if not station:
+		return
+
+	station.reparent(self._inventory)
 
 
 ## Checks the front raycast and if it intersects a station, sends a signal to
@@ -136,7 +146,10 @@ func __move(delta: float) -> void:
 
 
 func __move_station() -> void:
-	# if current station:
-		# move station into inventory if nothing in inventory
-		# else put station down in nearest cell
-	pass
+	if not self._current_station:
+		return
+
+	if self.__has_items():
+		self.station_placed.emit(self._current_station)
+	else:
+		self.__add_station(self._current_station)

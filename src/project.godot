@@ -88,8 +88,8 @@ operate={
 
 [layer_names]
 
-3d_physics/layer_1="Player"
-3d_physics/layer_2="Customer"
+3d_physics/layer_1="Characters"
+3d_physics/layer_2="Stations"
 
 [rendering]
 

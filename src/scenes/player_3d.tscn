@@ -11,6 +11,7 @@ albedo_color = Color(1, 0, 0, 1)
 radius = 0.528943
 
 [node name="Player3D" type="CharacterBody3D"]
+collision_mask = 3
 script = ExtResource("1_fp31h")
 
 [node name="OctoSkin3D" parent="." instance=ExtResource("2_h60nj")]
@@ -33,6 +34,7 @@ shape = SubResource("CapsuleShape3D_cnntc")
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
 target_position = Vector3(0, 0, -1)
+collision_mask = 2
 
 [node name="RemoteTransformCamera" type="RemoteTransform3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 0, 0, 0)

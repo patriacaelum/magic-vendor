@@ -15,6 +15,7 @@ enum PHASE {
 @onready var _vending_machines := %VendingMachineManager
 
 
+var _current_level: int = 0
 var _levels: Dictionary = {}
 var _phase: PHASE = PHASE.PREPARATION
 var _phase_change: float = 0
@@ -26,6 +27,8 @@ func _input(event: InputEvent) -> void:
 
 
 func _ready() -> void:
+	self._player.station_placed.connect(self._on_player_station_placed)
+
 	self._customer_manager.customer_spawned.connect(self._hud._on_customer_manager_customer_spawned)
 	self._customer_manager.customer_order_fulfilled.connect(self._hud._on_customer_manager_customer_order_fulfilled)
 
@@ -56,15 +59,30 @@ func __load_config() -> void:
 	if error != OK:
 		return
 
-	for key in config.get_sections():
-		var level = key.split(".")[1]
-		var customers = config.get_value(key, "customers")
+	for key: String in config.get_sections():
+		var level: int = int(key.split(".")[1])
+		var customers: int = config.get_value(key, "customers")
 
 		self._levels[level] = {"customers": customers}
 
 
 func __set_phase(phase: PHASE) -> void:
+	if phase == PHASE.PREPARATION:
+		self._customer_manager.stop()
+	elif phase == PHASE.SERVING:
+		self._current_level += 1
+		self._customer_manager.start(self._levels.get(self._current_level, 1))
+
 	self._hud.set_phase_label(phase)
 	self._player.remap_control(phase)
 	self._phase_change = 0
 	self._phase = phase
+
+
+func _on_player_station_placed(station: BaseStation) -> void:
+	if station is VendingMachine:
+		self._vending_machines.reparent(station)
+	elif station is ProgressiveStation:
+		self._progressive_stations.reparent(station)
+	else:
+		self.reparent(station)

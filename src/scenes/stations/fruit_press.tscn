@@ -18,7 +18,9 @@ outer_radius = 0.4
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_u6e4x"]
 
-[node name="FruitPress" type="StaticBody3D"]
+[node name="FruitPress" type="AnimatableBody3D"]
+collision_layer = 2
+collision_mask = 3
 script = ExtResource("1_sq3e5")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
