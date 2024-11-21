@@ -21,7 +21,7 @@ height = 0.05
 [sub_resource type="BoxShape3D" id="BoxShape3D_ei6cs"]
 size = Vector3(1, 0.5, 1)
 
-[node name="Stovetop" type="StaticBody3D"]
+[node name="Stovetop" type="RigidBody3D"]
 script = ExtResource("1_tbneh")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]

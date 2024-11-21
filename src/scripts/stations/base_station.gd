@@ -2,7 +2,7 @@
 ## be retrieved from it. It is highlighted when the player is able to interact
 ## with it.
 class_name BaseStation
-extends StaticBody3D
+extends RigidBody3D
 
 
 @export var highlight_thickness := 0.08

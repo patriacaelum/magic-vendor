@@ -7,6 +7,7 @@ albedo_color = Color(0.377217, 0.20112, 0.0380726, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_iqgc0"]
 material = SubResource("StandardMaterial3D_q64sm")
+size = Vector3(1, 0.5, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pfq6u"]
 albedo_color = Color(0.259294, 0.259294, 0.259294, 1)
@@ -18,11 +19,12 @@ outer_radius = 0.4
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_u6e4x"]
 
-[node name="FruitPress" type="StaticBody3D"]
+[node name="FruitPress" type="RigidBody3D"]
 script = ExtResource("1_sq3e5")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
 mesh = SubResource("BoxMesh_iqgc0")
 
 [node name="PotMesh" type="MeshInstance3D" parent="."]
@@ -30,6 +32,7 @@ transform = Transform3D(1, 0, 0, 0, 5, 0, 0, 0, 1, 0, 0.75, 0)
 mesh = SubResource("TorusMesh_1n22n")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 shape = SubResource("BoxShape3D_u6e4x")
 
 [node name="Inventory" type="Node3D" parent="."]
