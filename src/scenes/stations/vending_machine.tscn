@@ -285,6 +285,7 @@ size = Vector3(1, 2, 1)
 
 [node name="VendingMachine" type="RigidBody3D"]
 collision_layer = 3
+lock_rotation = true
 script = ExtResource("1_erxrg")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
