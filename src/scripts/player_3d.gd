@@ -51,14 +51,17 @@ func _physics_process(delta: float) -> void:
 			self.move_and_slide()
 			self.look_at(grab_point)
 
-			var input_vector: Vector2 = Input.get_vector(
+			var input_vector_2d: Vector2 = Input.get_vector(
 				"move_left",
 				"move_right",
 				"move_up",
 				"move_down",
 			)
-			var force = Vector3(input_vector.x, 0, input_vector.y)
-			self._current_station.apply_force(direction * 10)
+			var input_vector: Vector3 = Vector3(input_vector_2d.x, 0.0, input_vector_2d.y)
+
+			if abs(input_vector.dot(direction)) > 0.5:
+				var force: Vector3 = self.__nearest_cardinal(input_vector).normalized()
+				self._current_station.apply_force(force * 20)
 
 			moved = true
 
