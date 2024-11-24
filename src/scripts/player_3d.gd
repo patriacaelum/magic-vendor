@@ -13,7 +13,7 @@ extends CharacterBody3D
 @onready var _inventory := %Inventory
 @onready var _item_marker := %ItemMarker
 @onready var _front_raycast_3d := %FrontRayCast
-
+@onready var _octo_skin_3d: OctoSkin3D = %OctoSkin3D
 
 const GRAVITY: Vector3 = 40.0 * Vector3.DOWN
 
@@ -70,6 +70,12 @@ func _physics_process(delta: float) -> void:
 		self.__face_mouse()
 
 	self.__check_front()
+  
+  # Update the skin animation based on movement.
+	if is_on_floor() and not direction.is_zero_approx():
+		_octo_skin_3d.walk()
+	else:
+		_octo_skin_3d.idle()
 
 
 func __add_item(item: BaseItem) -> void:
