@@ -43,6 +43,7 @@ shadow_mesh = SubResource("ArrayMesh_48ehx")
 [sub_resource type="BoxShape3D" id="BoxShape3D_u6e4x"]
 
 [node name="BaseStation" type="RigidBody3D"]
+collision_mask = 2
 lock_rotation = true
 script = ExtResource("1_famf8")
 

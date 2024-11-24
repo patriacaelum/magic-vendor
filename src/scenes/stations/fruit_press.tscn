@@ -20,6 +20,7 @@ outer_radius = 0.4
 [sub_resource type="BoxShape3D" id="BoxShape3D_u6e4x"]
 
 [node name="FruitPress" type="RigidBody3D"]
+collision_mask = 2
 lock_rotation = true
 script = ExtResource("1_sq3e5")
 

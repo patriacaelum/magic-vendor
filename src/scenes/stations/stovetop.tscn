@@ -22,6 +22,7 @@ height = 0.05
 size = Vector3(1, 0.5, 1)
 
 [node name="Stovetop" type="RigidBody3D"]
+collision_mask = 2
 lock_rotation = true
 script = ExtResource("1_tbneh")
 

@@ -22,6 +22,7 @@ height = 0.4
 size = Vector3(1, 0.7, 1)
 
 [node name="Grinder" type="RigidBody3D"]
+collision_mask = 2
 lock_rotation = true
 script = ExtResource("1_om7de")
 
