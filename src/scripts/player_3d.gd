@@ -36,12 +36,46 @@ func _input(event: InputEvent) -> void:
 
 
 func _physics_process(delta: float) -> void:
-	if self._current_station and Input.is_action_pressed("operate"):
-		self._current_station.operate(delta)
+	var moved: bool = false
 
-	self.__move(delta)
-	self.__face_mouse()
+	if self._current_station:
+		if Input.is_action_pressed("operate"):
+			self._current_station.operate(delta)
+		elif Input.is_action_pressed("grab"):
+			# When grabbing a station, move toward the station and face it
+			# The motion is directed to the station instead
+			var grab_point: Vector3 = self.__nearest_cardinal(self.global_position, self._current_station.global_position)
+			var direction: Vector3 = self.global_position.direction_to(grab_point)
+
+			self.velocity = direction * self.max_speed
+			self.move_and_slide()
+			self.look_at(grab_point)
+
+			var input_vector_2d: Vector2 = Input.get_vector(
+				"move_left",
+				"move_right",
+				"move_up",
+				"move_down",
+			)
+			var input_vector: Vector3 = Vector3(input_vector_2d.x, 0.0, input_vector_2d.y)
+
+			if abs(input_vector.dot(direction)) > 0.5:
+				var force: Vector3 = self.__nearest_cardinal(input_vector).normalized()
+				self._current_station.apply_force(force * 20)
+
+			moved = true
+
+	if not moved:
+		self.__move(delta)
+		self.__face_mouse()
+
 	self.__check_front()
+  
+  # Update the skin animation based on movement.
+	if is_on_floor() and not direction.is_zero_approx():
+		_octo_skin_3d.walk()
+	else:
+		_octo_skin_3d.idle()
 
 
 func __add_item(item: BaseItem) -> void:
@@ -120,9 +154,19 @@ func __move(delta: float) -> void:
 
 	self.velocity += (steering_vector * steering_amount) + (self.GRAVITY * delta)
 	move_and_slide()
-	
-	# Update the skin animation based on movement.
-	if is_on_floor() and not direction.is_zero_approx():
-		_octo_skin_3d.walk()
-	else:
-		_octo_skin_3d.idle()
+
+
+func __nearest_cardinal(from: Vector3 = Vector3.ZERO, centre: Vector3 = Vector3.ZERO) -> Vector3:
+	var cardinals: Array[Vector3] = [Vector3.FORWARD, Vector3.BACK, Vector3.RIGHT, Vector3.LEFT]
+	var nearest_cardinal: Vector3 = centre
+	var nearest_distance: float = INF
+
+	for cardinal: Vector3 in cardinals:
+		var cardinal_position: Vector3 = centre + 0.5 * cardinal
+		var distance: float = from.distance_squared_to(cardinal_position)
+		
+		if distance < nearest_distance:
+			nearest_distance = distance
+			nearest_cardinal = cardinal_position
+
+	return nearest_cardinal

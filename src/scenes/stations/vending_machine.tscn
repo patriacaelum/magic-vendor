@@ -283,8 +283,9 @@ shadow_mesh = SubResource("ArrayMesh_ovras")
 [sub_resource type="BoxShape3D" id="BoxShape3D_gbkrs"]
 size = Vector3(1, 2, 1)
 
-[node name="VendingMachine" type="StaticBody3D"]
-collision_layer = 3
+[node name="VendingMachine" type="RigidBody3D"]
+collision_mask = 2
+lock_rotation = true
 script = ExtResource("1_erxrg")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]

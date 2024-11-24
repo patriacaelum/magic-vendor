@@ -10,7 +10,9 @@ material = SubResource("StandardMaterial3D_b3hpp")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ef63c"]
 
-[node name="SupplyCrate" type="StaticBody3D"]
+[node name="SupplyCrate" type="RigidBody3D"]
+collision_mask = 2
+lock_rotation = true
 script = ExtResource("1_dyekc")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
