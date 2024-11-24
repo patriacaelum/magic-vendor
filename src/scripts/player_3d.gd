@@ -70,12 +70,6 @@ func _physics_process(delta: float) -> void:
 		self.__face_mouse()
 
 	self.__check_front()
-  
-  # Update the skin animation based on movement.
-	if is_on_floor() and not direction.is_zero_approx():
-		_octo_skin_3d.walk()
-	else:
-		_octo_skin_3d.idle()
 
 
 func __add_item(item: BaseItem) -> void:
@@ -154,7 +148,12 @@ func __move(delta: float) -> void:
 
 	self.velocity += (steering_vector * steering_amount) + (self.GRAVITY * delta)
 	move_and_slide()
-
+  
+	# Update the skin animation based on movement.
+	if is_on_floor() and not direction.is_zero_approx():
+		_octo_skin_3d.walk()
+	else:
+		_octo_skin_3d.idle()
 
 func __nearest_cardinal(from: Vector3 = Vector3.ZERO, centre: Vector3 = Vector3.ZERO) -> Vector3:
 	var cardinals: Array[Vector3] = [Vector3.FORWARD, Vector3.BACK, Vector3.RIGHT, Vector3.LEFT]
