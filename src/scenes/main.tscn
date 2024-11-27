@@ -89,6 +89,8 @@ visible = false
 mesh = SubResource("BoxMesh_wexql")
 
 [node name="Player3D" parent="." instance=ExtResource("2_ol1ds")]
+unique_name_in_owner = true
+steering_factor = 10.0
 max_speed = 6.5
 
 [node name="RemoteTransformCamera" parent="Player3D" index="5"]
@@ -157,9 +159,6 @@ shape = SubResource("BoxShape3D_x0b3a")
 
 [node name="Sink" parent="." instance=ExtResource("13_4onqj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.5, 0, -0.5)
-
-[node name="Marker3D" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.5, -6)
 
 [editable path="Player3D"]
 [editable path="ProgressiveStationContainer/Stovetop"]

@@ -14,6 +14,8 @@ signal customer_order_fulfilled(customer_id: int)
 
 var _customer_3d := preload("res://scenes/customer_3d.tscn")
 var _customers: Dictionary = {}
+var _n_customers: int = 0
+var _n_customers_max: int = 0
 var _queues: Dictionary = {}
 
 
@@ -25,6 +27,16 @@ func _ready() -> void:
 
 	self._despawn_area.body_entered.connect(self._on_despawn_area_body_entered)
 	self._timer.timeout.connect(self._on_timer_timeout)
+
+
+func start(n_customers_max: int) -> void:
+	self._n_customers = 0
+	self._n_customers_max = n_customers_max
+	self._timer.start()
+
+
+func stop() -> void:
+	self._timer.stop()
 
 
 func __spawn_customer() -> void:
@@ -77,3 +89,7 @@ func _on_customer_order_fulfilled(customer: Customer3D) -> void:
 
 func _on_timer_timeout() -> void:
 	self.__spawn_customer()
+	self._n_customers += 1
+
+	if self._n_customers >= self._n_customers_max:
+		self.stop()

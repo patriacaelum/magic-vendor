@@ -2,6 +2,9 @@ class_name Player3D
 extends CharacterBody3D
 
 
+signal station_placed(station: BaseStation)
+
+
 @export_range(3.0, 12.0, 0.1) var max_speed := 6.0
 
 ## Controls how quickly the player accelerates and turns on the ground
@@ -18,21 +21,14 @@ extends CharacterBody3D
 const GRAVITY: Vector3 = 40.0 * Vector3.DOWN
 
 
+var _call_interact: Callable = self.__move_station
 var _current_station: BaseStation = null
 var _world_plane := Plane(Vector3.UP)
 
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("interact"):
-		if not self._current_station:
-			return
-
-		if self.__has_items():
-			var item: BaseItem = self._current_station.add_item(self._inventory.get_child(0))
-			self.__add_item(item)
-		elif self._current_station.has_items():
-			var item: BaseItem = self._current_station.get_item()
-			self.__add_item(item)
+		self._call_interact.call()
 
 
 func _physics_process(delta: float) -> void:
@@ -72,6 +68,14 @@ func _physics_process(delta: float) -> void:
 	self.__check_front()
 
 
+func remap_control(phase: Main.PHASE) -> void:
+	match phase:
+		Main.PHASE.PREPARATION:
+			self._call_interact = self.__move_station
+		Main.PHASE.SERVING:
+			self._call_interact = self.__interact_with_station
+
+
 func __add_item(item: BaseItem) -> void:
 	if not item:
 		return
@@ -82,6 +86,13 @@ func __add_item(item: BaseItem) -> void:
 		self._inventory.add_child(item)
 
 	item.global_position = self._item_marker.global_position
+
+
+func __add_station(station: BaseStation) -> void:
+	if not station:
+		return
+
+	station.reparent(self._inventory)
 
 
 ## Checks the front raycast and if it intersects a station, sends a signal to
@@ -124,6 +135,18 @@ func __face_mouse() -> void:
 
 func __has_items() -> bool:
 	return self._inventory.get_child_count() > 0
+
+
+func __interact_with_station() -> void:
+	if not self._current_station:
+		return
+
+	if self.__has_items():
+		var item: BaseItem = self._current_station.add_item(self._inventory.get_child(0))
+		self.__add_item(item)
+	elif self._current_station.has_items():
+		var item: BaseItem = self._current_station.get_item()
+		self.__add_item(item)
 
 
 ## Moves the player in toward the direction of input.
