@@ -16,6 +16,7 @@ class CustomerOrder:
 @onready var _customers_served_label := %CustomersServedLabel
 @onready var _timer_label := %TimerLabel
 @onready var _level_label := %LevelLabel
+@onready var _next_level_customers := %NextCustomersLabel
 @onready var _phase_label := %PhaseLabel
 @onready var _vending_machine_label := %VendingMachineLabel
 @onready var _progress_label := %ProgressLabel
@@ -55,6 +56,11 @@ func set_phase_label(phase: Main.PHASE) -> void:
 			self._phase_label.text = "[center]Preparation Phase[/center]"
 		Main.PHASE.SERVING:
 			self._phase_label.text = "[center]Serving Phase[/center]"
+
+
+func set_next_level(n_customers: int) -> void:
+	self._next_level_customers.text = "[center]Next: x%s[/center]" % n_customers
+
 
 
 func __update_progress_label(station: ProgressiveStation) -> void:

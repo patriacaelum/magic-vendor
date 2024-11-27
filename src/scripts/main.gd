@@ -42,6 +42,9 @@ func _ready() -> void:
 
 	self.__load_config()
 
+	var next_level: Dictionary = self._levels.get(self._current_level + 1, {})
+	self._hud.set_next_level(next_level.get("customers", 1))
+
 
 func _physics_process(delta: float) -> void:
 	if Input.is_action_pressed("operate") and self._phase == PHASE.PREPARATION:
@@ -71,7 +74,8 @@ func __set_phase(phase: PHASE) -> void:
 		self._customer_manager.stop()
 	elif phase == PHASE.SERVING:
 		self._current_level += 1
-		self._customer_manager.start(self._levels.get(self._current_level, 1))
+		var n_customers: int = self._levels.get(self._current_level, {}).get("customers", 1)
+		self._customer_manager.start(n_customers)
 
 	self._hud.set_phase_label(phase)
 	self._player.remap_control(phase)

@@ -91,5 +91,5 @@ func _on_timer_timeout() -> void:
 	self.__spawn_customer()
 	self._n_customers += 1
 
-	if self._n_customers >= self.n_customers_max:
+	if self._n_customers >= self._n_customers_max:
 		self.stop()
