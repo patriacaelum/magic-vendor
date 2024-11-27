@@ -1,6 +1,6 @@
 [gd_scene load_steps=24 format=3 uid="uid://brhdx3ugah5n"]
 
-[ext_resource type="Texture2D" uid="uid://phwpfeuyqpq" path="res://assets/textures/TXT_Default.png" id="1_fcm55"]
+[ext_resource type="Texture2D" uid="uid://col7a2okpessy" path="res://assets/textures/TXT_Default.png" id="1_fcm55"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_hpo2v"]
 [ext_resource type="PackedScene" uid="uid://tonlbavrexx2" path="res://scenes/player_3d.tscn" id="2_ol1ds"]
 [ext_resource type="PackedScene" uid="uid://dggedqavjjn8v" path="res://scenes/hud.tscn" id="3_7tfpm"]
@@ -63,6 +63,7 @@ environment = SubResource("Environment_o0n4r")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5, 0)
 material_override = SubResource("StandardMaterial3D_i2a17")
 use_collision = true
+collision_layer = 3
 size = Vector3(20, 10, 20)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
@@ -90,6 +91,7 @@ mesh = SubResource("BoxMesh_wexql")
 [node name="Player3D" parent="." instance=ExtResource("2_ol1ds")]
 unique_name_in_owner = true
 steering_factor = 10.0
+max_speed = 6.5
 
 [node name="RemoteTransformCamera" parent="Player3D" index="5"]
 remote_path = NodePath("../../CameraGimbal")

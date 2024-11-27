@@ -1,5 +1,6 @@
 build/
-src/addons/
 src/.godot/
+src/addons/
+src/godot-jolt/
 
 *.import
