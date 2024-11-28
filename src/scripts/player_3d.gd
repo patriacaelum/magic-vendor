@@ -21,14 +21,13 @@ signal station_placed(station: BaseStation)
 const GRAVITY: Vector3 = 40.0 * Vector3.DOWN
 
 
-var _call_interact: Callable = self.__move_station
 var _current_station: BaseStation = null
 var _world_plane := Plane(Vector3.UP)
 
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("interact"):
-		self._call_interact.call()
+		self.__interact_with_station()
 
 
 func _physics_process(delta: float) -> void:
@@ -171,7 +170,7 @@ func __move(delta: float) -> void:
 
 	self.velocity += (steering_vector * steering_amount) + (self.GRAVITY * delta)
 	move_and_slide()
-  
+
 	# Update the skin animation based on movement.
 	if is_on_floor() and not direction.is_zero_approx():
 		_octo_skin_3d.walk()
@@ -186,7 +185,7 @@ func __nearest_cardinal(from: Vector3 = Vector3.ZERO, centre: Vector3 = Vector3.
 	for cardinal: Vector3 in cardinals:
 		var cardinal_position: Vector3 = centre + 0.5 * cardinal
 		var distance: float = from.distance_squared_to(cardinal_position)
-		
+
 		if distance < nearest_distance:
 			nearest_distance = distance
 			nearest_cardinal = cardinal_position

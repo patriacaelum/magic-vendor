@@ -35,7 +35,7 @@ func walk():
 ## Sets model to a dash state
 func dash():
 	_main_state_machine.travel("Dash")
-	
+
 func _set_blink(state: bool):
 	if _blink == state:
 		return
