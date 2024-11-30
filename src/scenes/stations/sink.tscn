@@ -11,13 +11,13 @@ size = Vector3(1, 0.7, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_b338u"]
 
-[node name="Sink" type="RigidBody3D"]
+[node name="Sink" type="RigidBody3D" node_paths=PackedStringArray("_highlight_mesh")]
 collision_mask = 2
 lock_rotation = true
 script = ExtResource("1_0syy3")
+_highlight_mesh = NodePath("MeshInstance3D")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, 0)
 mesh = SubResource("BoxMesh_pt4n3")
 

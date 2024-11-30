@@ -113,16 +113,16 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, -4.5)
 unique_name_in_owner = true
 
 [node name="FruitPress" parent="ProgressiveStationContainer" instance=ExtResource("8_cirma")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0, -1.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.71607, 0, -1.5)
 
 [node name="Stovetop" parent="ProgressiveStationContainer" instance=ExtResource("14_5r1od")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.5, 0, 0.5)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -5.5, 0, 0.245542)
 
 [node name="Teapot" parent="ProgressiveStationContainer/Stovetop/Inventory" index="0" instance=ExtResource("15_62fmp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.630075, 0)
 
 [node name="Grinder" parent="ProgressiveStationContainer" instance=ExtResource("11_2ffog")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.5, 0, 1.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.5, 0, 2.5)
 
 [node name="CameraGimbal" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 0, 0, 0)
@@ -133,15 +133,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 15)
 fov = 50.0
 
 [node name="IngredientSupplyCrate" parent="." instance=ExtResource("9_uiuxw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0.5, 1.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, 1.5)
 supply_item = ExtResource("10_w5e2o")
 
 [node name="DrinkContainerSupplyCrate" parent="." instance=ExtResource("9_uiuxw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0.5, -1.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0, -1.5)
 supply_item = ExtResource("11_kdxbm")
 
 [node name="CoffeeBeanSupplyCrate" parent="." instance=ExtResource("9_uiuxw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0.5, 1.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0, 1.5)
 supply_item = ExtResource("14_6bvdf")
 
 [node name="CustomerManager" parent="." instance=ExtResource("9_lkw0p")]
@@ -158,8 +158,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, 1)
 shape = SubResource("BoxShape3D_x0b3a")
 
 [node name="Sink" parent="." instance=ExtResource("13_4onqj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.5, 0, -0.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.5, 0, -1.98503)
 
 [editable path="Player3D"]
 [editable path="ProgressiveStationContainer/Stovetop"]
+[editable path="ProgressiveStationContainer/Stovetop/SM_Forge"]
 [editable path="CustomerManager"]

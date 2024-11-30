@@ -1,47 +1,28 @@
-[gd_scene load_steps=7 format=3 uid="uid://xn2qwmvjrimr"]
+[gd_scene load_steps=4 format=3 uid="uid://xn2qwmvjrimr"]
 
 [ext_resource type="Script" path="res://scripts/stations/stovetop.gd" id="1_tbneh"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_86ffn"]
-albedo_color = Color(0.316576, 0.128466, 4.81308e-08, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_24pc6"]
-material = SubResource("StandardMaterial3D_86ffn")
-size = Vector3(1, 0.7, 1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_40t3r"]
-albedo_color = Color(0.122252, 0.122252, 0.122252, 1)
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_lglmq"]
-material = SubResource("StandardMaterial3D_40t3r")
-top_radius = 0.3
-bottom_radius = 0.3
-height = 0.05
+[ext_resource type="PackedScene" uid="uid://dkouwuokketa" path="res://assets/mesh/props/interactables/sm_forge.tscn" id="2_253fe"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ei6cs"]
-size = Vector3(1, 0.5, 1)
+size = Vector3(1.5, 3, 1.5)
 
-[node name="Stovetop" type="RigidBody3D"]
+[node name="Stovetop" type="RigidBody3D" node_paths=PackedStringArray("_highlight_mesh")]
 collision_mask = 2
 lock_rotation = true
 script = ExtResource("1_tbneh")
+_highlight_mesh = NodePath("SM_Forge/MeshInstance3D")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, 0)
-mesh = SubResource("BoxMesh_24pc6")
-
-[node name="StoveMesh" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.710945, 0)
-mesh = SubResource("CylinderMesh_lglmq")
+[node name="SM_Forge" parent="." instance=ExtResource("2_253fe")]
 
 [node name="Inventory" type="Node3D" parent="."]
 unique_name_in_owner = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 shape = SubResource("BoxShape3D_ei6cs")
 
 [node name="Timer" type="Timer" parent="."]
 unique_name_in_owner = true
 one_shot = true
+
+[editable path="SM_Forge"]

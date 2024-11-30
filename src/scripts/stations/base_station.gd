@@ -6,11 +6,11 @@ extends RigidBody3D
 
 
 @export var highlight_thickness := 0.08
-
+@export var _highlight_mesh : MeshInstance3D = null
 
 @onready var _highlight_shader := preload("res://assets/shaders/simple_outline.gdshader")
 @onready var _inventory := %Inventory
-@onready var _mesh := %MeshInstance3D
+
 
 
 var _highlight_material: ShaderMaterial
@@ -18,7 +18,7 @@ var _highlight_material: ShaderMaterial
 
 func _ready() -> void:
 	assert(self._inventory != null, "Station is missing Inventory node!")
-	assert(self._mesh != null, "Station missing MeshInstance3D!")
+	assert(self._highlight_mesh != null, "Station missing MeshInstance3D!")
 	self._highlight_material = ShaderMaterial.new()
 	self._highlight_material.shader = self._highlight_shader
 
@@ -48,8 +48,8 @@ func has_items() -> bool:
 
 
 func highlight() -> void:
-	if self._mesh.get_active_material(0).next_pass == null:
-		self._mesh.get_active_material(0).next_pass = self._highlight_material
+	if self._highlight_mesh.get_active_material(0).next_pass == null:
+		self._highlight_mesh.get_active_material(0).next_pass = self._highlight_material
 
 	self.__set_outline_shader(0.0, self.highlight_thickness, 0.2)
 
@@ -68,7 +68,7 @@ func __set_outline_shader(
 	end_thickness: float,
 	duration: float,
 ) -> void:
-	var material: Material = self._mesh.get_active_material(0)
+	var material: Material = self._highlight_mesh.get_active_material(0)
 	var outline_mat: Material = material.get_next_pass()
 	var tween = get_tree().create_tween()
 

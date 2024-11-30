@@ -18,4 +18,3 @@ void fragment() {
 	// EMISSION = ALBEDO;
 	// EMISSION += emission_color.rgb * emission_intensity;
 }
-
