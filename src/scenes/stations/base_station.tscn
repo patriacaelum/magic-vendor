@@ -42,13 +42,13 @@ shadow_mesh = SubResource("ArrayMesh_48ehx")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_u6e4x"]
 
-[node name="BaseStation" type="RigidBody3D"]
+[node name="BaseStation" type="RigidBody3D" node_paths=PackedStringArray("_highlight_mesh")]
 collision_mask = 2
 lock_rotation = true
 script = ExtResource("1_famf8")
+_highlight_mesh = NodePath("MeshInstance3D")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-unique_name_in_owner = true
 mesh = SubResource("ArrayMesh_jx7xe")
 skeleton = NodePath("")
 
