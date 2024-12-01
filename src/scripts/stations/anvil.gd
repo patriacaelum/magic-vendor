@@ -1,4 +1,4 @@
-class_name FruitPress
+class_name Anvil
 extends ProgressiveStation
 
 

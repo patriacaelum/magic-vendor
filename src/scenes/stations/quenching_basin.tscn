@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://b00qjhcb3fvyv"]
 
-[ext_resource type="Script" path="res://scripts/stations/sink.gd" id="1_0syy3"]
+[ext_resource type="Script" path="res://scripts/stations/quenching_basin.gd" id="1_0syy3"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ef5h3"]
 albedo_color = Color(0.493545, 0.493546, 0.493546, 1)
@@ -11,7 +11,7 @@ size = Vector3(1, 0.7, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_b338u"]
 
-[node name="Sink" type="RigidBody3D" node_paths=PackedStringArray("_highlight_mesh")]
+[node name="QuenchingBasin" type="RigidBody3D" node_paths=PackedStringArray("_highlight_mesh")]
 collision_mask = 2
 lock_rotation = true
 script = ExtResource("1_0syy3")

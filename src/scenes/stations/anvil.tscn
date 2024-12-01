@@ -1,11 +1,11 @@
 [gd_scene load_steps=4 format=3 uid="uid://bek1i0jkpem55"]
 
-[ext_resource type="Script" path="res://scripts/stations/fruit_press.gd" id="1_sq3e5"]
+[ext_resource type="Script" path="res://scripts/stations/anvil.gd" id="1_sq3e5"]
 [ext_resource type="PackedScene" uid="uid://b07hkwukg87n1" path="res://assets/mesh/props/interactables/sm_anvil.tscn" id="2_rqxpf"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_u6e4x"]
 
-[node name="FruitPress" type="RigidBody3D" node_paths=PackedStringArray("_highlight_mesh")]
+[node name="Anvil" type="RigidBody3D" node_paths=PackedStringArray("_highlight_mesh")]
 collision_mask = 2
 lock_rotation = true
 script = ExtResource("1_sq3e5")

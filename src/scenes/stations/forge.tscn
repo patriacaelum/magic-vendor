@@ -1,12 +1,12 @@
 [gd_scene load_steps=4 format=3 uid="uid://xn2qwmvjrimr"]
 
-[ext_resource type="Script" path="res://scripts/stations/stovetop.gd" id="1_tbneh"]
+[ext_resource type="Script" path="res://scripts/stations/forge.gd" id="1_tbneh"]
 [ext_resource type="PackedScene" uid="uid://dkouwuokketa" path="res://assets/mesh/props/interactables/sm_forge.tscn" id="2_253fe"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ei6cs"]
 size = Vector3(1.5, 3, 1.5)
 
-[node name="Stovetop" type="RigidBody3D" node_paths=PackedStringArray("_highlight_mesh")]
+[node name="Forge" type="RigidBody3D" node_paths=PackedStringArray("_highlight_mesh")]
 collision_mask = 2
 lock_rotation = true
 script = ExtResource("1_tbneh")

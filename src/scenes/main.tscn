@@ -1,20 +1,20 @@
 [gd_scene load_steps=24 format=3 uid="uid://brhdx3ugah5n"]
 
-[ext_resource type="Texture2D" uid="uid://col7a2okpessy" path="res://assets/textures/TXT_Default.png" id="1_fcm55"]
+[ext_resource type="Texture2D" uid="uid://phwpfeuyqpq" path="res://assets/textures/TXT_Default.png" id="1_fcm55"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_hpo2v"]
 [ext_resource type="PackedScene" uid="uid://tonlbavrexx2" path="res://scenes/player_3d.tscn" id="2_ol1ds"]
 [ext_resource type="PackedScene" uid="uid://dggedqavjjn8v" path="res://scenes/hud.tscn" id="3_7tfpm"]
 [ext_resource type="PackedScene" uid="uid://q0wfh7oxbbq" path="res://scenes/stations/base_station.tscn" id="4_p03mp"]
 [ext_resource type="Script" path="res://scripts/vending_machine_manager.gd" id="6_85yxb"]
 [ext_resource type="PackedScene" uid="uid://ccucp7gr6qbyk" path="res://scenes/stations/vending_machine.tscn" id="7_xj2ye"]
-[ext_resource type="PackedScene" uid="uid://bek1i0jkpem55" path="res://scenes/stations/fruit_press.tscn" id="8_cirma"]
+[ext_resource type="PackedScene" uid="uid://bek1i0jkpem55" path="res://scenes/stations/anvil.tscn" id="8_cirma"]
 [ext_resource type="PackedScene" uid="uid://byaxkbkhv86y0" path="res://scenes/customer_manager.tscn" id="9_lkw0p"]
 [ext_resource type="PackedScene" uid="uid://cutjy85f8dxaa" path="res://scenes/stations/supply_crate.tscn" id="9_uiuxw"]
 [ext_resource type="PackedScene" uid="uid://dqnw7bo3hdixq" path="res://scenes/items/apple.tscn" id="10_w5e2o"]
 [ext_resource type="PackedScene" uid="uid://wd83fsagwv5m" path="res://scenes/stations/grinder.tscn" id="11_2ffog"]
 [ext_resource type="PackedScene" uid="uid://b6vbinrnxan5r" path="res://scenes/items/drink_container.tscn" id="11_kdxbm"]
-[ext_resource type="PackedScene" uid="uid://b00qjhcb3fvyv" path="res://scenes/stations/sink.tscn" id="13_4onqj"]
-[ext_resource type="PackedScene" uid="uid://xn2qwmvjrimr" path="res://scenes/stations/stovetop.tscn" id="14_5r1od"]
+[ext_resource type="PackedScene" uid="uid://b00qjhcb3fvyv" path="res://scenes/stations/quenching_basin.tscn" id="13_4onqj"]
+[ext_resource type="PackedScene" uid="uid://xn2qwmvjrimr" path="res://scenes/stations/forge.tscn" id="14_5r1od"]
 [ext_resource type="PackedScene" uid="uid://v6um5kjhm2hj" path="res://scenes/items/coffee_bean.tscn" id="14_6bvdf"]
 [ext_resource type="PackedScene" uid="uid://dyixyijq632ky" path="res://scenes/items/teapot.tscn" id="15_62fmp"]
 
@@ -90,8 +90,8 @@ mesh = SubResource("BoxMesh_wexql")
 
 [node name="Player3D" parent="." instance=ExtResource("2_ol1ds")]
 unique_name_in_owner = true
-steering_factor = 10.0
 max_speed = 6.5
+steering_factor = 10.0
 
 [node name="RemoteTransformCamera" parent="Player3D" index="5"]
 remote_path = NodePath("../../CameraGimbal")
@@ -112,13 +112,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, -4.5)
 [node name="ProgressiveStationContainer" type="Node3D" parent="."]
 unique_name_in_owner = true
 
-[node name="FruitPress" parent="ProgressiveStationContainer" instance=ExtResource("8_cirma")]
+[node name="Anvil" parent="ProgressiveStationContainer" instance=ExtResource("8_cirma")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.71607, 0, -1.5)
 
-[node name="Stovetop" parent="ProgressiveStationContainer" instance=ExtResource("14_5r1od")]
+[node name="Forge" parent="ProgressiveStationContainer" instance=ExtResource("14_5r1od")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -5.5, 0, 0.245542)
 
-[node name="Teapot" parent="ProgressiveStationContainer/Stovetop/Inventory" index="0" instance=ExtResource("15_62fmp")]
+[node name="Teapot" parent="ProgressiveStationContainer/Forge/Inventory" index="0" instance=ExtResource("15_62fmp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.630075, 0)
 
 [node name="Grinder" parent="ProgressiveStationContainer" instance=ExtResource("11_2ffog")]
@@ -157,10 +157,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, 1)
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CustomerManager/DespawnArea" index="0"]
 shape = SubResource("BoxShape3D_x0b3a")
 
-[node name="Sink" parent="." instance=ExtResource("13_4onqj")]
+[node name="QuenchingBasin" parent="." instance=ExtResource("13_4onqj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.5, 0, -1.98503)
 
 [editable path="Player3D"]
-[editable path="ProgressiveStationContainer/Stovetop"]
-[editable path="ProgressiveStationContainer/Stovetop/SM_Forge"]
+[editable path="ProgressiveStationContainer/Forge"]
+[editable path="ProgressiveStationContainer/Forge/SM_Forge"]
 [editable path="CustomerManager"]

@@ -1,4 +1,4 @@
-class_name Sink
+class_name QuenchingBasin
 extends BaseStation
 
 

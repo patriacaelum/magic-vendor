@@ -1,4 +1,4 @@
-class_name Stovetop
+class_name Forge
 extends ProgressiveStation
 
 
