@@ -46,6 +46,10 @@ func get_state() -> STATE:
     return self._state
 
 
+func get_state_string() -> String:
+    return STATE.keys()[self._state]
+
+
 func _on_timer_timeout() -> void:
     if self._state == STATE.MALLEABLE or self._state == STATE.ANNEALED:
         self._state = STATE.UNREFINED

@@ -47,6 +47,10 @@ func combine(item: BaseItem) -> BaseItem:
 	return null
 
 
+func get_classname() -> String:
+	return MATERIAL.keys()[self._material] + TYPE.keys()[self._type]
+
+
 ## Each item may be made of a material.
 func get_material() -> MATERIAL:
 	return self._material
@@ -55,6 +59,10 @@ func get_material() -> MATERIAL:
 ## Each item may have multiple states.
 func get_state() -> int:
 	return 0
+
+
+func get_state_string() -> String:
+	return "NULL"
 
 
 ## Each item may be classified as a type.

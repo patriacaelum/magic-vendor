@@ -11,14 +11,14 @@ func _ready() -> void:
 
 
 func add_item(item: BaseItem) -> BaseItem:
-	if not self.has_items() and item is Teapot:
+	if not self.has_items() and item is WeaponItem:
 		item.reparent(self._inventory)
 		self._finished = false
 		self._timer.start()
 		self.started.emit(self)
 
 		return null
-	elif self.has_items() and self._finished and item is DrinkContainer:
+	elif self.has_items() and self._finished and item is CastItem:
 		var drink: BaseItem = self._inventory.get_child(0).combine(item)
 
 		return drink

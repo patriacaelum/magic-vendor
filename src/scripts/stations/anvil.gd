@@ -3,7 +3,7 @@ extends ProgressiveStation
 
 
 func add_item(item: BaseItem) -> BaseItem:
-	if not self.has_items() and item is Apple:
+	if not self.has_items() and item is WeaponItem:
 		item.reparent(self._inventory)
 		self._finished = false
 		self.started.emit(self)

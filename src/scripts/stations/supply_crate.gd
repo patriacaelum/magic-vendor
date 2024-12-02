@@ -13,19 +13,19 @@ var _supply_class: String
 func _ready() -> void:
 	super()
 
-	assert(self.supply_item != null, "SupplyCrate must supply a BaseItem!")
+	assert(self.supply_scene != null, "SupplyCrate must supply a BaseItem!")
 
 	# Create initial inventory
-	var supply: BaseItem = self.supply_item.instantiate()
+	var supply: BaseItem = self.supply_scene.instantiate()
 
 	supply.visible = false
-	self._supply_class = supply.classname
+	self._supply_class = supply.get_classname()
 	self.add_child(supply)
 
 
 ## Supply crates only accept the item that they supply.
 func add_item(item: BaseItem) -> BaseItem:
-	if item.classname == self._supply_class:
+	if item.get_classname() == self._supply_class:
 		item.reparent(self._inventory)
 
 	return null

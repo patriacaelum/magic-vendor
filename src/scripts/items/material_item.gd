@@ -29,5 +29,9 @@ func get_state() -> STATE:
 	return self._state
 
 
+func get_state_string() -> String:
+	return STATE.keys()[self._state]
+
+
 func _on_timer_timeout() -> void:
 	self._state = STATE.UNREFINED
