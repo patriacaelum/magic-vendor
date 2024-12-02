@@ -10,49 +10,42 @@ enum STATE {
     SHARPENED,
     POLISHED,
 }
-enum TYPE {
-    STRAIGHTSWORD,
-    SPEAR,
-}
 
 
-const COOLDOWN_TIME: Dictionary = {
-    TYPE.STRAIGHTSWORD: 9,
-    TYPE.SPEAR: 12,
-}
+var _timer := Timer.new()
+var _state: STATE = STATE.UNREFINED
 
 
-var __timer := Timer.new()
-
-var __state: STATE = STATE.UNREFINED
-var __type: TYPE = TYPE.STRAIGHTSWORD
-
-
-func _init(type: TYPE) -> void:
-    self.__type = type
+func _init(material: MATERIAL, type: TYPE) -> void:
+    self._material = material
+    self._type = type
 
 
 func _ready() -> void:
-    self.__timer.one_shot = true
-    self.__timer.timeout.connect(self._on_timer_timeout)
+    self._timer.one_shot = true
+    self._timer.timeout.connect(self._on_timer_timeout)
 
 
 func apply(force: FORCE) -> BaseItem:
-    if self.__state == STATE.UNREFINED and force == FORCE.HEAT:
-        self.__state = STATE.MALLEABLE
-        self.__timer.start(COOLDOWN_TIME[self.__type])
-    elif self.__state == STATE.MALLEABLE and force == FORCE.PRESSURE:
-        self.__state = STATE.ANNEALED
-    elif self.__state == STATE.ANNEALED and force == FORCE.WATER:
-        self.__state = STATE.REFINED
-    elif self.__state == STATE.REFINED and force == FORCE.GRIND:
-        self.__state = STATE.SHARPENED
-    elif self.__state == STATE.SHARPENED and force == FORCE.POLISH:
-        self.__state = STATE.POLISHED
+    if self._state == STATE.UNREFINED and force == FORCE.HEAT:
+        self._state = STATE.MALLEABLE
+        self._timer.start(COOLDOWN_TIME[self._material])
+    elif self._state == STATE.MALLEABLE and force == FORCE.PRESSURE:
+        self._state = STATE.ANNEALED
+    elif self._state == STATE.ANNEALED and force == FORCE.WATER:
+        self._state = STATE.REFINED
+    elif self._state == STATE.REFINED and force == FORCE.GRIND:
+        self._state = STATE.SHARPENED
+    elif self._state == STATE.SHARPENED and force == FORCE.POLISH:
+        self._state = STATE.POLISHED
 
     return null
 
 
+func get_state() -> STATE:
+    return self._state
+
+
 func _on_timer_timeout() -> void:
-    if self.__state == STATE.MALLEABLE or self.__state == STATE.ANNEALED:
-        self.__state = STATE.UNREFINED
+    if self._state == STATE.MALLEABLE or self._state == STATE.ANNEALED:
+        self._state = STATE.UNREFINED

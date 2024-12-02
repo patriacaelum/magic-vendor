@@ -6,39 +6,26 @@ enum STATE {
     EMPTY,
     FILLED,
 }
-enum TYPE {
-    STRAIGHTSWORD,
-    SPEAR,
-}
 
 
-const WEAPON_TYPE: Dictionary = {
-    TYPE.STRAIGHTSWORD: WeaponItem.TYPE.STRAIGHTSWORD,
-    TYPE.SPEAR: WeaponItem.TYPE.SPEAR,
-}
-
-
-var __type := TYPE.STRAIGHTSWORD
-var __state := STATE.EMPTY
-
-
-func _init(type: TYPE) -> void:
-    self.__type = type
+var _state := STATE.EMPTY
 
 
 func apply(force: FORCE) -> BaseItem:
-    if self.__state == STATE.FILLED and force == FORCE.WATER:
+    if self._state == STATE.FILLED and force == FORCE.WATER:
         self.queue_free()
 
-        return WeaponItem.new(WEAPON_TYPE[self.__type])
+        return WeaponItem.new(self._material, self._type)
 
     return null
 
 
 func combine(item: BaseItem) -> BaseItem:
-    if item is MaterialItem and item.get_state() == MaterialItem.STATE.HEATED:
+    if item is MaterialItem and item.get_state() == MaterialItem.STATE.MALLEABLE:
+        self._material = item.get_material()
+        self._state = self.FILLED_STATE
+
         item.queue_free()
-        self.__state = self.FILLED_STATE
 
         return self
 
@@ -46,8 +33,4 @@ func combine(item: BaseItem) -> BaseItem:
 
 
 func get_state() -> STATE:
-    return STATE.keys()[self.__state]
-
-
-func get_type() -> TYPE:
-    return TYPE.keys()[self.__type]
+    return self._state

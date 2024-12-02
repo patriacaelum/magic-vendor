@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://brhdx3ugah5n"]
+[gd_scene load_steps=22 format=3 uid="uid://brhdx3ugah5n"]
 
 [ext_resource type="Texture2D" uid="uid://phwpfeuyqpq" path="res://assets/textures/TXT_Default.png" id="1_fcm55"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_hpo2v"]
@@ -10,13 +10,11 @@
 [ext_resource type="PackedScene" uid="uid://bek1i0jkpem55" path="res://scenes/stations/anvil.tscn" id="8_cirma"]
 [ext_resource type="PackedScene" uid="uid://byaxkbkhv86y0" path="res://scenes/customer_manager.tscn" id="9_lkw0p"]
 [ext_resource type="PackedScene" uid="uid://cutjy85f8dxaa" path="res://scenes/stations/supply_crate.tscn" id="9_uiuxw"]
-[ext_resource type="PackedScene" uid="uid://dqnw7bo3hdixq" path="res://scenes/items/apple.tscn" id="10_w5e2o"]
 [ext_resource type="PackedScene" uid="uid://wd83fsagwv5m" path="res://scenes/stations/grinder.tscn" id="11_2ffog"]
-[ext_resource type="PackedScene" uid="uid://b6vbinrnxan5r" path="res://scenes/items/drink_container.tscn" id="11_kdxbm"]
+[ext_resource type="PackedScene" uid="uid://dqnw7bo3hdixq" path="res://scenes/items/bronze_material_item.tscn" id="12_1nj6m"]
 [ext_resource type="PackedScene" uid="uid://b00qjhcb3fvyv" path="res://scenes/stations/quenching_basin.tscn" id="13_4onqj"]
+[ext_resource type="PackedScene" uid="uid://0keprlqqm4jo" path="res://scenes/items/straightsword_cast_item.tscn" id="13_ha34o"]
 [ext_resource type="PackedScene" uid="uid://xn2qwmvjrimr" path="res://scenes/stations/forge.tscn" id="14_5r1od"]
-[ext_resource type="PackedScene" uid="uid://v6um5kjhm2hj" path="res://scenes/items/coffee_bean.tscn" id="14_6bvdf"]
-[ext_resource type="PackedScene" uid="uid://dyixyijq632ky" path="res://scenes/items/teapot.tscn" id="15_62fmp"]
 
 [sub_resource type="Environment" id="Environment_o0n4r"]
 background_mode = 1
@@ -96,8 +94,28 @@ steering_factor = 10.0
 [node name="RemoteTransformCamera" parent="Player3D" index="5"]
 remote_path = NodePath("../../CameraGimbal")
 
+[node name="CameraGimbal" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 0, 0, 0)
+
+[node name="Camera3D" type="Camera3D" parent="CameraGimbal"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 15)
+fov = 50.0
+
 [node name="BaseStation" parent="." instance=ExtResource("4_p03mp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, -1.5)
+
+[node name="ProgressiveStationContainer" type="Node3D" parent="."]
+unique_name_in_owner = true
+
+[node name="Anvil" parent="ProgressiveStationContainer" instance=ExtResource("8_cirma")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.71607, 0, -1.5)
+
+[node name="Forge" parent="ProgressiveStationContainer" instance=ExtResource("14_5r1od")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -5.5, 0, 0.245542)
+
+[node name="Grinder" parent="ProgressiveStationContainer" instance=ExtResource("11_2ffog")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.5, 0, 2.5)
 
 [node name="VendingMachineManager" type="Node3D" parent="."]
 unique_name_in_owner = true
@@ -109,40 +127,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, -4.5)
 [node name="VendingMachine2" parent="VendingMachineManager" instance=ExtResource("7_xj2ye")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, -4.5)
 
-[node name="ProgressiveStationContainer" type="Node3D" parent="."]
-unique_name_in_owner = true
-
-[node name="Anvil" parent="ProgressiveStationContainer" instance=ExtResource("8_cirma")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.71607, 0, -1.5)
-
-[node name="Forge" parent="ProgressiveStationContainer" instance=ExtResource("14_5r1od")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -5.5, 0, 0.245542)
-
-[node name="Teapot" parent="ProgressiveStationContainer/Forge/Inventory" index="0" instance=ExtResource("15_62fmp")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.630075, 0)
-
-[node name="Grinder" parent="ProgressiveStationContainer" instance=ExtResource("11_2ffog")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.5, 0, 2.5)
-
-[node name="CameraGimbal" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 0, 0, 0)
-
-[node name="Camera3D" type="Camera3D" parent="CameraGimbal"]
-unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 15)
-fov = 50.0
-
-[node name="IngredientSupplyCrate" parent="." instance=ExtResource("9_uiuxw")]
+[node name="BronzeMaterialSupplyCrate" parent="." instance=ExtResource("9_uiuxw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, 1.5)
-supply_item = ExtResource("10_w5e2o")
+supply_scene = ExtResource("12_1nj6m")
+supply_material = 1
 
-[node name="DrinkContainerSupplyCrate" parent="." instance=ExtResource("9_uiuxw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0, -1.5)
-supply_item = ExtResource("11_kdxbm")
-
-[node name="CoffeeBeanSupplyCrate" parent="." instance=ExtResource("9_uiuxw")]
+[node name="StraightswordCastSupplyCrate" parent="." instance=ExtResource("9_uiuxw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0, 1.5)
-supply_item = ExtResource("14_6bvdf")
+supply_scene = ExtResource("13_ha34o")
+supply_type = 1
 
 [node name="CustomerManager" parent="." instance=ExtResource("9_lkw0p")]
 unique_name_in_owner = true
@@ -161,6 +154,4 @@ shape = SubResource("BoxShape3D_x0b3a")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.5, 0, -1.98503)
 
 [editable path="Player3D"]
-[editable path="ProgressiveStationContainer/Forge"]
-[editable path="ProgressiveStationContainer/Forge/SM_Forge"]
 [editable path="CustomerManager"]

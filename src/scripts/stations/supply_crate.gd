@@ -2,7 +2,9 @@ class_name SupplyCrate
 extends BaseStation
 
 
-@export var supply_item: PackedScene
+@export var supply_scene: PackedScene
+@export var supply_material: BaseItem.MATERIAL
+@export var supply_type: BaseItem.TYPE
 
 
 var _supply_class: String
