@@ -6,22 +6,28 @@ enum FORCE {
 	FILL,
 	HEAT,
 	GRIND,
+	POLISH,
 	PRESSURE,
 	WATER,
 }
 
 
-var classname: String:
-	get:
-		return self.get_script().get_global_name()
-
-
 ## Apply a force to the item. This may transform the state of the item.
-func apply(force: FORCE) -> void:
-	pass
+func apply(force: FORCE) -> BaseItem:
+	return null
 
 
-## Combines the other item with this item. Both items should be destroyed
+## Combines the other item with this item. One or both items may be destroyed
 ## if the combination was successful.
 func combine(item: BaseItem) -> BaseItem:
 	return null
+
+
+## Each item may have multiple states.
+func get_state() -> int:
+	return 0
+
+
+## Each item may have multiple types.
+func get_type() -> int:
+	return 0
