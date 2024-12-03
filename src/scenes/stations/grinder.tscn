@@ -7,6 +7,7 @@
 size = Vector3(1.5, 1, 1.5)
 
 [node name="Grinder" type="RigidBody3D" node_paths=PackedStringArray("_highlight_mesh")]
+collision_layer = 3
 collision_mask = 2
 lock_rotation = true
 script = ExtResource("1_om7de")
