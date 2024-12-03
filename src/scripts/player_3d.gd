@@ -22,14 +22,14 @@ signal station_placed(station: BaseStation)
 const GRAVITY: Vector3 = 40.0 * Vector3.DOWN
 
 
-var _call_interactable: Callable = self.__show_info
+var _call_interact: Callable = self.__show_info
 var _current_station: BaseStation = null
 var _world_plane := Plane(Vector3.UP)
 
 
 func _input(event: InputEvent) -> void:
     if event.is_action_pressed("interact"):
-        self.__interact_with_station()
+        self._call_interact.call()
 
 
 func _physics_process(delta: float) -> void:
@@ -73,11 +73,11 @@ func _physics_process(delta: float) -> void:
 
 
 func remap_control(phase: Main.PHASE) -> void:
-	match phase:
-		Main.PHASE.PREPARATION:
-			self._call_interact = self.__show_info
-		Main.PHASE.SERVING:
-			self._call_interact = self.__interact_with_station
+    match phase:
+        Main.PHASE.PREPARATION:
+            self._call_interact = self.__show_info
+        Main.PHASE.SERVING:
+            self._call_interact = self.__interact_with_station
 
 
 func __add_item(item: BaseItem) -> void:
