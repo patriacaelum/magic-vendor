@@ -1,4 +1,4 @@
-class_name Grinder
+class_name Anvil
 extends ProgressiveStation
 
 
@@ -17,7 +17,7 @@ func add_item(item: BaseItem) -> BaseItem:
     return null
 
 
-## The contents of the grinder cannot be retrieved.
+## The contents of the fruit press cannot be retrieved.
 func get_item() -> BaseItem:
     return null
 
@@ -27,6 +27,7 @@ func operate(delta: float) -> void:
         self._progress += delta * self.progress_rate
 
         if self._progress >= self.PROGRESS_MAX:
-            self._inventory.get_child(0).apply(BaseItem.FORCE.GRIND)
+            self._inventory.get_child(0).apply(BaseItem.FORCE.PRESSURE)
             self._finished = true
+            self._progress = 0
             self.finished.emit(self.get_instance_id())

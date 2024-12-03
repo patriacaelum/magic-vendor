@@ -284,6 +284,7 @@ shadow_mesh = SubResource("ArrayMesh_ovras")
 size = Vector3(1, 2, 1)
 
 [node name="VendingMachine" type="RigidBody3D" node_paths=PackedStringArray("_highlight_mesh")]
+collision_layer = 3
 collision_mask = 2
 lock_rotation = true
 script = ExtResource("1_erxrg")
