@@ -1,6 +1,6 @@
-[gd_scene load_steps=22 format=3 uid="uid://brhdx3ugah5n"]
+[gd_scene load_steps=24 format=3 uid="uid://brhdx3ugah5n"]
 
-[ext_resource type="Texture2D" uid="uid://phwpfeuyqpq" path="res://assets/textures/TXT_Default.png" id="1_fcm55"]
+[ext_resource type="Texture2D" uid="uid://col7a2okpessy" path="res://assets/textures/TXT_Default.png" id="1_fcm55"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_hpo2v"]
 [ext_resource type="PackedScene" uid="uid://tonlbavrexx2" path="res://scenes/player_3d.tscn" id="2_ol1ds"]
 [ext_resource type="PackedScene" uid="uid://dggedqavjjn8v" path="res://scenes/hud.tscn" id="3_7tfpm"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://scripts/vending_machine_manager.gd" id="6_85yxb"]
 [ext_resource type="PackedScene" uid="uid://ccucp7gr6qbyk" path="res://scenes/stations/vending_machine.tscn" id="7_xj2ye"]
 [ext_resource type="PackedScene" uid="uid://bek1i0jkpem55" path="res://scenes/stations/anvil.tscn" id="8_cirma"]
+[ext_resource type="PackedScene" uid="uid://ytcv60fak8sg" path="res://scenes/stations/cast_sword.tscn" id="9_gxn36"]
 [ext_resource type="PackedScene" uid="uid://byaxkbkhv86y0" path="res://scenes/customer_manager.tscn" id="9_lkw0p"]
 [ext_resource type="PackedScene" uid="uid://cutjy85f8dxaa" path="res://scenes/stations/supply_crate.tscn" id="9_uiuxw"]
 [ext_resource type="PackedScene" uid="uid://wd83fsagwv5m" path="res://scenes/stations/grinder.tscn" id="11_2ffog"]
@@ -15,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://b00qjhcb3fvyv" path="res://scenes/stations/quenching_basin.tscn" id="13_4onqj"]
 [ext_resource type="PackedScene" uid="uid://0keprlqqm4jo" path="res://scenes/items/straightsword_cast_item.tscn" id="13_ha34o"]
 [ext_resource type="PackedScene" uid="uid://xn2qwmvjrimr" path="res://scenes/stations/forge.tscn" id="14_5r1od"]
+[ext_resource type="PackedScene" uid="uid://5cvjtqw065f3" path="res://assets/mesh/props/equipment/sm_magma_bucket.tscn" id="17_pfvi7"]
 
 [sub_resource type="Environment" id="Environment_o0n4r"]
 background_mode = 1
@@ -117,6 +119,9 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -5.5, 
 [node name="Grinder" parent="ProgressiveStationContainer" instance=ExtResource("11_2ffog")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.5, 0, 2.5)
 
+[node name="CastSword" parent="ProgressiveStationContainer" instance=ExtResource("9_gxn36")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, -4)
+
 [node name="VendingMachineManager" type="Node3D" parent="."]
 unique_name_in_owner = true
 script = ExtResource("6_85yxb")
@@ -152,6 +157,11 @@ shape = SubResource("BoxShape3D_x0b3a")
 
 [node name="QuenchingBasin" parent="." instance=ExtResource("13_4onqj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.5, 0, -1.98503)
+
+[node name="EquipmentContainer" type="Node" parent="."]
+
+[node name="SM_Magma_Bucket" parent="EquipmentContainer" instance=ExtResource("17_pfvi7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.47774, 0.61237, -1.49503)
 
 [editable path="Player3D"]
 [editable path="CustomerManager"]

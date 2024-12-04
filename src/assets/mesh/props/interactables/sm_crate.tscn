@@ -22,6 +22,7 @@ _surfaces = [{
 blend_shape_mode = 0
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_jf0aj"]
+resource_local_to_scene = true
 resource_name = "SM_Crate_Cube_010"
 _surfaces = [{
 "aabb": AABB(-1, -0.166667, -0.101075, 1, 0.166667, 0.101075),
