@@ -12,13 +12,15 @@ enum STATE {
 }
 
 
+@export var state: STATE = STATE.UNREFINED
+
+
 var _timer := Timer.new()
-var _state: STATE = STATE.UNREFINED
 
 
-func _init(material: MATERIAL, type: TYPE) -> void:
-    self._material = material
-    self._type = type
+func _init(init_material: MATERIAL, init_type: TYPE) -> void:
+    self.material = init_material
+    self.type = init_type
 
 
 func _ready() -> void:
@@ -27,29 +29,29 @@ func _ready() -> void:
 
 
 func apply(force: FORCE) -> BaseItem:
-    if self._state == STATE.UNREFINED and force == FORCE.HEAT:
-        self._state = STATE.MALLEABLE
+    if self.state == STATE.UNREFINED and force == FORCE.HEAT:
+        self.state = STATE.MALLEABLE
         self._timer.start(COOLDOWN_TIME[self._material])
-    elif self._state == STATE.MALLEABLE and force == FORCE.PRESSURE:
-        self._state = STATE.ANNEALED
-    elif self._state == STATE.ANNEALED and force == FORCE.WATER:
-        self._state = STATE.REFINED
-    elif self._state == STATE.REFINED and force == FORCE.GRIND:
-        self._state = STATE.SHARPENED
-    elif self._state == STATE.SHARPENED and force == FORCE.POLISH:
-        self._state = STATE.POLISHED
+    elif self._tate == STATE.MALLEABLE and force == FORCE.PRESSURE:
+        self.state = STATE.ANNEALED
+    elif self.state == STATE.ANNEALED and force == FORCE.WATER:
+        self.state = STATE.REFINED
+    elif self.state == STATE.REFINED and force == FORCE.GRIND:
+        self.state = STATE.SHARPENED
+    elif self.state == STATE.SHARPENED and force == FORCE.POLISH:
+        self.state = STATE.POLISHED
 
     return null
 
 
-func get_state() -> STATE:
-    return self._state
+func get_classname() -> String:
+    return TYPE.keys()[self.state] + super()
 
 
 func get_state_string() -> String:
-    return STATE.keys()[self._state]
+    return STATE.keys()[self.state]
 
 
 func _on_timer_timeout() -> void:
-    if self._state == STATE.MALLEABLE or self._state == STATE.ANNEALED:
-        self._state = STATE.UNREFINED
+    if self.state == STATE.MALLEABLE or self.state == STATE.ANNEALED:
+        self.state = STATE.UNREFINED

@@ -8,8 +8,10 @@ enum STATE {
 }
 
 
+@export var state: STATE = STATE.UNREFINED
+
+
 var _timer := Timer.new()
-var _state: STATE = STATE.UNREFINED
 
 
 func _ready() -> void:
@@ -19,18 +21,18 @@ func _ready() -> void:
 
 func apply(force: FORCE) -> BaseItem:
     if force == FORCE.HEAT:
-        self._state = STATE.MALLEABLE
-        self._timer.start(COOLDOWN_TIME[self._type])
+        self.state = STATE.MALLEABLE
+        self._timer.start(COOLDOWN_TIME[self.type])
 
     return null
 
 
-func get_state() -> STATE:
-    return self._state
+func get_classname() -> String:
+    return STATE.keys()[self.state] + super()
 
 
 func get_state_string() -> String:
-    return STATE.keys()[self._state]
+    return STATE.keys()[self.state]
 
 
 func _on_timer_timeout() -> void:

@@ -20,6 +20,7 @@ outer_radius = 0.4
 
 [node name="BronzeMaterialItem" type="Node3D"]
 script = ExtResource("1_4xv55")
+material = 1
 
 [node name="UnrefinedMesh" type="MeshInstance3D" parent="."]
 unique_name_in_owner = true
