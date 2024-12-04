@@ -17,16 +17,12 @@ func _ready() -> void:
     var supply: BaseItem = self.supply_scene.instantiate()
 
     supply.visible = false
-    print("about to await")
-    await supply.ready
-    self._supply_class = supply.get_classname()
-    print("supply: ", self._supply_class)
     self._inventory.add_child(supply)
+    self._supply_class = supply.get_classname()
 
 
 ## Supply crates only accept the item that they supply.
 func add_item(item: BaseItem) -> BaseItem:
-    print("item: ", item.get_classname(), ", supply: ", self._supply_class)
     if item.get_classname() == self._supply_class:
         item.reparent(self._inventory)
 
