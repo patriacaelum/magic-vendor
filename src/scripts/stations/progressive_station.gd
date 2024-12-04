@@ -1,3 +1,5 @@
+## Base class for all stations that have a progress bar associated with the
+## process of manipulating an item.
 class_name ProgressiveStation
 extends BaseStation
 
