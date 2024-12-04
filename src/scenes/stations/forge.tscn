@@ -1,10 +1,48 @@
-[gd_scene load_steps=4 format=3 uid="uid://xn2qwmvjrimr"]
+[gd_scene load_steps=14 format=3 uid="uid://xn2qwmvjrimr"]
 
 [ext_resource type="Script" path="res://scripts/stations/forge.gd" id="1_tbneh"]
 [ext_resource type="PackedScene" uid="uid://dkouwuokketa" path="res://assets/mesh/props/interactables/sm_forge.tscn" id="2_253fe"]
+[ext_resource type="Shader" path="res://assets/vfx/fire/fire.gdshader" id="3_h0j1b"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ei6cs"]
 size = Vector3(1.5, 3, 1.5)
+
+[sub_resource type="Gradient" id="Gradient_ot5tv"]
+colors = PackedColorArray(0.800777, 0.305931, 0, 1, 1, 0.782591, 0.266215, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_teudm"]
+gradient = SubResource("Gradient_ot5tv")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_vjnej"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_o6qkh"]
+seamless = true
+noise = SubResource("FastNoiseLite_vjnej")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xjkle"]
+render_priority = 0
+shader = ExtResource("3_h0j1b")
+shader_parameter/uv_scale = 0.5
+shader_parameter/gradient_sampler = SubResource("GradientTexture1D_teudm")
+shader_parameter/noise_sampler = SubResource("NoiseTexture2D_o6qkh")
+
+[sub_resource type="Curve" id="Curve_atcgp"]
+_data = [Vector2(0, 0.5), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_8wx5l"]
+curve = SubResource("Curve_atcgp")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_1h0oi"]
+spread = 180.0
+initial_velocity_min = 0.2
+initial_velocity_max = 0.5
+gravity = Vector3(0, 2, 0)
+scale_min = 0.8
+scale_max = 1.2
+scale_curve = SubResource("CurveTexture_8wx5l")
+
+[sub_resource type="QuadMesh" id="QuadMesh_vtkcp"]
 
 [node name="Forge" type="RigidBody3D" node_paths=PackedStringArray("_highlight_mesh")]
 collision_layer = 3
@@ -14,16 +52,27 @@ script = ExtResource("1_tbneh")
 _highlight_mesh = NodePath("SM_Forge/MeshInstance3D")
 
 [node name="SM_Forge" parent="." instance=ExtResource("2_253fe")]
+visible = false
 
 [node name="Inventory" type="Node3D" parent="."]
 unique_name_in_owner = true
+visible = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+visible = false
 shape = SubResource("BoxShape3D_ei6cs")
 
 [node name="Timer" type="Timer" parent="."]
 unique_name_in_owner = true
 one_shot = true
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.656309, 0)
+material_override = SubResource("ShaderMaterial_xjkle")
+cast_shadow = 0
+lifetime = 0.5
+process_material = SubResource("ParticleProcessMaterial_1h0oi")
+draw_pass_1 = SubResource("QuadMesh_vtkcp")
 
 [editable path="SM_Forge"]

@@ -73,11 +73,11 @@ func _physics_process(delta: float) -> void:
 
 
 func remap_control(phase: Main.PHASE) -> void:
-	match phase:
-		Main.PHASE.PREPARATION:
-			self._call_interact = self.__show_info
-		Main.PHASE.SERVING:
-			self._call_interact = self.__interact_with_station
+    match phase:
+        Main.PHASE.PREPARATION:
+            self._call_interact = self.__show_info
+        Main.PHASE.SERVING:
+            self._call_interact = self.__interact_with_station
 
 
 func __add_item(item: BaseItem) -> void:
