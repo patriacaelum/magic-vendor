@@ -1,14 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://dqnw7bo3hdixq"]
+[gd_scene load_steps=5 format=3 uid="uid://dqnw7bo3hdixq"]
 
 [ext_resource type="Script" path="res://scripts/items/material_item.gd" id="1_4xv55"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ia20c"]
-albedo_color = Color(0.81502, 1.01075e-06, 1.92523e-07, 1)
-
-[sub_resource type="SphereMesh" id="SphereMesh_q8p10"]
-material = SubResource("StandardMaterial3D_ia20c")
-radius = 0.25
-height = 0.5
+[ext_resource type="PackedScene" uid="uid://dnxkkvwcacmnu" path="res://assets/mesh/props/items/sm_bronze_ore.tscn" id="2_8cdn4"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vct7y"]
 albedo_color = Color(0.549184, 0.549184, 0, 1)
@@ -21,9 +14,8 @@ outer_radius = 0.4
 [node name="BronzeMaterialItem" type="Node3D"]
 script = ExtResource("1_4xv55")
 
-[node name="UnrefinedMesh" type="MeshInstance3D" parent="."]
+[node name="UnrefinedMesh" parent="." instance=ExtResource("2_8cdn4")]
 unique_name_in_owner = true
-mesh = SubResource("SphereMesh_q8p10")
 
 [node name="MalleableMesh" type="MeshInstance3D" parent="."]
 unique_name_in_owner = true
