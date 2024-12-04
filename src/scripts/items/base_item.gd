@@ -1,3 +1,5 @@
+## Base class for all items. Items are considered things that the player can
+## put in their inventory.
 class_name BaseItem
 extends Node3D
 

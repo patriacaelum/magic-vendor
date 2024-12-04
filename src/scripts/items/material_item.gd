@@ -10,6 +10,9 @@ enum STATE {
 
 @export var state: STATE = STATE.UNREFINED
 
+@onready var _unrefined_mesh := %UnrefinedMesh
+@onready var _malleable_mesh := %MalleableMesh
+
 
 var _timer := Timer.new()
 
@@ -21,8 +24,8 @@ func _ready() -> void:
 
 func apply(force: FORCE) -> BaseItem:
     if force == FORCE.HEAT:
-        self.state = STATE.MALLEABLE
-        self._timer.start(COOLDOWN_TIME[self.type])
+        self.__set_state(STATE.MALLEABLE)
+        self._timer.start(COOLDOWN_TIME[self.material])
 
     return null
 
@@ -35,5 +38,17 @@ func get_state_string() -> String:
     return STATE.keys()[self.state]
 
 
+func __set_state(new_state: STATE) -> void:
+    match new_state:
+        STATE.UNREFINED:
+            self._unrefined_mesh.visible = true
+            self._malleable_mesh.visible = false
+        STATE.MALLEABLE:
+            self._unrefined_mesh.visible = false
+            self._malleable_mesh.visible = true
+
+    self.state = new_state
+
+
 func _on_timer_timeout() -> void:
-    self._state = STATE.UNREFINED
+    self.__set_state(STATE.UNREFINED)

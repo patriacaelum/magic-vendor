@@ -2,26 +2,32 @@ class_name Forge
 extends ProgressiveStation
 
 
-@onready var _timer := %Timer
+const HEATING_TIME: Dictionary = {
+    BaseItem.MATERIAL.BRONZE: 4.5,
+    BaseItem.MATERIAL.IRON: 6,
+    BaseItem.MATERIAL.STEEL: 7.5,
+}
+
+
+var _timer := Timer.new()
 
 
 func _ready() -> void:
     super()
+    self._timer.one_shot = true
     self._timer.timeout.connect(self._on_timer_timeout)
+
+    self.add_child(self._timer)
 
 
 func add_item(item: BaseItem) -> BaseItem:
-    if not self.has_items() and item is WeaponItem:
+    if not self.has_items() and item is MaterialItem and item.state == MaterialItem.STATE.UNREFINED:
         item.reparent(self._inventory)
         self._finished = false
-        self._timer.start()
+        self._timer.start(HEATING_TIME[item.material])
         self.started.emit(self)
 
         return null
-    elif self.has_items() and self._finished and item is CastItem:
-        var drink: BaseItem = self._inventory.get_child(0).combine(item)
-
-        return drink
 
     return null
 
