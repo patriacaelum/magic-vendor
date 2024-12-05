@@ -1,16 +1,15 @@
 [gd_scene load_steps=4 format=3 uid="uid://knjc7bodf0bp"]
 
 [ext_resource type="Script" path="res://scripts/stations/caster.gd" id="1_i2cyb"]
-[ext_resource type="PackedScene" path="res://assets/mesh/props/interactables/sm_cast_sword.tscn" id="2_5bi2i"]
+[ext_resource type="PackedScene" uid="uid://bxhna0ysibju1" path="res://assets/mesh/props/interactables/sm_cast_sword.tscn" id="2_5bi2i"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_xmun0"]
 size = Vector3(1, 0.499878, 1)
 
-[node name="Caster" type="RigidBody3D" node_paths=PackedStringArray("_highlight_mesh")]
+[node name="Caster" type="RigidBody3D"]
 collision_layer = 3
 collision_mask = 2
 script = ExtResource("1_i2cyb")
-_highlight_mesh = NodePath("")
 
 [node name="SM_Cast_Sword" parent="." instance=ExtResource("2_5bi2i")]
 
