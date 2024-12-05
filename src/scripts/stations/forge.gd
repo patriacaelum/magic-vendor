@@ -21,17 +21,27 @@ func _ready() -> void:
 
 
 func add_item(item: BaseItem) -> BaseItem:
-    if not self.has_items() and item is MaterialItem and item.state == MaterialItem.STATE.UNREFINED:
+    if self.has_items():
+        return null
+
+    if item is MaterialItem and item.state == MaterialItem.STATE.UNREFINED:
         item.reparent(self._inventory)
-        self._finished = false
-        self._timer.start(HEATING_TIME[item.material])
-        self.started.emit(self)
+        self.__heat_item(item)
+    elif item is WeaponItem and item.state == WeaponItem.STATE.UNREFINED:
+        item.reparent(self._inventory)
+        self.__heat_item(item)
 
     return null
 
 
 func get_progress() -> float:
     return (self._timer.wait_time - self._timer.time_left) / self._timer.wait_time
+
+
+func __heat_item(item: BaseItem) -> void:
+    self._finished = false
+    self._timer.start(HEATING_TIME[item.material])
+    self.started.emit(self)
 
 
 func _on_timer_timeout() -> void:
