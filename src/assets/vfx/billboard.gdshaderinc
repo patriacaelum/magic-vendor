@@ -6,6 +6,6 @@ mat4 apply_billboarding(mat4 inv_view_matrix, mat4 model_view_matrix, mat4 view_
     model_view_matrix = view_matrix * mat_world;
 // Preserve scaling
     model_view_matrix = model_view_matrix * mat4(vec4(length(model_matrix[0].xyz), 0.0, 0.0, 0.0), vec4(0.0, length(model_matrix[1].xyz), 0.0, 0.0), vec4(0.0, 0.0, length(model_matrix[2].xyz), 0.0), vec4(0.0, 0.0, 0.0, 1.0));
-    
+
     return model_view_matrix;
 }
