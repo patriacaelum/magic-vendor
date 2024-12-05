@@ -14,7 +14,7 @@ enum STATE {
 
 @export var state: STATE = STATE.UNREFINED
 
-@onready var _mesh := preload("res://scenes/items/straightsword_weapon_item.tscn")
+@onready var _mesh := preload("res://assets/mesh/props/items/sm_sword.tscn")
 
 
 var _timer := Timer.new()
