@@ -15,7 +15,6 @@ var _highlight_material: ShaderMaterial
 
 
 func _ready() -> void:
-    assert(self._highlight_mesh != null, "Station missing MeshInstance3D!")
     self._highlight_material = ShaderMaterial.new()
     self._highlight_material.shader = self._highlight_shader
 
