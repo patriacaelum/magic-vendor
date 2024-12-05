@@ -1,10 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://b6vbinrnxan5r"]
+[gd_scene load_steps=3 format=3 uid="uid://b6vbinrnxan5r"]
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_crvqp"]
-top_radius = 0.3
-bottom_radius = 0.2
-height = 0.5
+[ext_resource type="Script" path="res://scripts/items/weapon_item.gd" id="1_58hfh"]
+[ext_resource type="PackedScene" uid="uid://bm04hxbfww14p" path="res://assets/mesh/props/items/sm_sword.tscn" id="2_mqqa0"]
 
-[node name="IngredientMesh" type="MeshInstance3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-mesh = SubResource("CylinderMesh_crvqp")
+[node name="StraightswordWeaponItem" type="Node3D"]
+script = ExtResource("1_58hfh")
+
+[node name="SM_Sword" parent="." instance=ExtResource("2_mqqa0")]
