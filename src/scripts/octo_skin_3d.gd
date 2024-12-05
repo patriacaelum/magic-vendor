@@ -26,22 +26,22 @@ var right_eye_mat_override := 2
 
 ## Sets model to neutral state
 func idle():
-    _main_state_machine.travel("Idle")
+	_main_state_machine.travel("Idle")
 
 ## Sets model to a walking state
 func walk():
-    _main_state_machine.travel("Walk")
+	_main_state_machine.travel("Walk")
 
 ## Sets model to a dash state
 func dash():
-    _main_state_machine.travel("Dash")
+	_main_state_machine.travel("Dash")
 
 func _set_blink(state: bool):
-    if _blink == state:
-        return
-    _blink = state
-    if _blink:
-        _blink_timer.start(0.2)
-    else:
-        _blink_timer.stop()
-        _closed_eyes_timer.stop()
+	if _blink == state:
+		return
+	_blink = state
+	if _blink:
+		_blink_timer.start(0.2)
+	else:
+		_blink_timer.stop()
+		_closed_eyes_timer.stop()
