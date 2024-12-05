@@ -1,12 +1,8 @@
-class_name Forge
+class_name Caster
 extends ProgressiveStation
 
 
-const HEATING_TIME: Dictionary = {
-    BaseItem.MATERIAL.BRONZE: 4.5,
-    BaseItem.MATERIAL.IRON: 6,
-    BaseItem.MATERIAL.STEEL: 7.5,
-}
+const CAST_TIME: int = 4
 
 
 var _timer := Timer.new()
@@ -21,10 +17,10 @@ func _ready() -> void:
 
 
 func add_item(item: BaseItem) -> BaseItem:
-    if not self.has_items() and item is MaterialItem and item.state == MaterialItem.STATE.UNREFINED:
+    if not self.has_items() and item is MaterialItem and item.state == MaterialItem.STATE.MALLEABLE:
         item.reparent(self._inventory)
         self._finished = false
-        self._timer.start(HEATING_TIME[item.material])
+        self._timer.start(CAST_TIME)
         self.started.emit(self)
 
     return null
@@ -35,5 +31,9 @@ func get_progress() -> float:
 
 
 func _on_timer_timeout() -> void:
-    self._inventory.get_child(0).apply(BaseItem.FORCE.HEAT)
+    var material: MaterialItem = self._inventory.get_child(0)
+
+    material.apply(BaseItem.FORCE.COOL)
+    material.type = BaseItem.TYPE.STRAIGHTSWORD
+
     self.__set_finished()

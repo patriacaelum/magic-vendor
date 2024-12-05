@@ -14,6 +14,8 @@ enum STATE {
 
 @export var state: STATE = STATE.UNREFINED
 
+@onready var _mesh := preload("res://scenes/items/straightsword_weapon_item.tscn")
+
 
 var _timer := Timer.new()
 
@@ -27,6 +29,9 @@ func _ready() -> void:
     self._timer.one_shot = true
     self._timer.timeout.connect(self._on_timer_timeout)
 
+    self.add_child(self._timer)
+    self.add_child(self._mesh.instantiate())
+
 
 func apply(force: FORCE) -> BaseItem:
     if self.state == STATE.UNREFINED and force == FORCE.HEAT:
@@ -34,7 +39,7 @@ func apply(force: FORCE) -> BaseItem:
         self._timer.start(COOLDOWN_TIME[self._material])
     elif self._tate == STATE.MALLEABLE and force == FORCE.PRESSURE:
         self.state = STATE.ANNEALED
-    elif self.state == STATE.ANNEALED and force == FORCE.WATER:
+    elif self.state == STATE.ANNEALED and force == FORCE.COOL:
         self.state = STATE.REFINED
     elif self.state == STATE.REFINED and force == FORCE.GRIND:
         self.state = STATE.SHARPENED

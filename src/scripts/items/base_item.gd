@@ -5,12 +5,11 @@ extends Node3D
 
 
 enum FORCE {
-    FILL,
+    COOL,
     HEAT,
     GRIND,
     POLISH,
     PRESSURE,
-    WATER,
 }
 enum MATERIAL {
     NULL,

@@ -19,5 +19,17 @@ var _finished: bool = false
 var _progress: float = 0.
 
 
+func get_item() -> BaseItem:
+    if self.has_items() and self._finished:
+        return self._inventory.get_child(0)
+
+    return null
+
+
 func get_progress() -> float:
     return self._progress
+
+
+func __set_finished() -> void:
+    self._finished = true
+    self.finished.emit(self.get_instance_id())

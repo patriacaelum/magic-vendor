@@ -12,7 +12,7 @@ enum STATE {
 
 
 func apply(force: FORCE) -> BaseItem:
-    if self.state == STATE.FILLED and force == FORCE.WATER:
+    if self.state == STATE.FILLED and force == FORCE.COOL:
         self.queue_free()
 
         return WeaponItem.new(self.material, self.type)

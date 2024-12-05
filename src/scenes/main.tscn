@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://brhdx3ugah5n"]
+[gd_scene load_steps=23 format=3 uid="uid://brhdx3ugah5n"]
 
 [ext_resource type="Texture2D" uid="uid://phwpfeuyqpq" path="res://assets/textures/TXT_Default.png" id="1_fcm55"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_hpo2v"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://bek1i0jkpem55" path="res://scenes/stations/anvil.tscn" id="8_cirma"]
 [ext_resource type="PackedScene" uid="uid://byaxkbkhv86y0" path="res://scenes/customer_manager.tscn" id="9_lkw0p"]
 [ext_resource type="PackedScene" uid="uid://cutjy85f8dxaa" path="res://scenes/stations/supply_crate.tscn" id="9_uiuxw"]
+[ext_resource type="PackedScene" uid="uid://knjc7bodf0bp" path="res://scenes/stations/caster.tscn" id="9_vngsi"]
 [ext_resource type="PackedScene" uid="uid://wd83fsagwv5m" path="res://scenes/stations/grinder.tscn" id="11_2ffog"]
 [ext_resource type="PackedScene" uid="uid://dqnw7bo3hdixq" path="res://scenes/items/bronze_material_item.tscn" id="12_1nj6m"]
 [ext_resource type="PackedScene" uid="uid://b00qjhcb3fvyv" path="res://scenes/stations/quenching_basin.tscn" id="13_4onqj"]
@@ -116,6 +117,9 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -5.5, 
 
 [node name="Grinder" parent="ProgressiveStationContainer" instance=ExtResource("11_2ffog")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.5, 0, 2.5)
+
+[node name="Caster" parent="ProgressiveStationContainer" instance=ExtResource("9_vngsi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.5, 0, -3)
 
 [node name="VendingMachineManager" type="Node3D" parent="."]
 unique_name_in_owner = true

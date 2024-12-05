@@ -21,11 +21,18 @@ func _ready() -> void:
     self._timer.one_shot = true
     self._timer.timeout.connect(self._on_timer_timeout)
 
+    self.add_child(self._timer)
+
 
 func apply(force: FORCE) -> BaseItem:
     if force == FORCE.HEAT:
         self.__set_state(STATE.MALLEABLE)
         self._timer.start(COOLDOWN_TIME[self.material])
+    elif force == FORCE.COOL and self.state == STATE.MALLEABLE:
+        var weapon := WeaponItem.new(self.material, self.type)
+
+        self.add_sibling(weapon)
+        self.queue_free()
 
     return null
 
