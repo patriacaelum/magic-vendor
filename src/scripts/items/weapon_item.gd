@@ -36,8 +36,8 @@ func _ready() -> void:
 func apply(force: FORCE) -> BaseItem:
     if self.state == STATE.UNREFINED and force == FORCE.HEAT:
         self.state = STATE.MALLEABLE
-        self._timer.start(COOLDOWN_TIME[self._material])
-    elif self._tate == STATE.MALLEABLE and force == FORCE.PRESSURE:
+        self._timer.start(COOLDOWN_TIME[self.material])
+    elif self.state == STATE.MALLEABLE and force == FORCE.PRESSURE:
         self.state = STATE.ANNEALED
     elif self.state == STATE.ANNEALED and force == FORCE.COOL:
         self.state = STATE.REFINED
@@ -45,12 +45,14 @@ func apply(force: FORCE) -> BaseItem:
         self.state = STATE.SHARPENED
     elif self.state == STATE.SHARPENED and force == FORCE.POLISH:
         self.state = STATE.POLISHED
+        
+    print("Weapon is now ", STATE.keys()[self.state])
 
     return null
 
 
 func get_classname() -> String:
-    return TYPE.keys()[self.state] + super()
+    return STATE.keys()[self.state] + super()
 
 
 func get_state_string() -> String:
