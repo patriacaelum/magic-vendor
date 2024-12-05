@@ -9,18 +9,17 @@ extends RigidBody3D
 @export var _highlight_mesh : MeshInstance3D = null
 
 @onready var _highlight_shader := preload("res://assets/shaders/simple_outline.gdshader")
-@onready var _inventory := %Inventory
 
-
-
+var _inventory := Node3D.new()
 var _highlight_material: ShaderMaterial
 
 
 func _ready() -> void:
-    assert(self._inventory != null, "Station is missing Inventory node!")
     assert(self._highlight_mesh != null, "Station missing MeshInstance3D!")
     self._highlight_material = ShaderMaterial.new()
     self._highlight_material.shader = self._highlight_shader
+
+    self.add_child(self._inventory)
 
 
 ## Depending on what the player is holding, adding an item to the station may

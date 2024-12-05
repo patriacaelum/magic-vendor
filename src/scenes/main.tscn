@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://ytcv60fak8sg" path="res://scenes/stations/cast_sword.tscn" id="9_gxn36"]
 [ext_resource type="PackedScene" uid="uid://byaxkbkhv86y0" path="res://scenes/customer_manager.tscn" id="9_lkw0p"]
 [ext_resource type="PackedScene" uid="uid://cutjy85f8dxaa" path="res://scenes/stations/supply_crate.tscn" id="9_uiuxw"]
+[ext_resource type="PackedScene" uid="uid://knjc7bodf0bp" path="res://scenes/stations/caster.tscn" id="9_vngsi"]
 [ext_resource type="PackedScene" uid="uid://wd83fsagwv5m" path="res://scenes/stations/grinder.tscn" id="11_2ffog"]
 [ext_resource type="PackedScene" uid="uid://dqnw7bo3hdixq" path="res://scenes/items/bronze_material_item.tscn" id="12_1nj6m"]
 [ext_resource type="PackedScene" uid="uid://b00qjhcb3fvyv" path="res://scenes/stations/quenching_basin.tscn" id="13_4onqj"]
@@ -119,8 +120,8 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -5.5, 
 [node name="Grinder" parent="ProgressiveStationContainer" instance=ExtResource("11_2ffog")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.5, 0, 2.5)
 
-[node name="CastSword" parent="ProgressiveStationContainer" instance=ExtResource("9_gxn36")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, -4)
+[node name="Caster" parent="ProgressiveStationContainer" instance=ExtResource("9_vngsi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.5, 0, -3)
 
 [node name="VendingMachineManager" type="Node3D" parent="."]
 unique_name_in_owner = true
@@ -135,12 +136,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, -4.5)
 [node name="BronzeMaterialSupplyCrate" parent="." instance=ExtResource("9_uiuxw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, 1.5)
 supply_scene = ExtResource("12_1nj6m")
-supply_material = 1
 
 [node name="StraightswordCastSupplyCrate" parent="." instance=ExtResource("9_uiuxw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0, 1.5)
 supply_scene = ExtResource("13_ha34o")
-supply_type = 1
 
 [node name="CustomerManager" parent="." instance=ExtResource("9_lkw0p")]
 unique_name_in_owner = true

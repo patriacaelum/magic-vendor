@@ -20,6 +20,7 @@ height = 0.2
 
 [node name="StraightSwordCastItem" type="Node3D"]
 script = ExtResource("1_d6kpl")
+init_type = 1
 
 [node name="EmptyMesh" type="MeshInstance3D" parent="."]
 unique_name_in_owner = true
