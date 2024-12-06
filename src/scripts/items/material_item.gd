@@ -18,6 +18,7 @@ var _timer := Timer.new()
 
 
 func _ready() -> void:
+    self.type = TYPE.STRAIGHTSWORD
     self._timer.one_shot = true
     self._timer.timeout.connect(self._on_timer_timeout)
 

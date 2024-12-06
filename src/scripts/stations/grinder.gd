@@ -3,22 +3,11 @@ extends ProgressiveStation
 
 
 func add_item(item: BaseItem) -> BaseItem:
-    if not self.has_items() and item is WeaponItem:
+    if not self.has_items() and item is WeaponItem and item.state == WeaponItem.STATE.REFINED:
         item.reparent(self._inventory)
         self._finished = false
         self.started.emit(self)
 
-        return null
-    elif self.has_items() and self._finished:
-        var drink: BaseItem = self._inventory.get_child(0).combine(item)
-
-        return drink
-
-    return null
-
-
-## The contents of the grinder cannot be retrieved.
-func get_item() -> BaseItem:
     return null
 
 

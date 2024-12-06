@@ -30,7 +30,7 @@ var _speed: float = 100.0
 
 func _ready() -> void:
     # Randomly select an order item
-    self._order = [ORDER_ITEMS[randi_range(0, len(ORDER_ITEMS))]]
+    self._order = [ORDER_ITEMS[randi_range(0, len(ORDER_ITEMS) - 1)]]
 
     self._navigation_agent_3d.velocity_computed.connect(self._on_navigation_agent_3d_velocity_computed)
     self._navigation_agent_3d.navigation_finished.connect(self._on_navigation_agent_3d_navigation_finished)
