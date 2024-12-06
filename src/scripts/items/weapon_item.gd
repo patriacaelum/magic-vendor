@@ -45,7 +45,7 @@ func apply(force: FORCE) -> BaseItem:
         self.state = STATE.SHARPENED
     elif self.state == STATE.SHARPENED and force == FORCE.POLISH:
         self.state = STATE.POLISHED
-        
+
     print("Weapon is now ", STATE.keys()[self.state])
 
     return null
