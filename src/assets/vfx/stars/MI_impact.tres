@@ -1,0 +1,14 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://bcp38ql51vkno"]
+
+[ext_resource type="Shader" path="res://assets/vfx/stars/impact_star_vfx.gdshader" id="1_uhu73"]
+[ext_resource type="Texture2D" uid="uid://dqfmtpc5hmqyb" path="res://assets/vfx/stars/fx_txt_impact.png" id="2_gf882"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_uhu73")
+shader_parameter/proximity_fade_distance = 1.0
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = null
+shader_parameter/uv2_scale = Vector3(1, 1, 1)
+shader_parameter/uv2_offset = null
+shader_parameter/texture_albedo = ExtResource("2_gf882")

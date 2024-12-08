@@ -1,0 +1,25 @@
+[gd_resource type="ShaderMaterial" load_steps=6 format=3 uid="uid://fpodooxgaa22"]
+
+[ext_resource type="Shader" path="res://assets/vfx/steam/smoke_trail.gdshader" id="1_r787u"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_7t6rd"]
+noise_type = 2
+fractal_octaves = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_sn6xf"]
+noise = SubResource("FastNoiseLite_7t6rd")
+
+[sub_resource type="Gradient" id="Gradient_j1jux"]
+offsets = PackedFloat32Array(0.59707, 0.824176)
+colors = PackedColorArray(0.277253, 0.211354, 0.100278, 1, 0.480091, 0.42896, 0.270674, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_uqf2b"]
+gradient = SubResource("Gradient_j1jux")
+
+[resource]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("1_r787u")
+shader_parameter/uv_scale = 0.2
+shader_parameter/gradient_sampler = SubResource("GradientTexture1D_uqf2b")
+shader_parameter/dissolve_sampler = SubResource("NoiseTexture2D_sn6xf")

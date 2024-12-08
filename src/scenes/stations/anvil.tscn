@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://bek1i0jkpem55"]
+[gd_scene load_steps=5 format=3 uid="uid://bek1i0jkpem55"]
 
 [ext_resource type="Script" path="res://scripts/stations/anvil.gd" id="1_sq3e5"]
 [ext_resource type="PackedScene" uid="uid://b07hkwukg87n1" path="res://assets/mesh/props/interactables/sm_anvil.tscn" id="2_rqxpf"]
+[ext_resource type="PackedScene" uid="uid://cw3v24mtaa1up" path="res://assets/vfx/stars/impact_star_vfx.tscn" id="3_uyvgm"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_u6e4x"]
 
@@ -23,5 +24,8 @@ shape = SubResource("BoxShape3D_u6e4x")
 unique_name_in_owner = true
 wait_time = 2.0
 one_shot = true
+
+[node name="PS_Stars" parent="." instance=ExtResource("3_uyvgm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0217511, 0.933987, 0.0427996)
 
 [editable path="SM_Anvil"]

@@ -10,7 +10,7 @@ size = Vector3(1, 0.499878, 1)
 collision_layer = 3
 collision_mask = 2
 script = ExtResource("1_i2cyb")
-_highlight_mesh = NodePath("SM_Cast_Sword/Cube_047")
+_highlight_mesh = NodePath("SM_Cast_Sword/SM_Magma")
 
 [node name="SM_Cast_Sword" parent="." instance=ExtResource("2_5bi2i")]
 

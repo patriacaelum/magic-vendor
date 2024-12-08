@@ -1,0 +1,62 @@
+[gd_scene load_steps=13 format=3 uid="uid://wtvi81mjl53f"]
+
+[ext_resource type="Shader" path="res://assets/vfx/steam/smoke_trail.gdshader" id="1_kj3kt"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_7t6rd"]
+noise_type = 2
+fractal_octaves = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_sn6xf"]
+noise = SubResource("FastNoiseLite_7t6rd")
+
+[sub_resource type="Gradient" id="Gradient_n5ysa"]
+offsets = PackedFloat32Array(0.626556, 0.925311)
+colors = PackedColorArray(0.198749, 0.179642, 0.117533, 1, 0.708701, 0.541508, 0.260484, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_m7qm5"]
+gradient = SubResource("Gradient_n5ysa")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_l02ak"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("1_kj3kt")
+shader_parameter/uv_scale = 0.2
+shader_parameter/gradient_sampler = SubResource("GradientTexture1D_m7qm5")
+shader_parameter/dissolve_sampler = SubResource("NoiseTexture2D_sn6xf")
+
+[sub_resource type="Curve" id="Curve_b4j5v"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -2.48185, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_xexip"]
+curve = SubResource("Curve_b4j5v")
+
+[sub_resource type="Curve" id="Curve_nvfg3"]
+_data = [Vector2(0, 0.490063), 0.0, 1.60089, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_atbqg"]
+curve = SubResource("Curve_nvfg3")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_w03i3"]
+emission_shape = 1
+emission_sphere_radius = 0.1
+direction = Vector3(0, 1, 0)
+spread = 5.0
+initial_velocity_min = 1.5
+initial_velocity_max = 3.0
+gravity = Vector3(0, 0.1, 0)
+scale_max = 3.0
+scale_curve = SubResource("CurveTexture_atbqg")
+alpha_curve = SubResource("CurveTexture_xexip")
+anim_offset_max = 1.0
+
+[sub_resource type="QuadMesh" id="QuadMesh_fnc5p"]
+
+[node name="SmokeVFX" type="GPUParticles3D"]
+material_override = SubResource("ShaderMaterial_l02ak")
+amount = 24
+lifetime = 2.0
+trail_lifetime = 2.0
+process_material = SubResource("ParticleProcessMaterial_w03i3")
+draw_pass_1 = SubResource("QuadMesh_fnc5p")
