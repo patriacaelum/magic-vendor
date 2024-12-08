@@ -12,8 +12,8 @@ void fragment() {
     vec4 mask = texture(mask_texture, UV);
     ALBEDO = COLOR.rgb;
     ALPHA = mask.r;
-    
-    
+
+
 	// Called for every pixel the material is visible on.
 }
 
