@@ -43,6 +43,6 @@ void fragment() {
 	vec4 albedo_tex = albedo_tex_sample * vec4(COLOR);
 
 	ALBEDO *= albedo_tex.rgb;
-    
+
 	ALPHA = albedo_tex_sample.r * COLOR.a;
 }

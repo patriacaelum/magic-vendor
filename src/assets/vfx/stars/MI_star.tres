@@ -6,12 +6,6 @@
 [resource]
 render_priority = 0
 shader = ExtResource("1_iddgn")
-shader_parameter/proximity_fade_distance = 1.0
-shader_parameter/particles_anim_h_frames = 1
-shader_parameter/particles_anim_v_frames = 1
-shader_parameter/particles_anim_loop = false
 shader_parameter/uv1_scale = Vector3(1, 1, 1)
 shader_parameter/uv1_offset = Vector3(0, 0, 0)
-shader_parameter/uv2_scale = Vector3(1, 1, 1)
-shader_parameter/uv2_offset = Vector3(0, 0, 0)
 shader_parameter/texture_albedo = ExtResource("2_iq1qr")
