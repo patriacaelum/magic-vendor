@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=3 uid="uid://wbxv6erexom5"]
 
 [ext_resource type="Script" path="res://scripts/customer_3d.gd" id="1_wx3rc"]
-[ext_resource type="PackedScene" uid="uid://cqurk2j31aohx" path="res://assets/mesh/characters/sm_customer.tscn" id="2_44kh7"]
-[ext_resource type="ArrayMesh" uid="uid://bujlln241wpor" path="res://assets/mesh/arrow.obj" id="3_0s73t"]
+[ext_resource type="PackedScene" path="res://assets/mesh/characters/sm_customer.tscn" id="2_44kh7"]
+[ext_resource type="ArrayMesh" uid="uid://3svngy6ccesm" path="res://assets/mesh/arrow.obj" id="3_0s73t"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_n7xiv"]
 radius = 0.4

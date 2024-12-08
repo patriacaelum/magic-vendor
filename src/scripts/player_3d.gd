@@ -5,6 +5,13 @@ extends CharacterBody3D
 signal station_placed(station: BaseStation)
 
 
+enum STATE {
+    IDLE,
+    DASH,
+}
+
+
+@export_range(0.1, 2.0, 0.1) var dash_time := 0.5
 @export_range(3.0, 12.0, 0.1) var max_speed := 6.0
 
 ## Controls how quickly the player accelerates and turns on the ground
@@ -22,17 +29,37 @@ signal station_placed(station: BaseStation)
 const GRAVITY: Vector3 = 40.0 * Vector3.DOWN
 
 
-var _call_interactable: Callable = self.__show_info
+var _call_interact: Callable = self.__show_info
 var _current_station: BaseStation = null
+var _dash_direction := Vector3.ZERO
+var _dash_timer := Timer.new()
+var _state: STATE = STATE.IDLE
 var _world_plane := Plane(Vector3.UP)
 
 
+func _ready() -> void:
+    self._dash_timer.one_shot = true
+    self._dash_timer.timeout.connect(self._on_dash_timer_timeout)
+
+    self.add_child(self._dash_timer)
+
+
 func _input(event: InputEvent) -> void:
-    if event.is_action_pressed("interact"):
-        self.__interact_with_station()
+    if self._state == STATE.DASH:
+        return
+
+    if event.is_action_pressed("dash"):
+        self.__dash()
+    elif event.is_action_pressed("interact"):
+        self._call_interact.call()
 
 
 func _physics_process(delta: float) -> void:
+    if self._state == STATE.DASH:
+        self.velocity = self._dash_direction * self.max_speed * 1.5
+        self.move_and_slide()
+        return
+
     var moved: bool = false
 
     if self._current_station:
@@ -121,20 +148,20 @@ func __check_front() -> void:
             self._current_station.highlight()
 
 
+func __dash() -> void:
+    self._dash_direction = (self.__mouse_position() - self.global_position).normalized()
+    self._dash_timer.start(self.dash_time)
+    self._state = STATE.DASH
+    self._octo_skin_3d.dash()
+
+
 ## Turns the player torward the direction of the mouse.
 func __face_mouse() -> void:
-    # Project ray from camera to the ground, find position of mouse in 3D space
-    self._world_plane.d = self.global_position.y
-    var mouse_position_2d: Vector2 = self.get_viewport().get_mouse_position()
-    var mouse_ray: Vector3 = self._camera_3d.project_ray_normal(mouse_position_2d)
-    var world_mouse_position: Variant = self._world_plane.intersects_ray(
-        self._camera_3d.global_position,
-        mouse_ray,
-    )
-
     # Character faces the mouse
-    if world_mouse_position:
-        self.look_at(world_mouse_position)
+    var mouse_position := self.__mouse_position()
+
+    if mouse_position:
+        self.look_at(mouse_position)
 
 
 func __has_items() -> bool:
@@ -151,6 +178,19 @@ func __interact_with_station() -> void:
     elif self._current_station.has_items():
         var item: BaseItem = self._current_station.get_item()
         self.__add_item(item)
+
+
+func __mouse_position() -> Vector3:
+    # Project ray from camera to the ground, find position of mouse in 3D space
+    self._world_plane.d = self.global_position.y
+    var mouse_position_2d: Vector2 = self.get_viewport().get_mouse_position()
+    var mouse_ray: Vector3 = self._camera_3d.project_ray_normal(mouse_position_2d)
+    var world_mouse_position: Variant = self._world_plane.intersects_ray(
+        self._camera_3d.global_position,
+        mouse_ray,
+    )
+
+    return world_mouse_position
 
 
 ## Moves the player in toward the direction of input.
@@ -200,3 +240,7 @@ func __nearest_cardinal(from: Vector3 = Vector3.ZERO, centre: Vector3 = Vector3.
 
 func __show_info() -> void:
     pass
+
+
+func _on_dash_timer_timeout() -> void:
+    self._state = STATE.IDLE

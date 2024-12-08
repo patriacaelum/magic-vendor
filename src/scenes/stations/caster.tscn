@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://knjc7bodf0bp"]
+
+[ext_resource type="Script" path="res://scripts/stations/caster.gd" id="1_i2cyb"]
+[ext_resource type="PackedScene" uid="uid://bxhna0ysibju1" path="res://assets/mesh/props/interactables/sm_cast_sword.tscn" id="2_5bi2i"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xmun0"]
+size = Vector3(1, 0.499878, 1)
+
+[node name="Caster" type="RigidBody3D" node_paths=PackedStringArray("_highlight_mesh")]
+collision_layer = 3
+collision_mask = 2
+script = ExtResource("1_i2cyb")
+_highlight_mesh = NodePath("SM_Cast_Sword/SM_Magma")
+
+[node name="SM_Cast_Sword" parent="." instance=ExtResource("2_5bi2i")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.250061, 0)
+shape = SubResource("BoxShape3D_xmun0")
+
+[editable path="SM_Cast_Sword"]

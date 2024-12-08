@@ -3,8 +3,6 @@ extends BaseStation
 
 
 @export var supply_scene: PackedScene
-@export var supply_material: BaseItem.MATERIAL
-@export var supply_type: BaseItem.TYPE
 
 
 var _supply_class: String
@@ -19,8 +17,8 @@ func _ready() -> void:
     var supply: BaseItem = self.supply_scene.instantiate()
 
     supply.visible = false
+    self._inventory.add_child(supply)
     self._supply_class = supply.get_classname()
-    self.add_child(supply)
 
 
 ## Supply crates only accept the item that they supply.

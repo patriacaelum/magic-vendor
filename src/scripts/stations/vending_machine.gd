@@ -37,7 +37,8 @@ func add_item(item: BaseItem) -> BaseItem:
         item.visible = false
         item.reparent(self._inventory)
 
-        self._inventory_tracker.get_or_add(item.classname, []).append(item)
+        self._inventory_tracker.get_or_add(item.get_classname(), []).append(item)
+        print(item.get_classname(), "added to vending machine")
 
     return null
 

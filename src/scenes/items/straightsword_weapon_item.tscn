@@ -1,9 +1,0 @@
-[gd_scene load_steps=3 format=3 uid="uid://b6vbinrnxan5r"]
-
-[ext_resource type="Script" path="res://scripts/items/weapon_item.gd" id="1_58hfh"]
-[ext_resource type="PackedScene" uid="uid://bm04hxbfww14p" path="res://assets/mesh/props/items/sm_sword.tscn" id="2_mqqa0"]
-
-[node name="StraightswordWeaponItem" type="Node3D"]
-script = ExtResource("1_58hfh")
-
-[node name="SM_Sword" parent="." instance=ExtResource("2_mqqa0")]

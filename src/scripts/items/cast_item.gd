@@ -8,22 +8,22 @@ enum STATE {
 }
 
 
-var _state := STATE.EMPTY
+@export var state := STATE.EMPTY
 
 
 func apply(force: FORCE) -> BaseItem:
-    if self._state == STATE.FILLED and force == FORCE.WATER:
+    if self.state == STATE.FILLED and force == FORCE.COOL:
         self.queue_free()
 
-        return WeaponItem.new(self._material, self._type)
+        return WeaponItem.new(self.material, self.type)
 
     return null
 
 
 func combine(item: BaseItem) -> BaseItem:
-    if item is MaterialItem and item.get_state() == MaterialItem.STATE.MALLEABLE:
-        self._material = item.get_material()
-        self._state = self.FILLED_STATE
+    if item is MaterialItem and item.state == MaterialItem.STATE.MALLEABLE:
+        self.material = item.material
+        self.state = self.FILLED_STATE
 
         item.queue_free()
 
@@ -32,9 +32,9 @@ func combine(item: BaseItem) -> BaseItem:
     return null
 
 
-func get_state() -> STATE:
-    return self._state
+func get_classname() -> String:
+    return STATE.keys()[self.state] + super()
 
 
 func get_state_string() -> String:
-    return STATE.keys()[self._state]
+    return STATE.keys()[self.state]
