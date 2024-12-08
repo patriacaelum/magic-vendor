@@ -12,6 +12,8 @@ const ORDER_ITEMS: Array[String] = [
 signal order_fulfilled(customer: Customer3D)
 
 
+@export var vip: bool = false
+
 @onready var _area_3d := %Area3D
 @onready var _navigation_agent_3d := %NavigationAgent3D
 
@@ -68,12 +70,22 @@ func __fulfill_order() -> void:
 
 
 func _on_navigation_agent_3d_navigation_finished() -> void:
-    self._navigation_agent_3d.avoidance_priority = 0.75
+    var priority := 0.75
+
+    if self.vip:
+        priority = 0.85
+
+    self._navigation_agent_3d.avoidance_priority = priority
     self.look_at(self.target_lookat)
 
 
 func _on_navigation_agent_3d_path_changed() -> void:
-    self._navigation_agent_3d.avoidance_priority = 0.7
+    var priority := 0.7
+
+    if self.vip:
+        priority = 0.8
+
+    self._navigation_agent_3d.avoidance_priority = priority
 
 
 func _on_navigation_agent_3d_velocity_computed(safe_velocity: Vector3) -> void:

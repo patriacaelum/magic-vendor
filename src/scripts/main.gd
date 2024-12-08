@@ -43,7 +43,7 @@ func _ready() -> void:
     self.__load_config()
 
     var next_level: Dictionary = self._levels.get(self._current_level + 1, {})
-    self._hud.set_next_level(next_level.get("customers", 1))
+    self._hud.set_next_level(next_level.get("n_customers", 1))
 
 
 func _physics_process(delta: float) -> void:
@@ -64,9 +64,13 @@ func __load_config() -> void:
 
     for key: String in config.get_sections():
         var level: int = int(key.split(".")[1])
-        var customers: int = config.get_value(key, "customers")
+        var n_customers: int = config.get_value(key, "n_customers")
+        var n_vip_customers: int = config.get_value(key, "n_vip_customers")
 
-        self._levels[level] = {"customers": customers}
+        self._levels[level] = {
+            "n_customers": n_customers,
+            "n_vip_customers": n_vip_customers,
+        }
 
 
 func __set_phase(phase: PHASE) -> void:
@@ -74,8 +78,11 @@ func __set_phase(phase: PHASE) -> void:
         self._customer_manager.stop()
     elif phase == PHASE.SERVING:
         self._current_level += 1
-        var n_customers: int = self._levels.get(self._current_level, {}).get("customers", 1)
-        self._customer_manager.start(n_customers)
+        var level_config: Dictionary = self._levels.get(self._current_level, {})
+        var n_customers: int = level_config.get("n_customers", 1)
+        var n_vip_customers: int = level_config.get("n_vip_customers", 1)
+
+        self._customer_manager.start(n_customers, n_vip_customers)
 
     self._hud.set_phase_label(phase)
     self._player.remap_control(phase)

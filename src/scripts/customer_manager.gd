@@ -13,9 +13,12 @@ signal customer_order_fulfilled(customer_id: int)
 
 
 var _customer_3d := preload("res://scenes/customer_3d.tscn")
+var _vip_customer := preload("res://scenes/vip_customer.tscn")
 var _customers: Dictionary = {}
 var _n_customers: int = 0
 var _n_customers_max: int = 0
+var _n_vip_customers: int = 0
+var _n_vip_customers_max: int = 0
 var _queues: Dictionary = {}
 
 
@@ -29,9 +32,11 @@ func _ready() -> void:
     self._timer.timeout.connect(self._on_timer_timeout)
 
 
-func start(n_customers_max: int) -> void:
+func start(n_customers_max: int, n_vip_customers_max: int) -> void:
     self._n_customers = 0
     self._n_customers_max = n_customers_max
+    self._n_vip_customers = 0
+    self._n_vip_customers_max = n_vip_customers_max
     self._timer.start()
 
 
@@ -39,8 +44,14 @@ func stop() -> void:
     self._timer.stop()
 
 
-func __spawn_customer() -> void:
-    var customer: Customer3D = self._customer_3d.instantiate()
+func __spawn_customer(vip: bool = false) -> void:
+    var customer: Customer3D
+
+    if vip:
+        customer = self._vip_customer.instantiate()
+    else:
+        customer = self._customer_3d.instantiate()
+
     var customer_id: int = customer.get_instance_id()
     var target: VendingMachine = self._vending_machine_manager.get_random()
     var target_id: int = target.get_instance_id()
@@ -60,13 +71,17 @@ func __spawn_customer() -> void:
 func __update_customer_target_positions() -> void:
     for vending_machine_id: int in self._queues:
         var vending_machine: VendingMachine = self._vending_machine_manager.get_by_id(vending_machine_id)
-        var queue_position: int = 1
+        var queue_rank: int = 1
 
         for customer_id: int in self._queues[vending_machine_id]:
             var customer: Customer3D = self._customers[customer_id]
+            var queue_position = vending_machine.global_position + vending_machine.queue_position
 
-            customer.target_position = vending_machine.global_position + (vending_machine.queue_position * queue_position)
-            queue_position += 1
+            if not customer.vip:
+                queue_position += (queue_rank - 1) * vending_machine.queue_position
+
+            customer.target_position = queue_position
+            queue_rank += 1
 
 
 func _on_despawn_area_body_entered(body: Node3D) -> void:
@@ -88,8 +103,17 @@ func _on_customer_order_fulfilled(customer: Customer3D) -> void:
 
 
 func _on_timer_timeout() -> void:
-    self.__spawn_customer()
-    self._n_customers += 1
+    var numerator: float = self._n_vip_customers_max - self._n_vip_customers
+    var denominator: float = self._n_customers_max + self._n_vip_customers_max - self._n_customers
+    var pr: float = randf()
+    var vip: bool = pr < (numerator / denominator)
+
+    self.__spawn_customer(vip)
+
+    if vip:
+        self._n_vip_customers += 1
+    else:
+        self._n_customers += 1
 
     if self._n_customers >= self._n_customers_max:
         self.stop()

@@ -11,7 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://byaxkbkhv86y0" path="res://scenes/customer_manager.tscn" id="9_lkw0p"]
 [ext_resource type="PackedScene" uid="uid://cutjy85f8dxaa" path="res://scenes/stations/supply_crate.tscn" id="9_uiuxw"]
 [ext_resource type="PackedScene" uid="uid://knjc7bodf0bp" path="res://scenes/stations/caster.tscn" id="9_vngsi"]
-[ext_resource type="PackedScene" path="res://scenes/stations/polisher.tscn" id="10_4c8ry"]
+[ext_resource type="PackedScene" uid="uid://cqa7i4qw3loxj" path="res://scenes/stations/polisher.tscn" id="10_4c8ry"]
 [ext_resource type="PackedScene" uid="uid://wd83fsagwv5m" path="res://scenes/stations/grinder.tscn" id="11_2ffog"]
 [ext_resource type="PackedScene" uid="uid://dqnw7bo3hdixq" path="res://scenes/items/bronze_material_item.tscn" id="12_1nj6m"]
 [ext_resource type="PackedScene" uid="uid://b00qjhcb3fvyv" path="res://scenes/stations/quenching_basin.tscn" id="13_4onqj"]
