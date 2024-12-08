@@ -29,7 +29,7 @@ void fragment() {
     float circle_mask = smoothstep(0.45, 0.1, circle_grad);
 
     vec3 gradient = texture(gradient_sampler, vec2(mask, 0.0)).rgb;
-    ALBEDO = vec3(gradient);
+    ALBEDO = gradient;
     ALPHA = circle_mask - mask;
     ALPHA_SCISSOR_THRESHOLD = 0.5;
 }

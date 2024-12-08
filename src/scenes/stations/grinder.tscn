@@ -1,47 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://wd83fsagwv5m"]
+[gd_scene load_steps=5 format=3 uid="uid://wd83fsagwv5m"]
 
 [ext_resource type="Script" path="res://scripts/stations/grinder.gd" id="1_om7de"]
 [ext_resource type="PackedScene" uid="uid://btsitvyvbc56w" path="res://assets/mesh/props/interactables/sm_grindstone.tscn" id="2_8m63f"]
+[ext_resource type="PackedScene" uid="uid://cqs5j1hgk8d4e" path="res://assets/vfx/sparks/sparks_vfx.tscn" id="3_sjjl2"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_yndk4"]
 size = Vector3(1.5, 1, 1.5)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rtrow"]
-shading_mode = 0
-billboard_mode = 1
-
-[sub_resource type="Curve" id="Curve_5cmin"]
-max_value = 3.0
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="Curve" id="Curve_gabgr"]
-max_value = 3.0
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 2), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="Curve" id="Curve_2jpcs"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0]
-point_count = 1
-
-[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_oq4jb"]
-curve_x = SubResource("Curve_5cmin")
-curve_y = SubResource("Curve_gabgr")
-curve_z = SubResource("Curve_2jpcs")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_snt7o"]
-particle_flag_align_y = true
-emission_shape = 2
-emission_sphere_radius = 0.2
-direction = Vector3(1, 1, 0)
-initial_velocity_min = 2.0
-initial_velocity_max = 5.0
-scale_over_velocity_min = 1.0
-scale_over_velocity_max = 1.0
-scale_over_velocity_curve = SubResource("CurveXYZTexture_oq4jb")
-
-[sub_resource type="QuadMesh" id="QuadMesh_kij6o"]
-size = Vector2(0.2, 0.2)
 
 [node name="Grinder" type="RigidBody3D" node_paths=PackedStringArray("_highlight_mesh")]
 collision_layer = 3
@@ -59,13 +23,7 @@ shape = SubResource("BoxShape3D_yndk4")
 [node name="Inventory" type="Node3D" parent="."]
 unique_name_in_owner = true
 
-[node name="Sparks_VFX" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.593036, 0.711242, 0)
-
-[node name="GPUParticles3D" type="GPUParticles3D" parent="Sparks_VFX"]
-material_override = SubResource("StandardMaterial3D_rtrow")
-lifetime = 0.3
-process_material = SubResource("ParticleProcessMaterial_snt7o")
-draw_pass_1 = SubResource("QuadMesh_kij6o")
+[node name="Sparks_VFX" parent="." instance=ExtResource("3_sjjl2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.664663, 0.753861, 0)
 
 [editable path="SM_Grindstone"]

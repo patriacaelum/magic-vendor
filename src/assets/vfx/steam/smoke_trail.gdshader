@@ -22,13 +22,17 @@ void vertex() {
 void fragment() {
     float circle_grad = distance(vec2(0.5), UV);
 	float circle_mask = smoothstep(0.4, 0.2, circle_grad);
-	
+
+
     vec3 dissolve_text = texture(dissolve_sampler, UV * uv_scale + custom.z).rgb;
-	float dissolve = smoothstep(custom.y, 1, dissolve_text.r);
-    
-	ALBEDO = texture(gradient_sampler, UV).rgb;
-	ALPHA = circle_mask - (1.0-dissolve);
-	ALPHA_SCISSOR_THRESHOLD = 0.5;
+	float dissolve = smoothstep(min(1.5*custom.y+0.1,1.0), 1.0, dissolve_text.r);
+    float mask = clamp(circle_mask - (1.0-dissolve), 0.0, 1.0);
+
+   // ALBEDO = vec3(dissolve);
+	ALBEDO = texture(gradient_sampler, vec2(dissolve_text.r, 0.0)).rgb;
+
+    ALPHA = mask * COLOR.a;
+	//ALPHA_SCISSOR_THRESHOLD = 0.5;
 
 }
 

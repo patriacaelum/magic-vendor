@@ -8,9 +8,12 @@ size = Vector3(1, 0.5, 1)
 
 [node name="CastSword" type="RigidBody3D" node_paths=PackedStringArray("_highlight_mesh")]
 script = ExtResource("1_drgjv")
-_highlight_mesh = NodePath("SM_Cast_Sword/Cube_042")
+_highlight_mesh = NodePath("SM_Cast_Sword/Frame")
 
 [node name="SM_Cast_Sword" parent="." instance=ExtResource("2_er25i")]
+
+[node name="SM_Magma" parent="SM_Cast_Sword" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.063851, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)

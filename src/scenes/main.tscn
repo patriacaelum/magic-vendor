@@ -1,6 +1,6 @@
 [gd_scene load_steps=24 format=3 uid="uid://brhdx3ugah5n"]
 
-[ext_resource type="Texture2D" uid="uid://d35470iwdggfp" path="res://assets/textures/TXT_Default.png" id="1_fcm55"]
+[ext_resource type="Texture2D" uid="uid://col7a2okpessy" path="res://assets/textures/TXT_Default.png" id="1_fcm55"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_hpo2v"]
 [ext_resource type="PackedScene" uid="uid://tonlbavrexx2" path="res://scenes/player_3d.tscn" id="2_ol1ds"]
 [ext_resource type="PackedScene" uid="uid://dggedqavjjn8v" path="res://scenes/hud.tscn" id="3_7tfpm"]
@@ -24,6 +24,7 @@ background_color = Color(0.101961, 0.101961, 0.101961, 1)
 ambient_light_source = 2
 ambient_light_color = Color(0.564706, 0.564706, 0.564706, 1)
 tonemap_mode = 2
+glow_enabled = true
 fog_enabled = true
 fog_light_color = Color(0.270588, 0.270588, 0.270588, 1)
 fog_density = 0.0
@@ -111,7 +112,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, -1.5)
 unique_name_in_owner = true
 
 [node name="Anvil" parent="ProgressiveStationContainer" instance=ExtResource("8_cirma")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.71607, 0, -1.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.73212, 2.38419e-07, -1.49731)
 
 [node name="Forge" parent="ProgressiveStationContainer" instance=ExtResource("14_5r1od")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -5.5, 0, 0.245542)
