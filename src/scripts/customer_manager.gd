@@ -62,7 +62,11 @@ func __spawn_customer(vip: bool = false) -> void:
 
     customer.position = self._spawn_point.position
     customer.target_lookat = target.global_position
-    customer.target_position = target.global_position + (target.queue_position * len(self._queues[target_id]))
+
+    if customer.vip:
+        customer.target_position = target.global_position + target.queue_position
+    else:
+        customer.target_position = target.global_position + (target.queue_position * len(self._queues[target_id]))
     customer.order_fulfilled.connect(self._on_customer_order_fulfilled)
 
     self.customer_spawned.emit(customer)
@@ -115,5 +119,5 @@ func _on_timer_timeout() -> void:
     else:
         self._n_customers += 1
 
-    if self._n_customers >= self._n_customers_max:
+    if self._n_customers + self._n_vip_customers >= self._n_customers_max + self._n_vip_customers_max:
         self.stop()

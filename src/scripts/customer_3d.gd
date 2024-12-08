@@ -5,6 +5,8 @@ extends CharacterBody3D
 const ORDER_ITEMS: Array[String] = [
     "REFINEDBRONZESTRAIGHTSWORD",
     "SHARPENEDBRONZESTRAIGHTSWORD",
+]
+const VIP_ORDER_ITEMS: Array[String] = [
     "POLISHEDBRONZESTRAIGHTSWORD",
 ]
 
@@ -32,7 +34,12 @@ var _speed: float = 100.0
 
 func _ready() -> void:
     # Randomly select an order item
-    self._order = [ORDER_ITEMS[randi_range(0, len(ORDER_ITEMS) - 1)]]
+    var items: Array[String] = ORDER_ITEMS
+
+    if vip:
+        items = VIP_ORDER_ITEMS
+
+    self._order = [items[randi_range(0, len(items) - 1)]]
 
     self._navigation_agent_3d.velocity_computed.connect(self._on_navigation_agent_3d_velocity_computed)
     self._navigation_agent_3d.navigation_finished.connect(self._on_navigation_agent_3d_navigation_finished)
