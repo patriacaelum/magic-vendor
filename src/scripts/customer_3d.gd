@@ -5,12 +5,16 @@ extends CharacterBody3D
 const ORDER_ITEMS: Array[String] = [
     "REFINEDBRONZESTRAIGHTSWORD",
     "SHARPENEDBRONZESTRAIGHTSWORD",
+]
+const VIP_ORDER_ITEMS: Array[String] = [
     "POLISHEDBRONZESTRAIGHTSWORD",
 ]
 
 
 signal order_fulfilled(customer: Customer3D)
 
+
+@export var vip: bool = false
 
 @onready var _area_3d := %Area3D
 @onready var _navigation_agent_3d := %NavigationAgent3D
@@ -30,7 +34,12 @@ var _speed: float = 100.0
 
 func _ready() -> void:
     # Randomly select an order item
-    self._order = [ORDER_ITEMS[randi_range(0, len(ORDER_ITEMS) - 1)]]
+    var items: Array[String] = ORDER_ITEMS
+
+    if vip:
+        items = VIP_ORDER_ITEMS
+
+    self._order = [items[randi_range(0, len(items) - 1)]]
 
     self._navigation_agent_3d.velocity_computed.connect(self._on_navigation_agent_3d_velocity_computed)
     self._navigation_agent_3d.navigation_finished.connect(self._on_navigation_agent_3d_navigation_finished)
@@ -68,12 +77,22 @@ func __fulfill_order() -> void:
 
 
 func _on_navigation_agent_3d_navigation_finished() -> void:
-    self._navigation_agent_3d.avoidance_priority = 0.75
+    var priority := 0.75
+
+    if self.vip:
+        priority = 0.85
+
+    self._navigation_agent_3d.avoidance_priority = priority
     self.look_at(self.target_lookat)
 
 
 func _on_navigation_agent_3d_path_changed() -> void:
-    self._navigation_agent_3d.avoidance_priority = 0.7
+    var priority := 0.7
+
+    if self.vip:
+        priority = 0.8
+
+    self._navigation_agent_3d.avoidance_priority = priority
 
 
 func _on_navigation_agent_3d_velocity_computed(safe_velocity: Vector3) -> void:

@@ -1,8 +1,11 @@
 [levels.1]
-customers = 3
+n_customers = 3
+n_vip_customers = 1
 
 [levels.2]
-customers = 5
+n_customers = 5
+n_vip_customers = 1
 
 [levels.3]
-customers = 8
+n_customers = 8
+n_vip_customers = 1
