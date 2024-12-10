@@ -10,7 +10,7 @@ extends RigidBody3D
 
 @onready var _highlight_shader := preload("res://assets/shaders/simple_outline.gdshader")
 
-var _inventory := Node3D.new()
+var _inventory: Node3D
 var _highlight_material: ShaderMaterial
 
 
@@ -18,7 +18,12 @@ func _ready() -> void:
     self._highlight_material = ShaderMaterial.new()
     self._highlight_material.shader = self._highlight_shader
 
-    self.add_child(self._inventory)
+    self._inventory = self.get_node_or_null("Inventory")
+
+    if not self._inventory:
+        self._inventory = Node3D.new()
+        self.add_child(self._inventory)
+
 
 
 ## Depending on what the player is holding, adding an item to the station may

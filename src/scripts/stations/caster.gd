@@ -17,11 +17,17 @@ func _ready() -> void:
 
 
 func add_item(item: BaseItem) -> BaseItem:
-    if not self.has_items() and item is MaterialItem and item.state == MaterialItem.STATE.MALLEABLE:
-        item.reparent(self._inventory)
-        self._finished = false
-        self._timer.start(CAST_TIME)
-        self.started.emit(self)
+    if not self.has_items() and item is Crucible:
+        var material: BaseItem = item.get_contents()
+
+        if material == null:
+            return null
+
+        if material.state == MaterialItem.STATE.MALLEABLE:
+            material.reparent(self._inventory)
+            self._finished = false
+            self._timer.start(CAST_TIME)
+            self.started.emit(self)
 
     return null
 

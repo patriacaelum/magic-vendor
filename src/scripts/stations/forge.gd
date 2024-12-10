@@ -22,6 +22,9 @@ func _ready() -> void:
 
 func add_item(item: BaseItem) -> BaseItem:
     if self.has_items():
+        if item is Crucible:
+            item.combine(self.get_item())
+
         return null
 
     if item is MaterialItem and item.state == MaterialItem.STATE.UNREFINED:

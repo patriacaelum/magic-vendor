@@ -1,11 +1,12 @@
-[gd_scene load_steps=24 format=3 uid="uid://brhdx3ugah5n"]
+[gd_scene load_steps=25 format=3 uid="uid://brhdx3ugah5n"]
 
-[ext_resource type="Texture2D" uid="uid://col7a2okpessy" path="res://assets/textures/TXT_Default.png" id="1_fcm55"]
+[ext_resource type="Texture2D" uid="uid://phwpfeuyqpq" path="res://assets/textures/TXT_Default.png" id="1_fcm55"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_hpo2v"]
 [ext_resource type="PackedScene" uid="uid://tonlbavrexx2" path="res://scenes/player_3d.tscn" id="2_ol1ds"]
 [ext_resource type="PackedScene" uid="uid://dggedqavjjn8v" path="res://scenes/hud.tscn" id="3_7tfpm"]
 [ext_resource type="PackedScene" uid="uid://q0wfh7oxbbq" path="res://scenes/stations/base_station.tscn" id="4_p03mp"]
 [ext_resource type="Script" path="res://scripts/vending_machine_manager.gd" id="6_85yxb"]
+[ext_resource type="PackedScene" uid="uid://cdm216ddd1rrh" path="res://scenes/items/crucible.tscn" id="6_lgjcc"]
 [ext_resource type="PackedScene" uid="uid://ccucp7gr6qbyk" path="res://scenes/stations/vending_machine.tscn" id="7_xj2ye"]
 [ext_resource type="PackedScene" uid="uid://bek1i0jkpem55" path="res://scenes/stations/anvil.tscn" id="8_cirma"]
 [ext_resource type="PackedScene" uid="uid://byaxkbkhv86y0" path="res://scenes/customer_manager.tscn" id="9_lkw0p"]
@@ -107,6 +108,11 @@ fov = 50.0
 
 [node name="BaseStation" parent="." instance=ExtResource("4_p03mp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, -1.5)
+
+[node name="Inventory" type="Node3D" parent="BaseStation"]
+
+[node name="Crucible" parent="BaseStation/Inventory" instance=ExtResource("6_lgjcc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.652643, 0)
 
 [node name="ProgressiveStationContainer" type="Node3D" parent="."]
 unique_name_in_owner = true
