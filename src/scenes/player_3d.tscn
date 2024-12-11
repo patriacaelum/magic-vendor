@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://tonlbavrexx2"]
 
 [ext_resource type="Script" path="res://scripts/player_3d.gd" id="1_fp31h"]
-[ext_resource type="ArrayMesh" uid="uid://bv8g88awlxwer" path="res://assets/mesh/arrow.obj" id="2_3407m"]
+[ext_resource type="ArrayMesh" uid="uid://bujlln241wpor" path="res://assets/mesh/arrow.obj" id="2_3407m"]
 [ext_resource type="PackedScene" uid="uid://dwfnffwb4di22" path="res://scenes/octo_skin_3d.tscn" id="2_h60nj"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6i3v3"]

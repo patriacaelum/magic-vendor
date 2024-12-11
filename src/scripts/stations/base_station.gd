@@ -5,6 +5,7 @@ class_name BaseStation
 extends RigidBody3D
 
 
+
 @export var highlight_thickness := 0.08
 @export var _highlight_mesh : MeshInstance3D = null
 

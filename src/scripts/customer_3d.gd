@@ -52,7 +52,9 @@ func _physics_process(delta: float) -> void:
         var next_position: Vector3 = self._navigation_agent_3d.get_next_path_position()
         var direction = self.global_position.direction_to(next_position)
 
-        self.look_at(next_position)
+        # Only rotate when far next location is far enough to avoid rotation errors
+        if (self.global_position.distance_to(next_position) > 0.5):
+            self.look_at(next_position)
         self._navigation_agent_3d.set_velocity(direction * self._speed * delta)
 
 
