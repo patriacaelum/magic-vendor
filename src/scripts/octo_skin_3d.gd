@@ -19,7 +19,7 @@ var right_eye_mat_override := 2
 @onready var _left_eye_mat: StandardMaterial3D
 @onready var _right_eye_mat: StandardMaterial3D
 
-@onready var _animation_tree = $AnimationTree
+@onready var _animation_tree : AnimationTree = $AnimationTree
 @onready var _main_state_machine: AnimationNodeStateMachinePlayback = _animation_tree.get("parameters/StateMachine/playback")
 
 
@@ -35,6 +35,18 @@ func walk():
 ## Sets model to a dash state
 func dash():
     _main_state_machine.travel("Dash")
+
+## Blends animation to pick up object
+func pickup():
+    var tween = create_tween()
+    tween.tween_property(self._animation_tree, "parameters/Blend2/blend_amount", 1.0, 0.5)
+    #_animation_tree.parameters.Blend2.blend_amount 
+
+## Blends animation to drop item
+func drop():
+    var tween = create_tween()
+    tween.tween_property(self._animation_tree, "parameters/Blend2/blend_amount", 0.0, 0.5)
+
 
 func _set_blink(state: bool):
     if _blink == state:

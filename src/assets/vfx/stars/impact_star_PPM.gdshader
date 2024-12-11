@@ -43,7 +43,7 @@ uniform float emission_sphere_radius;
 uniform vec4 color_value : source_color = vec4(1.0);
 uniform vec3 gravity;
 uniform sampler2D color_ramp : repeat_disable, source_color;
-// Introduce uniform for HDR colour scaling 
+// Introduce uniform for HDR colour scaling
 uniform sampler2D color_intensity_curve : repeat_disable;
 uniform sampler2D scale_curve : repeat_disable;
 
@@ -130,7 +130,7 @@ void calculate_initial_dynamics_params(inout DynamicsParameters params, inout ui
 	// -------------------- DO NOT REORDER OPERATIONS, IT BREAKS VISUAL COMPATIBILITY
 	// -------------------- ADD NEW OPERATIONS AT THE BOTTOM
 	params.angle = mix(initial_angle_min, initial_angle_max, rand_from_seed(alt_seed));
-	
+
     // Angular velocity randomize adjustment
     float random_val = rand_from_seed(alt_seed);
     float sign_change = (random_val < 0.5) ? -1.0 : 1.0;
@@ -163,7 +163,7 @@ void process_display_param(inout DisplayParameters parameters, float lifetime) {
     parameters.color.r *= curve_intensity.r;
     parameters.color.g *= curve_intensity.g;
     parameters.color.b *= curve_intensity.b;
-    
+
     parameters.color = rotate_hue(parameters.color, parameters.hue_rotation);
 }
 

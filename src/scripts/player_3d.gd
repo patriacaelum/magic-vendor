@@ -175,9 +175,14 @@ func __interact_with_station() -> void:
     if self.__has_items():
         var item: BaseItem = self._current_station.add_item(self._inventory.get_child(0))
         self.__add_item(item)
+        self._octo_skin_3d.drop()
+
+        
     elif self._current_station.has_items():
         var item: BaseItem = self._current_station.get_item()
         self.__add_item(item)
+        self._octo_skin_3d.pickup()
+
 
 
 func __mouse_position() -> Vector3:
