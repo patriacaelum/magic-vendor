@@ -1,13 +1,35 @@
-[gd_scene load_steps=7 format=3 uid="uid://xn2qwmvjrimr"]
+[gd_scene load_steps=12 format=3 uid="uid://xn2qwmvjrimr"]
 
 [ext_resource type="Script" path="res://scripts/stations/forge.gd" id="1_tbneh"]
 [ext_resource type="PackedScene" uid="uid://dkouwuokketa" path="res://assets/mesh/props/interactables/sm_forge.tscn" id="2_253fe"]
 [ext_resource type="PackedScene" uid="uid://dan76dhfsuqku" path="res://assets/vfx/fire/fire_vfx.tscn" id="3_kvm3l"]
 [ext_resource type="PackedScene" uid="uid://wtvi81mjl53f" path="res://assets/vfx/steam/smoke_vfx.tscn" id="4_d3qsh"]
-[ext_resource type="Material" uid="uid://fpodooxgaa22" path="res://assets/vfx/steam/MI_smoke.tres" id="5_20ik8"]
+[ext_resource type="Shader" path="res://assets/vfx/steam/smoke_trail.gdshader" id="5_qmjse"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ei6cs"]
 size = Vector3(1.5, 3, 1.5)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_7t6rd"]
+noise_type = 2
+fractal_octaves = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_sn6xf"]
+noise = SubResource("FastNoiseLite_7t6rd")
+
+[sub_resource type="Gradient" id="Gradient_j1jux"]
+offsets = PackedFloat32Array(0.59707, 0.824176)
+colors = PackedColorArray(0.277253, 0.211354, 0.100278, 1, 0.480091, 0.42896, 0.270674, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_uqf2b"]
+gradient = SubResource("Gradient_j1jux")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_o5n54"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("5_qmjse")
+shader_parameter/uv_scale = 0.2
+shader_parameter/gradient_sampler = SubResource("GradientTexture1D_uqf2b")
+shader_parameter/dissolve_sampler = SubResource("NoiseTexture2D_sn6xf")
 
 [node name="Forge" type="RigidBody3D" node_paths=PackedStringArray("_highlight_mesh")]
 collision_layer = 3
@@ -30,7 +52,7 @@ one_shot = true
 
 [node name="SmokeVFX" parent="." instance=ExtResource("4_d3qsh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.361884, 3.21181, 0.175988)
-material_override = ExtResource("5_20ik8")
+material_override = SubResource("ShaderMaterial_o5n54")
 
 [editable path="SM_Forge"]
 [editable path="SmokeVFX"]

@@ -1,9 +1,17 @@
 [gd_scene load_steps=3 format=3 uid="uid://cdm216ddd1rrh"]
 
 [ext_resource type="Script" path="res://scripts/items/crucible.gd" id="1_nrfjj"]
-[ext_resource type="PackedScene" path="res://assets/mesh/props/equipment/sm_magma_bucket.tscn" id="1_xirc5"]
+[ext_resource type="PackedScene" uid="uid://5cvjtqw065f3" path="res://assets/mesh/props/equipment/sm_magma_bucket.tscn" id="1_xirc5"]
 
-[node name="Crucible" type="Node3D"]
+[node name="Crucible" type="Node3D" node_paths=PackedStringArray("_debug_label")]
 script = ExtResource("1_nrfjj")
+_debug_label = NodePath("Label3D")
+_is_debugging = true
 
 [node name="SM_Magma_Bucket" parent="." instance=ExtResource("1_xirc5")]
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.49474, 0)
+billboard = 1
+text = "Test"
+font_size = 36

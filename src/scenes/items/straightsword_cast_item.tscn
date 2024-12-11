@@ -18,9 +18,10 @@ material = SubResource("StandardMaterial3D_7t4rf")
 radius = 0.4
 height = 0.2
 
-[node name="StraightSwordCastItem" type="Node3D"]
+[node name="StraightSwordCastItem" type="Node3D" node_paths=PackedStringArray("_debug_label")]
 script = ExtResource("1_d6kpl")
-init_type = 1
+_debug_label = NodePath("Label3D")
+_is_debugging = true
 
 [node name="EmptyMesh" type="MeshInstance3D" parent="."]
 unique_name_in_owner = true
@@ -31,3 +32,9 @@ mesh = SubResource("SphereMesh_n4n37")
 unique_name_in_owner = true
 visible = false
 mesh = SubResource("SphereMesh_3dmlx")
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.61689, 0)
+billboard = 1
+text = "Test"
+font_size = 36
