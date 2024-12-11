@@ -31,6 +31,13 @@ func _ready() -> void:
 
     self.add_child(self._timer)
     self.add_child(self._mesh.instantiate())
+    
+    self._debug_label = Label3D.new()
+    self._debug_label.billboard = 1
+    self._debug_label.position 
+    self.add_child(_debug_label)
+    self._is_debugging = true
+    super()
 
 
 func apply(force: FORCE) -> BaseItem:
@@ -47,7 +54,7 @@ func apply(force: FORCE) -> BaseItem:
         self.state = STATE.POLISHED
 
     print("Weapon is now ", STATE.keys()[self.state])
-
+    super(force)
     return null
 
 
@@ -62,3 +69,4 @@ func get_state_string() -> String:
 func _on_timer_timeout() -> void:
     if self.state == STATE.MALLEABLE or self.state == STATE.ANNEALED:
         self.state = STATE.UNREFINED
+        _update_debug_label()

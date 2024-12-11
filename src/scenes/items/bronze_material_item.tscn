@@ -11,8 +11,10 @@ material = SubResource("StandardMaterial3D_vct7y")
 inner_radius = 0.04
 outer_radius = 0.4
 
-[node name="BronzeMaterialItem" type="Node3D"]
+[node name="BronzeMaterialItem" type="Node3D" node_paths=PackedStringArray("_debug_label")]
 script = ExtResource("1_4xv55")
+_debug_label = NodePath("Label3D")
+_is_debugging = true
 material = 1
 
 [node name="UnrefinedMesh" parent="." instance=ExtResource("2_8cdn4")]
@@ -22,3 +24,9 @@ unique_name_in_owner = true
 unique_name_in_owner = true
 visible = false
 mesh = SubResource("TorusMesh_82uxv")
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.497938, 0)
+billboard = 1
+text = "Test"
+font_size = 36

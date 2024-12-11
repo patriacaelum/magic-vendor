@@ -23,6 +23,7 @@ func _ready() -> void:
     self._timer.timeout.connect(self._on_timer_timeout)
 
     self.add_child(self._timer)
+    super()
 
 
 func apply(force: FORCE) -> BaseItem:
@@ -34,7 +35,8 @@ func apply(force: FORCE) -> BaseItem:
 
         self.add_sibling(weapon)
         self.queue_free()
-
+    
+    super(force)
     return null
 
 
@@ -56,6 +58,7 @@ func __set_state(new_state: STATE) -> void:
             self._malleable_mesh.visible = true
 
     self.state = new_state
+    self._update_debug_label()
 
 
 func _on_timer_timeout() -> void:

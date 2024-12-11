@@ -7,6 +7,7 @@ var _inventory := Node3D.new()
 
 func _ready() -> void:
     self.add_child(self._inventory)
+    super()
 
 
 func combine(item: BaseItem) -> BaseItem:
