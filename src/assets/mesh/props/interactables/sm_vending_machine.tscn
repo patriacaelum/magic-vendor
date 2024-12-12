@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://cvmdd0dfpkvwk"]
+
+[ext_resource type="PackedScene" uid="uid://c17utvdvw2ew5" path="res://assets/mesh/props/interactables/SM_VendingMachine.glb" id="1_sefld"]
+
+[node name="SM_VendingMachine" instance=ExtResource("1_sefld")]

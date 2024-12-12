@@ -1,6 +1,6 @@
 [gd_scene load_steps=25 format=3 uid="uid://brhdx3ugah5n"]
 
-[ext_resource type="Texture2D" uid="uid://d35470iwdggfp" path="res://assets/textures/TXT_Default.png" id="1_fcm55"]
+[ext_resource type="Texture2D" uid="uid://col7a2okpessy" path="res://assets/textures/TXT_Default.png" id="1_fcm55"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_hpo2v"]
 [ext_resource type="PackedScene" uid="uid://tonlbavrexx2" path="res://scenes/player_3d.tscn" id="2_ol1ds"]
 [ext_resource type="PackedScene" uid="uid://dggedqavjjn8v" path="res://scenes/hud.tscn" id="3_7tfpm"]
@@ -137,10 +137,10 @@ unique_name_in_owner = true
 script = ExtResource("6_85yxb")
 
 [node name="VendingMachine1" parent="VendingMachineManager" instance=ExtResource("7_xj2ye")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, -4.5)
+transform = Transform3D(1.31134e-07, 0, 1, 0, 1, 0, -1, 0, 1.31134e-07, 3.74722, 0, -1.96296)
 
 [node name="VendingMachine2" parent="VendingMachineManager" instance=ExtResource("7_xj2ye")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, -4.5)
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -0.5, 0, -4.73128)
 
 [node name="BronzeMaterialSupplyCrate" parent="." instance=ExtResource("9_uiuxw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.426899, 0, 1.5)
@@ -200,4 +200,6 @@ collision_layer = 3
 size = Vector3(12, 2.4, 0.5)
 
 [editable path="Player3D"]
+[editable path="VendingMachineManager/VendingMachine1"]
+[editable path="VendingMachineManager/VendingMachine1/SM_VendingMachine"]
 [editable path="CustomerManager"]
