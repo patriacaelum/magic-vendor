@@ -24,7 +24,7 @@ func _ready() -> void:
     if self._is_debugging:
         var label = supply.get_debug_string()
         self._debugging_label.text = label
-        self._debugging_label.visible = true 
+        self._debugging_label.visible = true
 
 
 ## Supply crates only accept the item that they supply.
