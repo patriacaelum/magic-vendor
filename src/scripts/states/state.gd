@@ -7,10 +7,18 @@ signal finished
 signal property_set(state: STATENAME, property: StringName, value)
 signal state_changed(state: STATENAME, finished: bool)
 
+
 # Each child class should register its state name in this enum.
 enum STATENAME {
     NULL,
+    IDLE,
+    WALK,
+    DASH,
+    OPERATE,
+    PICKUP_ITEM,
+    DROP_ITEM,
 }
+
 
 # Each child class should set its state name in its `_init` method.
 var state_name: STATENAME = STATENAME.NULL
