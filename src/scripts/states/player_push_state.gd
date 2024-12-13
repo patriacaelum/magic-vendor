@@ -14,6 +14,14 @@ func _init() -> void:
     self.state_name = STATENAME.PUSH
 
 
+func enter() -> void:
+    if not self._entity.current_station:
+        self.finished.emit()
+        return
+
+    super()
+
+
 func notify(event: InputEvent) -> void:
     if event.is_action_released("grab"):
         self.finished.emit()
@@ -23,9 +31,10 @@ func notify(event: InputEvent) -> void:
 ## station
 func update(delta: float) -> void:
     # Move toward the nearest grab point of the nearest station
-    var grab_point: Vector3 = 0.5 * self.__nearest_cardinal(
+    var grab_point: Vector3 = self.__nearest_cardinal(
         self._entity.global_position,
         self._entity.current_station.global_position,
+        0.5,
     )
     var grab_direction: Vector3 = self._entity.global_position.direction_to(grab_point)
 
@@ -51,6 +60,7 @@ func update(delta: float) -> void:
 func __nearest_cardinal(
     from: Vector3 = Vector3.ZERO,
     centre: Vector3 = Vector3.ZERO,
+    radius: float = 1.0,
 ) -> Vector3:
     var nearest_cardinal: Vector3 = centre
     var nearest_distance: float = INF
@@ -58,7 +68,7 @@ func __nearest_cardinal(
     for cardinal: Vector3 in CARDINALS:
         # Using `distance_squared_to` because it is more optimized than
         # `distance_to` while maintaining the same result
-        var cardinal_position: Vector3 = centre + cardinal
+        var cardinal_position: Vector3 = centre + (radius * cardinal)
         var distance: float = from.distance_squared_to(cardinal_position)
 
         if distance < nearest_distance:
@@ -66,4 +76,3 @@ func __nearest_cardinal(
             nearest_cardinal = cardinal_position
 
     return nearest_cardinal
-        

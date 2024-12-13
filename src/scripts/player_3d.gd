@@ -4,7 +4,7 @@ extends CharacterBody3D
 
 @export_range(0.1, 2.0, 0.1) var dash_time := 0.5
 @export_range(3.0, 12.0, 0.1) var max_speed := 6.0
-@export_range(1, 20, 1) var push_force := 10
+@export_range(10, 30, 1) var push_force := 20
 
 ## Controls how quickly the player accelerates and turns on the ground
 @export_range(1.0, 50.0, 0.1) var steering_factor := 20.0
@@ -19,17 +19,17 @@ extends CharacterBody3D
 @onready var _state_machine := %StateMachine
 
 
-var _interact: Callable = self.__show_info
 var _current_station: BaseStation = null
 
 var current_station: BaseStation:
     get:
         return self._current_station
+var interact: Callable = self.__show_info
 
 
 func _input(event: InputEvent) -> void:
     if event.is_action_pressed("interact"):
-        self._interact.call()
+        self.interact.call()
     else:
         self._state_machine.notify(event)
 
@@ -73,9 +73,9 @@ func check_front() -> void:
 func remap_control(phase: Main.PHASE) -> void:
     match phase:
         Main.PHASE.PREPARATION:
-            self._interact = self.__show_info
+            self.interact = self.__show_info
         Main.PHASE.SERVING:
-            self._interact = self.__interact_with_station
+            self.interact = self.__interact_with_station
 
 
 func __add_item(item: BaseItem) -> void:

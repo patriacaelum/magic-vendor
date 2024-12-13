@@ -7,7 +7,10 @@ func _init() -> void:
 
 
 func notify(event: InputEvent) -> void:
-    if event.is_action_pressed("grab"):
+    if event.is_action_pressed("interact"):
+        self._entity.interact.call()
+        return
+    elif event.is_action_pressed("grab"):
         self.state_changed.emit(State.STATENAME.PUSH)
         return
 
