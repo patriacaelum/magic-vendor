@@ -1,8 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://tonlbavrexx2"]
+[gd_scene load_steps=11 format=3 uid="uid://tonlbavrexx2"]
 
 [ext_resource type="Script" path="res://scripts/player_3d.gd" id="1_fp31h"]
-[ext_resource type="ArrayMesh" uid="uid://bv8g88awlxwer" path="res://assets/mesh/arrow.obj" id="2_3407m"]
+[ext_resource type="ArrayMesh" uid="uid://3svngy6ccesm" path="res://assets/mesh/arrow.obj" id="2_3407m"]
 [ext_resource type="PackedScene" uid="uid://dwfnffwb4di22" path="res://scenes/octo_skin_3d.tscn" id="2_h60nj"]
+[ext_resource type="Script" path="res://scripts/states/state_machine.gd" id="4_0350d"]
+[ext_resource type="Script" path="res://scripts/states/player_idle_state.gd" id="5_igl41"]
+[ext_resource type="Script" path="res://scripts/states/player_walk_state.gd" id="6_5bxoy"]
+[ext_resource type="Script" path="res://scripts/states/player_dash_state.gd" id="7_h86to"]
+[ext_resource type="Script" path="res://scripts/states/player_push_state.gd" id="8_4dewa"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6i3v3"]
 albedo_color = Color(1, 0, 0, 1)
@@ -43,3 +48,20 @@ update_scale = false
 
 [node name="Inventory" type="Node3D" parent="."]
 unique_name_in_owner = true
+
+[node name="StateMachine" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("4_0350d")
+initial_state = 1
+
+[node name="PlayerIdleState" type="Node" parent="StateMachine"]
+script = ExtResource("5_igl41")
+
+[node name="PlayerWalkState" type="Node" parent="StateMachine"]
+script = ExtResource("6_5bxoy")
+
+[node name="PlayerDashState" type="Node" parent="StateMachine"]
+script = ExtResource("7_h86to")
+
+[node name="PlayerPushState" type="Node" parent="StateMachine"]
+script = ExtResource("8_4dewa")

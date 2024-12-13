@@ -31,10 +31,10 @@ func _ready() -> void:
 
     self.add_child(self._timer)
     self.add_child(self._mesh.instantiate())
-    
+
     self._debug_label = Label3D.new()
     self._debug_label.billboard = 1
-    self._debug_label.position 
+    self._debug_label.position
     self.add_child(_debug_label)
     self._is_debugging = true
     super()

@@ -1,16 +1,22 @@
+# Base `State` class that is meant to child nodes of the `StateMachine` class.
 class_name State
 extends Node
-# Base `State` class that is meant to child nodes of the `StateMachine` class.
 
 
 signal finished
 signal property_set(state: STATENAME, property: StringName, value)
-signal state_changed(state: STATENAME)
+signal state_changed(state: STATENAME, finished: bool)
+
 
 # Each child class should register its state name in this enum.
 enum STATENAME {
     NULL,
+    IDLE,
+    WALK,
+    DASH,
+    PUSH,
 }
+
 
 # Each child class should set its state name in its `_init` method.
 var state_name: STATENAME = STATENAME.NULL

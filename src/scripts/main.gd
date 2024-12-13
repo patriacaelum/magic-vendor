@@ -27,8 +27,6 @@ func _input(event: InputEvent) -> void:
 
 
 func _ready() -> void:
-    self._player.station_placed.connect(self._on_player_station_placed)
-
     self._customer_manager.customer_spawned.connect(self._hud._on_customer_manager_customer_spawned)
     self._customer_manager.customer_order_fulfilled.connect(self._hud._on_customer_manager_customer_order_fulfilled)
 
