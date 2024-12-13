@@ -1,0 +1,34 @@
+[gd_scene load_steps=6 format=3 uid="uid://bh7mjvmp3g4ph"]
+
+[ext_resource type="Script" path="res://scripts/stations/trashcan.gd" id="1_k2o37"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kmca2"]
+albedo_color = Color(0.140447, 0.140447, 0.140447, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_ckd0r"]
+material = SubResource("StandardMaterial3D_kmca2")
+height = 0.5
+
+[sub_resource type="BoxMesh" id="BoxMesh_hqpcl"]
+size = Vector3(1, 0.4, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_60cmh"]
+size = Vector3(1, 0.5, 1)
+
+[node name="Trashcan" type="RigidBody3D" node_paths=PackedStringArray("_highlight_mesh")]
+collision_layer = 3
+collision_mask = 2
+script = ExtResource("1_k2o37")
+_highlight_mesh = NodePath("MeshInstance3D")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+mesh = SubResource("CylinderMesh_ckd0r")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+mesh = SubResource("BoxMesh_hqpcl")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+shape = SubResource("BoxShape3D_60cmh")
