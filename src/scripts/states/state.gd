@@ -14,9 +14,6 @@ enum STATENAME {
     IDLE,
     WALK,
     DASH,
-    OPERATE,
-    PICKUP_ITEM,
-    DROP_ITEM,
 }
 
 

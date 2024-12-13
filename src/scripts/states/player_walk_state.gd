@@ -23,6 +23,11 @@ func notify(event: InputEvent) -> void:
 
 
 func update(delta: float) -> void:
+    # Operate the nearest station
+    if Input.is_action_pressed("operate") and self._entity.current_station:
+        self.current_station.operate(delta)
+
+    # Move in the direction of input
     var direction: Vector3 = self.__get_input_direction()
 
     if direction == Vector3.ZERO:

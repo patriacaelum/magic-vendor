@@ -2,109 +2,79 @@ class_name Player3D
 extends CharacterBody3D
 
 
-signal station_placed(station: BaseStation)
-
-
-enum STATE {
-    IDLE,
-    DASH,
-}
-
-
 @export_range(0.1, 2.0, 0.1) var dash_time := 0.5
 @export_range(3.0, 12.0, 0.1) var max_speed := 6.0
+@export_range(1, 20, 1) var push_force := 10
 
 ## Controls how quickly the player accelerates and turns on the ground
 @export_range(1.0, 50.0, 0.1) var steering_factor := 20.0
 
 
 ## A camera must be provided in every scene where the player is used
-@onready var _camera_3d := %Camera3D
 @onready var _inventory := %Inventory
 @onready var _item_marker := %ItemMarker
 @onready var _front_raycast_3d := %FrontRayCast
 @onready var _octo_skin_3d: OctoSkin3D = %OctoSkin3D
+@onready var _state_machine := %StateMachine
 
 
-const GRAVITY: Vector3 = 40.0 * Vector3.DOWN
-
-
-var _call_interact: Callable = self.__show_info
+var _interact: Callable = self.__show_info
 var _current_station: BaseStation = null
-var _dash_direction := Vector3.ZERO
-var _dash_timer := Timer.new()
-var _state: STATE = STATE.IDLE
-var _world_plane := Plane(Vector3.UP)
 
-
-func _ready() -> void:
-    self._dash_timer.one_shot = true
-    self._dash_timer.timeout.connect(self._on_dash_timer_timeout)
-
-    self.add_child(self._dash_timer)
+var current_station: BaseStation:
+    get:
+        return self._current_station
 
 
 func _input(event: InputEvent) -> void:
-    if self._state == STATE.DASH:
-        return
-
-    if event.is_action_pressed("dash"):
-        self.__dash()
-    elif event.is_action_pressed("interact"):
-        self._call_interact.call()
+    if event.is_action_pressed("interact"):
+        self._interact.call()
+    else:
+        self._state_machine.notify(event)
 
 
 func _physics_process(delta: float) -> void:
-    if self._state == STATE.DASH:
-        self.velocity = self._dash_direction * self.max_speed * 1.5
-        self.move_and_slide()
-        return
+    self._state_machine.update(delta)
 
-    var moved: bool = false
 
-    if self._current_station:
-        if Input.is_action_pressed("operate"):
-            self._current_station.operate(delta)
-        elif Input.is_action_pressed("grab"):
-            # When grabbing a station, move toward the station and face it
-            # The motion is directed to the station instead
-            var grab_point: Vector3 = self.__nearest_cardinal(
-                self.global_position,
-                self._current_station.global_position,
-            )
-            var direction: Vector3 = self.global_position.direction_to(grab_point)
+func animate(state_name: State.STATENAME) -> void:
+    match state_name:
+        State.STATENAME.IDLE:
+            self._octo_skin_3d.idle()
+        State.STATENAME.WALK:
+            self._octo_skin_3d.walk()
+        State.STATENAME.DASH:
+            self._octo_skin_3d.dash()
 
-            self.velocity = direction * self.max_speed
-            self.move_and_slide()
-            self.look_at(grab_point)
 
-            var input_vector_2d: Vector2 = Input.get_vector(
-                "move_left",
-                "move_right",
-                "move_up",
-                "move_down",
-            )
-            var input_vector: Vector3 = Vector3(input_vector_2d.x, 0.0, input_vector_2d.y)
+## Checks the front raycast and if it intersects a station, sends a signal to
+## that station.
+func check_front() -> void:
+    var collider: Variant = self._front_raycast_3d.get_collider()
 
-            if abs(input_vector.dot(direction)) > 0.5:
-                var force: Vector3 = self.__nearest_cardinal(input_vector).normalized()
-                self._current_station.apply_force(force * 20)
+    # Only consider changing the current station if the raycast is empty or hits
+    # a different station
+    if collider != self._current_station:
+        # Unhighlight the current station (unless it is empty)
+        if self._current_station != null:
+            self._current_station.unhighlight()
 
-            moved = true
+        if collider is BaseStation:
+            self._current_station = collider
+        else:
+            self._current_station = null
 
-    if not moved:
-        self.__move(delta)
-        self.__face_mouse()
-
-    self.__check_front()
+        # Highlight the current station (unless it is empty)
+        if self._current_station != null:
+            self._current_station.highlight()
 
 
 func remap_control(phase: Main.PHASE) -> void:
     match phase:
         Main.PHASE.PREPARATION:
-            self._call_interact = self.__show_info
+            self._interact = self.__show_info
         Main.PHASE.SERVING:
-            self._call_interact = self.__interact_with_station
+            self._interact = self.__interact_with_station
 
 
 func __add_item(item: BaseItem) -> void:
@@ -126,44 +96,6 @@ func __add_station(station: BaseStation) -> void:
     station.reparent(self._inventory)
 
 
-## Checks the front raycast and if it intersects a station, sends a signal to
-## that station.
-func __check_front() -> void:
-    var collider: Variant = self._front_raycast_3d.get_collider()
-
-    # Only consider changing the current station if the raycast is empty or hits
-    # a different station
-    if collider != self._current_station:
-        # Unhighlight the current station (unless it is empty)
-        if self._current_station != null:
-            self._current_station.unhighlight()
-
-        if collider is BaseStation:
-            self._current_station = collider
-        else:
-            self._current_station = null
-
-        # Highlight the current station (unless it is empty)
-        if self._current_station != null:
-            self._current_station.highlight()
-
-
-func __dash() -> void:
-    self._dash_direction = (self.__mouse_position() - self.global_position).normalized()
-    self._dash_timer.start(self.dash_time)
-    self._state = STATE.DASH
-    self._octo_skin_3d.dash()
-
-
-## Turns the player torward the direction of the mouse.
-func __face_mouse() -> void:
-    # Character faces the mouse
-    var mouse_position := self.__mouse_position()
-
-    if mouse_position:
-        self.look_at(mouse_position)
-
-
 func __has_items() -> bool:
     return self._inventory.get_child_count() > 0
 
@@ -173,79 +105,17 @@ func __interact_with_station() -> void:
         return
 
     if self.__has_items():
+        # Sometimes, putting an item on a station returns another item
         var item: BaseItem = self._current_station.add_item(self._inventory.get_child(0))
         self.__add_item(item)
-        self._octo_skin_3d.drop()
 
-        
+        if not self.__has_items():
+            self._octo_skin_3d.drop()
     elif self._current_station.has_items():
         var item: BaseItem = self._current_station.get_item()
         self.__add_item(item)
         self._octo_skin_3d.pickup()
 
 
-
-func __mouse_position() -> Vector3:
-    # Project ray from camera to the ground, find position of mouse in 3D space
-    self._world_plane.d = self.global_position.y
-    var mouse_position_2d: Vector2 = self.get_viewport().get_mouse_position()
-    var mouse_ray: Vector3 = self._camera_3d.project_ray_normal(mouse_position_2d)
-    var world_mouse_position: Variant = self._world_plane.intersects_ray(
-        self._camera_3d.global_position,
-        mouse_ray,
-    )
-
-    return world_mouse_position
-
-
-## Moves the player in toward the direction of input.
-func __move(delta: float) -> void:
-    var input_vector: Vector2 = Input.get_vector(
-        "move_left",
-        "move_right",
-        "move_up",
-        "move_down",
-    )
-    var direction := Vector3(input_vector.x, 0.0, input_vector.y)
-
-    # Implement steering for smoother handling
-    var desired_ground_velocity: Vector3 = direction * self.max_speed
-    var steering_vector: Vector3 = desired_ground_velocity - self.velocity
-
-    # Avoid smoothing for y-direction as it is not controlled through input
-    steering_vector.y = 0.0
-
-    # Limit steering to ensure velocity never overshoots desired velocity
-    var steering_amount: float = min(self.steering_factor * delta, 1.0)
-
-    self.velocity += (steering_vector * steering_amount) + (self.GRAVITY * delta)
-    move_and_slide()
-
-    # Update the skin animation based on movement.
-    if is_on_floor() and not direction.is_zero_approx():
-        _octo_skin_3d.walk()
-    else:
-        _octo_skin_3d.idle()
-
-func __nearest_cardinal(from: Vector3 = Vector3.ZERO, centre: Vector3 = Vector3.ZERO) -> Vector3:
-    var cardinals: Array[Vector3] = [Vector3.FORWARD, Vector3.BACK, Vector3.RIGHT, Vector3.LEFT]
-    var nearest_cardinal: Vector3 = centre
-    var nearest_distance: float = INF
-
-    for cardinal: Vector3 in cardinals:
-        var cardinal_position: Vector3 = centre + 0.5 * cardinal
-        var distance: float = from.distance_squared_to(cardinal_position)
-
-        if distance < nearest_distance:
-            nearest_distance = distance
-            nearest_cardinal = cardinal_position
-
-    return nearest_cardinal
-
-
 func __show_info() -> void:
     pass
-
-
-func _on_dash_timer_timeout() -> void:
-    self._state = STATE.IDLE

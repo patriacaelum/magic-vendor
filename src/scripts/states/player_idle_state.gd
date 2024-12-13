@@ -19,6 +19,11 @@ func notify(event: InputEvent) -> void:
 
 
 func update(delta: float) -> void:
+    # Operate the nearest station
+    if Input.is_action_pressed("operate") and self._entity.current_station:
+        self._entity.current_station.operate(delta)
+
+    # Dampen any residual motion
     self.__move(delta)
     self.__face_mouse()
     self._entity.check_front()

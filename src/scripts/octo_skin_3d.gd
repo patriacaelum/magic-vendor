@@ -23,24 +23,26 @@ var right_eye_mat_override := 2
 @onready var _main_state_machine: AnimationNodeStateMachinePlayback = _animation_tree.get("parameters/StateMachine/playback")
 
 
-
 ## Sets model to neutral state
 func idle():
     _main_state_machine.travel("Idle")
+
 
 ## Sets model to a walking state
 func walk():
     _main_state_machine.travel("Walk")
 
+
 ## Sets model to a dash state
 func dash():
     _main_state_machine.travel("Dash")
+
 
 ## Blends animation to pick up object
 func pickup():
     var tween = create_tween()
     tween.tween_property(self._animation_tree, "parameters/Blend2/blend_amount", 1.0, 0.5)
-    #_animation_tree.parameters.Blend2.blend_amount 
+
 
 ## Blends animation to drop item
 func drop():
