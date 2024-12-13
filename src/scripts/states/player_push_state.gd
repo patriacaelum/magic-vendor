@@ -10,6 +10,10 @@ const CARDINALS: Array[Vector3] = [
 ]
 
 
+func _init() -> void:
+    self.state_name = STATENAME.PUSH
+
+
 func notify(event: InputEvent) -> void:
     if event.is_action_released("grab"):
         self.finished.emit()

@@ -10,7 +10,7 @@ func _ready() -> void:
     super()
 
     self._timer.one_shot = true
-    self._timer.timeout.connect(self._on_timer_timout)
+    self._timer.timeout.connect(self._on_timer_timeout)
 
     self.add_child(self._timer)
 

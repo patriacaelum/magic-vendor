@@ -30,6 +30,9 @@ func _ready() -> void:
     # Enter initial state
     assert(self.initial_state != null, "Missing initial state")
     assert(self.initial_state in self._states, "Unable to find initial state")
+
+    await self.get_parent().ready
+
     self._tda.append(self.initial_state)
     self.__top().enter()
 

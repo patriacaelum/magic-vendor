@@ -7,6 +7,10 @@ func _init() -> void:
 
 
 func notify(event: InputEvent) -> void:
+    if event.is_action_pressed("grab"):
+        self.state_changed.emit(State.STATENAME.PUSH)
+        return
+
     var is_directional_input = (
         event.is_action_pressed("move_down")
         or event.is_action_pressed("move_left")

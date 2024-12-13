@@ -11,6 +11,7 @@ extends CharacterBody3D
 
 
 ## A camera must be provided in every scene where the player is used
+@onready var camera := %Camera3D
 @onready var _inventory := %Inventory
 @onready var _item_marker := %ItemMarker
 @onready var _front_raycast_3d := %FrontRayCast

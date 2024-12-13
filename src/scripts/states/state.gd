@@ -14,6 +14,7 @@ enum STATENAME {
     IDLE,
     WALK,
     DASH,
+    PUSH,
 }
 
 
