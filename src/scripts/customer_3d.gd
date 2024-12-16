@@ -72,6 +72,8 @@ func __fulfill_order() -> void:
         for item: BaseItem in items:
             item.reparent(self)
 
+        # Trigger vending machine to play animation
+        body.anim_process_order()
         self.order_fulfilled.emit(self)
         self._navigation_agent_3d.avoidance_priority = 0.8
 

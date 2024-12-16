@@ -5,9 +5,10 @@ extends BaseStation
 signal highlighted(vending_machine: VendingMachine)
 signal unhighlighted(vending_machine_id: int)
 
+
 @onready var _sword_placements := %SwordPlacements
 @onready var _customer_queue_marker := %CustomerQueueMarker
-
+@onready var _animation_player := %AnimationPlayer
 
 var queue_position: Vector3:
     get:
@@ -59,6 +60,9 @@ func add_item(item: BaseItem) -> BaseItem:
 
     return null
 
+## Play animation to process the order
+func anim_process_order() -> void:
+    self._animation_player.play('process_order')
 
 ## Drinks cannot be retrieved from the vending machine.
 func get_item() -> BaseItem:
