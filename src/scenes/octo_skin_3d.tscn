@@ -1,7 +1,7 @@
 [gd_scene load_steps=23 format=4 uid="uid://dwfnffwb4di22"]
 
 [ext_resource type="Script" path="res://scripts/octo_skin_3d.gd" id="1_efvdl"]
-[ext_resource type="Texture2D" uid="uid://dsj426fiyjg7f" path="res://assets/mesh/characters/textures/TXT_Octo.png" id="2_8hk4v"]
+[ext_resource type="Texture2D" uid="uid://kk7srlrsium8" path="res://assets/mesh/characters/textures/TXT_Octo.png" id="2_8hk4v"]
 [ext_resource type="AnimationLibrary" uid="uid://c28hi23iqf5tj" path="res://assets/mesh/characters/anim/otto_anim_library.tres" id="2_10s7y"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jp4h1"]

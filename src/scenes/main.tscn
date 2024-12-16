@@ -1,5 +1,6 @@
 [gd_scene load_steps=26 format=3 uid="uid://brhdx3ugah5n"]
 
+
 [ext_resource type="Texture2D" uid="uid://phwpfeuyqpq" path="res://assets/textures/TXT_Default.png" id="1_fcm55"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_hpo2v"]
 [ext_resource type="PackedScene" uid="uid://tonlbavrexx2" path="res://scenes/player_3d.tscn" id="2_ol1ds"]
@@ -141,10 +142,10 @@ unique_name_in_owner = true
 script = ExtResource("6_85yxb")
 
 [node name="VendingMachine1" parent="VendingMachineManager" instance=ExtResource("7_xj2ye")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, -4.5)
+transform = Transform3D(-1, 0, 8.74226e-08, 0, 1, 0, -8.74226e-08, 0, -1, 1.82737, 0, -4.7513)
 
 [node name="VendingMachine2" parent="VendingMachineManager" instance=ExtResource("7_xj2ye")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, -4.5)
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -0.5, 0, -4.73646)
 
 [node name="BronzeMaterialSupplyCrate" parent="." instance=ExtResource("9_uiuxw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.426899, 0, 1.5)
@@ -176,7 +177,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.5, 0, -1.98503)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, -4.747)
 
 [node name="CSGBox3D2" type="CSGBox3D" parent="Blockout-Walls"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.26212, 0, 0)
 material_override = SubResource("StandardMaterial3D_i2a17")
 use_collision = true
 collision_layer = 3

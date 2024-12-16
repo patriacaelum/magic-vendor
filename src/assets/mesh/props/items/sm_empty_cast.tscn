@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://bt3ygl3626eg1"]
+
+[ext_resource type="PackedScene" uid="uid://bsw2cmyis3inf" path="res://assets/mesh/props/items/SM_EmptyCast.glb" id="1_luq2p"]
+
+[node name="SM_EmptyCast" instance=ExtResource("1_luq2p")]

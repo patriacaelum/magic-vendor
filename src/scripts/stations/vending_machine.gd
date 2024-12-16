@@ -6,8 +6,9 @@ signal highlighted(vending_machine: VendingMachine)
 signal unhighlighted(vending_machine_id: int)
 
 
+@onready var _sword_placements := %SwordPlacements
 @onready var _customer_queue_marker := %CustomerQueueMarker
-
+@onready var _animation_player := %AnimationPlayer
 
 var queue_position: Vector3:
     get:
@@ -15,7 +16,13 @@ var queue_position: Vector3:
 
 
 var _inventory_tracker: Dictionary = {}
+var _sword_marker_tracker: Dictionary = {}
 
+func _ready():
+    super()
+    # Initialize sword marker placements dict
+    for marker in self._sword_placements.get_children():
+        _sword_marker_tracker[marker] = false
 
 ## The vending machine also displays its inventory on the HUD when it is
 ## highlighted.
@@ -34,14 +41,28 @@ func unhighlight() -> void:
 ## More than one drink can be added to the vending machine.
 func add_item(item: BaseItem) -> BaseItem:
     if item is WeaponItem:
-        item.visible = false
-        item.reparent(self._inventory)
 
+        item.reparent(self._inventory)
         self._inventory_tracker.get_or_add(item.get_classname(), []).append(item)
         print(item.get_classname(), "added to vending machine")
 
+        # Find first unused marker and place an item
+        for marker in _sword_marker_tracker.keys():
+            if _sword_marker_tracker[marker] == false:
+                item.global_transform = marker.global_transform
+                print("Marker position " + str(item.global_position) + " Sword position: " + str(item.global_position))
+                _sword_marker_tracker[marker] = true
+
+                return null
+        
+        # Visibility if all markers are used
+        item.visible = false
+
     return null
 
+## Play animation to process the order
+func anim_process_order() -> void:
+    self._animation_player.play('process_order')
 
 ## Drinks cannot be retrieved from the vending machine.
 func get_item() -> BaseItem:

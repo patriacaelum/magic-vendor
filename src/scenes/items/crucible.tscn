@@ -15,3 +15,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.49474, 0)
 billboard = 1
 text = "Test"
 font_size = 36
+
+[editable path="SM_Magma_Bucket"]
