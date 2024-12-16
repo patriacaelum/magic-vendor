@@ -23,7 +23,7 @@ func _ready() -> void:
 func add_item(item: BaseItem) -> BaseItem:
     if self.has_items():
         if item is Crucible:
-            item.combine(self.get_item())
+            item.combine(self._inventory.get_child(0))
 
         return null
 
@@ -35,6 +35,15 @@ func add_item(item: BaseItem) -> BaseItem:
         self.__heat_item(item)
 
     return null
+
+
+func get_item() -> BaseItem:
+    var item = self._inventory.get_child(0)
+
+    if item is MaterialItem and item.state == MaterialItem.STATE.MALLEABLE:
+        return null
+
+    return item
 
 
 func get_progress() -> float:

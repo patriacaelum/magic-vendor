@@ -35,7 +35,7 @@ func apply(force: FORCE) -> BaseItem:
 
         self.add_sibling(weapon)
         self.queue_free()
-    
+
     super(force)
     return null
 
