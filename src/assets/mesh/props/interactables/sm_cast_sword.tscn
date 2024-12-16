@@ -3,3 +3,6 @@
 [ext_resource type="PackedScene" uid="uid://cryl42hftk2qx" path="res://assets/mesh/props/interactables/SM_Cast_Sword.glb" id="1_dpoly"]
 
 [node name="SM_Cast_Sword" instance=ExtResource("1_dpoly")]
+
+[node name="Marker3D_CastLocation" parent="." index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.32, 0)
