@@ -1,7 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://bek1i0jkpem55"]
+[gd_scene load_steps=7 format=3 uid="uid://bek1i0jkpem55"]
 
 [ext_resource type="Script" path="res://scripts/stations/anvil.gd" id="1_sq3e5"]
+[ext_resource type="AudioStream" uid="uid://q3qu7c4g410g" path="res://assets/sfx/anvil_0.wav" id="2_fcg65"]
 [ext_resource type="PackedScene" uid="uid://b07hkwukg87n1" path="res://assets/mesh/props/interactables/sm_anvil.tscn" id="2_rqxpf"]
+[ext_resource type="AudioStream" uid="uid://vsuv6ld3isoi" path="res://assets/sfx/anvil_1.wav" id="3_jqa2b"]
 [ext_resource type="PackedScene" uid="uid://cw3v24mtaa1up" path="res://assets/vfx/stars/impact_star_vfx.tscn" id="3_uyvgm"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_u6e4x"]
@@ -11,7 +13,10 @@ collision_layer = 3
 collision_mask = 2
 lock_rotation = true
 script = ExtResource("1_sq3e5")
+audio_random_pitch = 0.5
+audio_random_volume = 0.2
 _highlight_mesh = NodePath("SM_Anvil/Cube_003")
+sfx = Array[AudioStream]([ExtResource("2_fcg65"), ExtResource("3_jqa2b")])
 
 [node name="SM_Anvil" parent="." instance=ExtResource("2_rqxpf")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
@@ -19,11 +24,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 shape = SubResource("BoxShape3D_u6e4x")
-
-[node name="Timer" type="Timer" parent="."]
-unique_name_in_owner = true
-wait_time = 2.0
-one_shot = true
 
 [node name="PS_Stars" parent="." instance=ExtResource("3_uyvgm")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0217511, 0.933987, 0.0427996)

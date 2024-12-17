@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://wd83fsagwv5m"]
+[gd_scene load_steps=6 format=3 uid="uid://wd83fsagwv5m"]
 
 [ext_resource type="Script" path="res://scripts/stations/grinder.gd" id="1_om7de"]
 [ext_resource type="PackedScene" uid="uid://btsitvyvbc56w" path="res://assets/mesh/props/interactables/sm_grindstone.tscn" id="2_8m63f"]
+[ext_resource type="AudioStream" uid="uid://cqev2yent8lic" path="res://assets/sfx/grinder_0.wav" id="2_p4arj"]
 [ext_resource type="PackedScene" uid="uid://cqs5j1hgk8d4e" path="res://assets/vfx/sparks/sparks_vfx.tscn" id="3_sjjl2"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_yndk4"]
@@ -12,7 +13,10 @@ collision_layer = 3
 collision_mask = 2
 lock_rotation = true
 script = ExtResource("1_om7de")
+audio_random_pitch = 0.1
+audio_random_volume = 0.1
 _highlight_mesh = NodePath("SM_Grindstone/Cube_004")
+sfx = Array[AudioStream]([ExtResource("2_p4arj")])
 
 [node name="SM_Grindstone" parent="." instance=ExtResource("2_8m63f")]
 

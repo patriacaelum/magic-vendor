@@ -1,7 +1,9 @@
-[gd_scene load_steps=7 format=4 uid="uid://cutjy85f8dxaa"]
+[gd_scene load_steps=9 format=4 uid="uid://cutjy85f8dxaa"]
 
 [ext_resource type="Script" path="res://scripts/stations/supply_crate.gd" id="1_dyekc"]
+[ext_resource type="AudioStream" uid="uid://kynwoet0m2au" path="res://assets/sfx/supply_0.wav" id="2_k25yi"]
 [ext_resource type="PackedScene" uid="uid://b7lbio2aboo6t" path="res://assets/mesh/props/interactables/sm_crate.tscn" id="2_x6861"]
+[ext_resource type="AudioStream" uid="uid://xnitpsrmr2ob" path="res://assets/sfx/supply_1.wav" id="3_xryng"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ms1sq"]
 resource_name = "MI_WOOD"
@@ -52,7 +54,10 @@ collision_mask = 2
 lock_rotation = true
 script = ExtResource("1_dyekc")
 _debugging_label = NodePath("DebuggingLabel")
+audio_random_pitch = 0.5
+audio_random_volume = 0.3
 _highlight_mesh = NodePath("SM_Crate/Cube_019")
+sfx = Array[AudioStream]([ExtResource("2_k25yi"), ExtResource("3_xryng")])
 
 [node name="SM_Crate" parent="." instance=ExtResource("2_x6861")]
 

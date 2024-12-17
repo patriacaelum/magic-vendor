@@ -1,7 +1,8 @@
-[gd_scene load_steps=12 format=3 uid="uid://xn2qwmvjrimr"]
+[gd_scene load_steps=13 format=3 uid="uid://xn2qwmvjrimr"]
 
 [ext_resource type="Script" path="res://scripts/stations/forge.gd" id="1_tbneh"]
 [ext_resource type="PackedScene" uid="uid://dkouwuokketa" path="res://assets/mesh/props/interactables/sm_forge.tscn" id="2_253fe"]
+[ext_resource type="AudioStream" uid="uid://bhbhsyudcl8ro" path="res://assets/sfx/forge_0.wav" id="2_grdnn"]
 [ext_resource type="PackedScene" uid="uid://dan76dhfsuqku" path="res://assets/vfx/fire/fire_vfx.tscn" id="3_kvm3l"]
 [ext_resource type="PackedScene" uid="uid://wtvi81mjl53f" path="res://assets/vfx/steam/smoke_vfx.tscn" id="4_d3qsh"]
 [ext_resource type="Shader" path="res://assets/vfx/steam/smoke_trail.gdshader" id="5_qmjse"]
@@ -36,17 +37,16 @@ collision_layer = 3
 collision_mask = 2
 lock_rotation = true
 script = ExtResource("1_tbneh")
+audio_random_pitch = 0.1
+audio_random_volume = 0.1
 _highlight_mesh = NodePath("SM_Forge/MeshInstance3D")
+sfx = Array[AudioStream]([ExtResource("2_grdnn")])
 
 [node name="SM_Forge" parent="." instance=ExtResource("2_253fe")]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 shape = SubResource("BoxShape3D_ei6cs")
-
-[node name="Timer" type="Timer" parent="."]
-unique_name_in_owner = true
-one_shot = true
 
 [node name="FireVFX" parent="." instance=ExtResource("3_kvm3l")]
 
