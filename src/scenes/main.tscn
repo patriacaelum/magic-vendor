@@ -1,7 +1,6 @@
-[gd_scene load_steps=26 format=3 uid="uid://brhdx3ugah5n"]
+[gd_scene load_steps=27 format=3 uid="uid://brhdx3ugah5n"]
 
-
-[ext_resource type="Texture2D" uid="uid://phwpfeuyqpq" path="res://assets/textures/TXT_Default.png" id="1_fcm55"]
+[ext_resource type="Texture2D" uid="uid://col7a2okpessy" path="res://assets/textures/TXT_Default.png" id="1_fcm55"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_hpo2v"]
 [ext_resource type="PackedScene" uid="uid://tonlbavrexx2" path="res://scenes/player_3d.tscn" id="2_ol1ds"]
 [ext_resource type="PackedScene" uid="uid://dggedqavjjn8v" path="res://scenes/hud.tscn" id="3_7tfpm"]
@@ -20,6 +19,7 @@
 [ext_resource type="PackedScene" uid="uid://b00qjhcb3fvyv" path="res://scenes/stations/quenching_basin.tscn" id="13_4onqj"]
 [ext_resource type="PackedScene" uid="uid://0keprlqqm4jo" path="res://scenes/items/straightsword_cast_item.tscn" id="13_ha34o"]
 [ext_resource type="PackedScene" uid="uid://xn2qwmvjrimr" path="res://scenes/stations/forge.tscn" id="14_5r1od"]
+[ext_resource type="PackedScene" uid="uid://t5eynilu1vqn" path="res://scenes/items/spear_cast_item.tscn" id="18_0pyyq"]
 
 [sub_resource type="Environment" id="Environment_o0n4r"]
 background_mode = 1
@@ -153,8 +153,13 @@ supply_scene = ExtResource("12_1nj6m")
 _is_debugging = true
 
 [node name="StraightswordCastSupplyCrate" parent="." instance=ExtResource("9_uiuxw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0, 1.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0, 3.5)
 supply_scene = ExtResource("13_ha34o")
+_is_debugging = true
+
+[node name="SpearCastSupplyCrate" parent="." instance=ExtResource("9_uiuxw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, 3.5)
+supply_scene = ExtResource("18_0pyyq")
 _is_debugging = true
 
 [node name="CustomerManager" parent="." instance=ExtResource("9_lkw0p")]
