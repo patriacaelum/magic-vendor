@@ -19,3 +19,6 @@ func operate(delta: float) -> void:
             self._inventory.get_child(0).apply(BaseItem.FORCE.POLISH)
             self._finished = true
             self.finished.emit(self.get_instance_id())
+
+        if not self._audio_player.playing:
+            self._audio_player.play()

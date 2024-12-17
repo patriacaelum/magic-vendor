@@ -26,3 +26,6 @@ func operate(delta: float) -> void:
             self._finished = true
             self._progress = 0
             self.finished.emit(self.get_instance_id())
+
+        if not self._audio_player.playing:
+            self._audio_player.play()
