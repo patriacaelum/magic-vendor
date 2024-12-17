@@ -1,3 +1,4 @@
+
 [gd_scene load_steps=7 format=3 uid="uid://knjc7bodf0bp"]
 
 [ext_resource type="Script" path="res://scripts/stations/caster.gd" id="1_i2cyb"]
@@ -5,6 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://rpk6pod4smrn" path="res://assets/mesh/props/items/SM_CastSword.glb" id="3_uwrfs"]
 [ext_resource type="PackedScene" uid="uid://chrijedgn0kui" path="res://assets/mesh/props/items/sm_cast_spear.tscn" id="4_n0e8a"]
 [ext_resource type="PackedScene" uid="uid://bsw2cmyis3inf" path="res://assets/mesh/props/items/SM_EmptyCast.glb" id="5_k3gue"]
+[ext_resource type="AudioStream" uid="uid://c06fkliqnc535" path="res://assets/sfx/caster_0.wav" id="2_y5mw3"]
+
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_xmun0"]
 size = Vector3(1, 0.499878, 1)
@@ -13,7 +16,9 @@ size = Vector3(1, 0.499878, 1)
 collision_layer = 3
 collision_mask = 2
 script = ExtResource("1_i2cyb")
+audio_random_volume = 0.2
 _highlight_mesh = NodePath("SM_Cast_Sword/Frame")
+sfx = Array[AudioStream]([ExtResource("2_y5mw3")])
 
 [node name="SM_Cast_Sword" parent="." instance=ExtResource("2_5bi2i")]
 

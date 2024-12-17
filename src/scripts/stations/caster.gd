@@ -25,8 +25,10 @@ func add_item(item: BaseItem) -> BaseItem:
 
         if material.state == MaterialItem.STATE.MALLEABLE:
             material.reparent(self._inventory)
-            self._finished = false
             self._timer.start(CAST_TIME)
+            self._audio_player.play()
+
+            self._finished = false
             self.started.emit(self)
 
     return null

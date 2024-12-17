@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://cqa7i4qw3loxj"]
+[gd_scene load_steps=6 format=3 uid="uid://cqa7i4qw3loxj"]
 
 [ext_resource type="Script" path="res://scripts/stations/polisher.gd" id="1_vqyih"]
+[ext_resource type="AudioStream" uid="uid://50bykr5tp5ls" path="res://assets/sfx/polisher_0.wav" id="2_56bx0"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b6r3m"]
 albedo_color = Color(0.491366, 0.453587, 0.270183, 1)
@@ -16,7 +17,10 @@ size = Vector3(1, 0.5, 1)
 collision_layer = 3
 collision_mask = 2
 script = ExtResource("1_vqyih")
+audio_random_pitch = 0.2
+audio_random_volume = 0.1
 _highlight_mesh = NodePath("MeshInstance3D")
+sfx = Array[AudioStream]([ExtResource("2_56bx0")])
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)

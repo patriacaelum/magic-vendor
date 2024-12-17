@@ -31,6 +31,7 @@ func _ready() -> void:
 func add_item(item: BaseItem) -> BaseItem:
     if item.get_classname() == self._supply_class:
         item.reparent(self._inventory)
+        self._audio_player.play()
 
     return null
 
@@ -47,6 +48,8 @@ func has_items() -> bool:
 
 ## Spawn a new item if it doesn't exist.
 func get_item() -> BaseItem:
+    self._audio_player.play()
+
     if self._inventory.get_child_count() == 0:
         self._inventory.add_child(self.supply_scene.instantiate())
 

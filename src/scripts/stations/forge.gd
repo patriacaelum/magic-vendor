@@ -51,11 +51,15 @@ func get_progress() -> float:
 
 
 func __heat_item(item: BaseItem) -> void:
-    self._finished = false
     self._timer.start(HEATING_TIME[item.material])
+    self._audio_player.play()
+
+    self._finished = false
     self.started.emit(self)
 
 
 func _on_timer_timeout() -> void:
     self._inventory.get_child(0).apply(BaseItem.FORCE.HEAT)
+    self._audio_player.stop()
+
     self.__set_finished()

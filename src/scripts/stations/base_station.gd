@@ -5,25 +5,38 @@ class_name BaseStation
 extends RigidBody3D
 
 
-
+@export var audio_random_pitch := 0.0
+@export var audio_random_volume := 0.0
 @export var highlight_thickness := 0.08
-@export var _highlight_mesh : MeshInstance3D = null
+@export var _highlight_mesh: MeshInstance3D = null
+@export var sfx: Array[AudioStream]
 
 @onready var _highlight_shader := preload("res://assets/shaders/simple_outline.gdshader")
 
+var _audio_player := AudioStreamPlayer.new()
 var _inventory: Node3D
-var _highlight_material: ShaderMaterial
+var _highlight_material := ShaderMaterial.new()
 
 
 func _ready() -> void:
-    self._highlight_material = ShaderMaterial.new()
-    self._highlight_material.shader = self._highlight_shader
+    var sfx_randomizer := AudioStreamRandomizer.new()
+    sfx_randomizer.random_pitch += self.audio_random_pitch
+    sfx_randomizer.random_volume_offset_db += self.audio_random_volume
+
+    for sfx_: AudioStream in self.sfx:
+        sfx_randomizer.add_stream(-1, sfx_)
+
+    self._audio_player.stream = sfx_randomizer
+    self._audio_player.bus = GLOBALS.AUDIO_BUS_SFX
+    self.add_child(self._audio_player)
 
     self._inventory = self.get_node_or_null("Inventory")
 
     if not self._inventory:
         self._inventory = Node3D.new()
         self.add_child(self._inventory)
+
+    self._highlight_material.shader = self._highlight_shader
 
 
 
