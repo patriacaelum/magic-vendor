@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://bqifdu007n6te"]
+
+[ext_resource type="PackedScene" uid="uid://yenjjc14msde" path="res://assets/mesh/props/items/SM_Spear.glb" id="1_sye07"]
+
+[node name="SM_Spear" instance=ExtResource("1_sye07")]

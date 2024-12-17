@@ -1,9 +1,9 @@
 [gd_scene load_steps=9 format=4 uid="uid://cutjy85f8dxaa"]
 
 [ext_resource type="Script" path="res://scripts/stations/supply_crate.gd" id="1_dyekc"]
-[ext_resource type="AudioStream" uid="uid://kynwoet0m2au" path="res://assets/sfx/supply_0.wav" id="2_k25yi"]
+[ext_resource type="AudioStream" uid="uid://776lebwus01k" path="res://assets/sfx/supply_0.wav" id="2_k25yi"]
 [ext_resource type="PackedScene" uid="uid://b7lbio2aboo6t" path="res://assets/mesh/props/interactables/sm_crate.tscn" id="2_x6861"]
-[ext_resource type="AudioStream" uid="uid://xnitpsrmr2ob" path="res://assets/sfx/supply_1.wav" id="3_xryng"]
+[ext_resource type="AudioStream" uid="uid://c6s8fxgq4bs60" path="res://assets/sfx/supply_1.wav" id="3_xryng"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ms1sq"]
 resource_name = "MI_WOOD"

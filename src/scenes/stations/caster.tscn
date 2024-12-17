@@ -1,13 +1,11 @@
-
-[gd_scene load_steps=7 format=3 uid="uid://knjc7bodf0bp"]
+[gd_scene load_steps=8 format=3 uid="uid://knjc7bodf0bp"]
 
 [ext_resource type="Script" path="res://scripts/stations/caster.gd" id="1_i2cyb"]
 [ext_resource type="PackedScene" uid="uid://bxhna0ysibju1" path="res://assets/mesh/props/interactables/sm_cast_sword.tscn" id="2_5bi2i"]
-[ext_resource type="PackedScene" uid="uid://rpk6pod4smrn" path="res://assets/mesh/props/items/SM_CastSword.glb" id="3_uwrfs"]
+[ext_resource type="AudioStream" uid="uid://d3teln5gsay7h" path="res://assets/sfx/caster_0.wav" id="2_y5mw3"]
 [ext_resource type="PackedScene" uid="uid://chrijedgn0kui" path="res://assets/mesh/props/items/sm_cast_spear.tscn" id="4_n0e8a"]
-[ext_resource type="PackedScene" uid="uid://bsw2cmyis3inf" path="res://assets/mesh/props/items/SM_EmptyCast.glb" id="5_k3gue"]
-[ext_resource type="AudioStream" uid="uid://c06fkliqnc535" path="res://assets/sfx/caster_0.wav" id="2_y5mw3"]
-
+[ext_resource type="PackedScene" uid="uid://bt3ygl3626eg1" path="res://assets/mesh/props/items/sm_empty_cast.tscn" id="5_sr0b4"]
+[ext_resource type="PackedScene" uid="uid://cnusen4c25vci" path="res://assets/mesh/props/items/sm_cast_sword.tscn" id="6_jap1g"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_xmun0"]
 size = Vector3(1, 0.499878, 1)
@@ -26,12 +24,12 @@ sfx = Array[AudioStream]([ExtResource("2_y5mw3")])
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.250061, 0)
 shape = SubResource("BoxShape3D_xmun0")
 
-[node name="SM_CastSword" parent="." instance=ExtResource("3_uwrfs")]
-visible = false
-
 [node name="SM_CastSpear" parent="." instance=ExtResource("4_n0e8a")]
-
-[node name="SM_CastEmpty" parent="." instance=ExtResource("5_k3gue")]
 visible = false
+
+[node name="SM_CastEmpty" parent="." instance=ExtResource("5_sr0b4")]
+visible = false
+
+[node name="SM_CastSword" parent="." instance=ExtResource("6_jap1g")]
 
 [editable path="SM_Cast_Sword"]

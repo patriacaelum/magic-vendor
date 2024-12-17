@@ -82,4 +82,16 @@ transform = Transform3D(-2.59781e-07, -1, -1.79444e-06, -0.985997, -4.30993e-08,
 [node name="Marker3D3" type="Marker3D" parent="SwordPlacements"]
 transform = Transform3D(-1.8169e-07, -1, -8.59718e-07, -0.992458, 7.49285e-08, 0.122588, -0.122588, 8.75507e-07, -0.992458, 0.346967, 0.760934, -0.559043)
 
+[node name="SpearPlacements" type="Node3D" parent="."]
+unique_name_in_owner = true
+
+[node name="Marker3D" type="Marker3D" parent="SpearPlacements"]
+transform = Transform3D(-0.998993, 0.0443828, -0.00649438, 0.0432118, 0.991081, 0.126056, 0.0120312, 0.125648, -0.992002, 0.269327, 0.734011, -0.413885)
+
+[node name="Marker3D2" type="Marker3D" parent="SpearPlacements"]
+transform = Transform3D(-0.649243, -0.147225, -0.746196, -0.191999, 0.981037, -0.0265076, 0.735949, 0.126059, -0.665199, 0.00829768, 0.735543, -0.427333)
+
+[node name="Marker3D3" type="Marker3D" parent="SpearPlacements"]
+transform = Transform3D(0.597022, 0.00812721, 0.802184, 0.102294, 0.991015, -0.0861719, -0.795677, 0.133505, 0.590826, -0.290313, 0.735935, -0.427333)
+
 [editable path="SM_VendingMachine"]

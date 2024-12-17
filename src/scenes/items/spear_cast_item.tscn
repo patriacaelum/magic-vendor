@@ -1,15 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://0keprlqqm4jo"]
+[gd_scene load_steps=3 format=3 uid="uid://t5eynilu1vqn"]
 
-[ext_resource type="Script" path="res://scripts/items/cast_item.gd" id="1_d6kpl"]
-[ext_resource type="PackedScene" uid="uid://cnusen4c25vci" path="res://assets/mesh/props/items/sm_cast_sword.tscn" id="2_ywunp"]
+[ext_resource type="Script" path="res://scripts/items/cast_item.gd" id="1_w1xxw"]
+[ext_resource type="PackedScene" uid="uid://5dota13jyvr4" path="res://assets/mesh/props/items/SM_CastSpear.glb" id="2_0kmro"]
 
 [node name="StraightSwordCastItem" type="Node3D" node_paths=PackedStringArray("_debug_label")]
-script = ExtResource("1_d6kpl")
+script = ExtResource("1_w1xxw")
 _debug_label = NodePath("Label3D")
 _is_debugging = true
-type = 1
+type = 2
 
-[node name="SM_CastSword" parent="." instance=ExtResource("2_ywunp")]
+[node name="SM_CastSpear" parent="." instance=ExtResource("2_0kmro")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, -0.16, 0)
 
 [node name="Label3D" type="Label3D" parent="."]
